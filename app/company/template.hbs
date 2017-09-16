@@ -1,0 +1,50 @@
+{{#side-menu side="right" width="250px" classNames="burger-menu"}}
+  {{#if session.isMobileNotificaitonOpen}}
+    {{company-compo/aside isClosed=(readonly companyAsideClosed)
+                          toggle=(action (toggle "companyAsideClosed" this))}}
+  {{else}}
+    {{#if session.isMobileChatOpen}}
+      {{#if session.brand.id}}
+        {{mobile-compo/chat-menu classNames="chat-bar-wrapper"
+              brand=session.brand}}
+      {{/if}}
+    {{else}}
+
+      {{mobile-compo/burger-menu model=model}}
+
+    {{/if}}
+  {{/if}}
+{{/side-menu}}
+{{content-backdrop}}
+
+<div class="mainwrapper {{if companyAsideClosed 'sidelesscontent'}}">
+  <div class="container-fluid {{if brandAsideClosed 'morecontent'}}">
+    {{company-header model=model.companies}}
+
+    <div class="row page-wrapper">
+      {{#if (and session.company.id session.brand.id)}}
+        {{brand-compo/aside model=(readonly session)
+                            isClosed=(readonly brandAsideClosed)
+                            toggle=(action (toggle "brandAsideClosed" this))}}
+      {{/if}}
+
+      <div class="col-md-7 maincenter_container {{unless session.brand.id 'w-100'}}">
+        <div class="main-center wrps-dtls">
+          <div class="wrapes-inbox">
+            {{#page-options}}
+            {{!--  {{#if session.brand.id}}
+                {{leave-brand model=session.brand transitionTo=(route-action "transitionTo")}}
+              {{else if session.company.id}}
+                {{leave-company model=session.company transitionTo=(route-action "transitionTo")}}
+              {{/if}}--}}
+            {{/page-options}}
+          </div>
+          {{outlet}}
+        </div>
+      </div>
+
+      {{company-compo/aside isClosed=(readonly companyAsideClosed)
+                            toggle=(action (toggle "companyAsideClosed" this))}}
+    </div>
+  </div>
+</div>

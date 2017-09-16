@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="my-card">
+    <div class="header"> <i class="fa fa-{{post.socialAccount.platform}}"></i> {{post.socialAccount.title}}
+      <br class="hidden-md hidden-lg">-
+      <span class="strong">{{post.posting.user.fullName}}</span>
+      <span class="pull-right time">{{date-display brand=session.brand date=post.scheduledTime}}
+        <!-- <i class="fa fa-times" {{!action 'cancelpost'}}></i> -->
+      </span>
+    </div>
+    <div class="content">
+      <div class="pro-img">
+        <div class="description">
+          <div class="name">{{post.posting.topic}}</div>
+          <div class="Italic"><em>{{post.posting.campaign.name}}</em>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="message">
+        <p>{{{post.posting.content}}}</p>
+        
+       
+      </div>
+    </div>
+     {{#if post.posting.isBlog}}
+     {{#if post.posting.followups.length}}
+     <div class="followupListContainer">
+             <h5><strong>Social Followups:</strong></h5>
+    		<ul>
+    		{{#each post.posting.followups as |followup|}}
+    	    	<li>{{followup.postingSchedules.firstObject.friendlyOffsetName}} - <i class="fa fa-{{followup.postingSchedules.firstObject.socialAccount.platform}}"></i> {{followup.postingSchedules.firstObject.socialAccount.title}} - <strong>{{followup.topic}}</strong> - <em>{{followup.postingStatus.cleanName}}</em> - <a {{action 'manageFollowup' followup}}>Manage</a></li>
+    		{{/each}}
+    		</ul>
+    		</div>
+    		{{/if}}
+    	{{/if}}
+    {{#each pendingCR as |pcr|}}
+		<div class="clPCR">
+			<strong>Assigned To:</strong> {{pcr.assignedToUser.fullName}}
+			<strong>Due:</strong> {{date-display brand=session.brand date=pcr.requestDue}}
+		</div>
+	{{/each}}
+    <div class="action"> Type: {{post.posting.networkType.name}}
+      <div class="report pull-right inline">
+        <div class="col-md-8"><span><strong>Status:</strong> {{post.posting.postingStatus.cleanName}} 	<strong>Posted:</strong> {{#if post.isPosted}}Yes{{else}}No{{/if}} <strong>Draft:</strong>  {{#if post.posting.isDraft}}Yes{{else}}No{{/if}}</span></div>
+        <div class="col-md-4"><a class="btn btn-green btn-sm btn-big-mob manage-post" {{action 'manage'}}>Manage</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ 

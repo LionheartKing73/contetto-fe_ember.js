@@ -1,0 +1,16 @@
+{{#if company.isTrial}}
+
+  You are currently enjoying the free trial. The trial period started on {{company.formatStartDate}}. The trial period will end on {{company.trialEndDate}}. The upgraded addons will start immediately.
+  <br>
+  You addded the following addons:
+
+  {{company-compo/subscription/addon/confirming/billing/trial subscription=subscription company=company upgradedAddons=upgradedAddons totalDays=totalDays prorationDays=prorationDays priceDiff=priceDiff outstandingAddonPrice=outstandingAddonPrice addonPrice=addonPrice discountOnAddonPrice=discountOnAddonPrice couponedAddonPrice=couponedAddonPrice}}
+
+{{else}}
+
+  You added the following addons:
+
+  {{company-compo/subscription/addon/confirming/billing/regular subscription=subscription company=company upgradedAddons=upgradedAddons totalDays=totalDays prorationDays=prorationDays priceDiff=priceDiff outstandingAddonPrice=outstandingAddonPrice addonPrice=addonPrice discountOnAddonPrice=discountOnAddonPrice couponedAddonPrice=couponedAddonPrice}}
+{{/if}}
+<hr> {{company-compo/subscription/addon/confirming/cards-list cards=cards locations=locations user=user subscription=subscription company=company}}
+<hr>

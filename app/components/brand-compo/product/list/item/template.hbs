@@ -1,0 +1,12 @@
+<td>{{product.name}}</td>
+<td>
+  {{#link-to "brand.edit.products.edit" product.id class="btn btn-link p-a-0 product-edit" disabled=deleting}}
+
+    Edit
+
+  {{/link-to}} |
+  <button class="btn btn-link p-a-0 product-delete" href="#" disabled= {{deleting}} {{action "delete" product}}>
+
+    Remove
+  </button>
+</td>

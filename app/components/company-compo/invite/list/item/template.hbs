@@ -1,0 +1,11 @@
+<td>{{invite.email}}</td>
+<td>
+  {{#link-to 'company.edit.role.edit' invite.companyRole.id class='text-primary' }}
+    <u>{{invite.companyRole.name}}</u>{{/link-to}}
+</td>
+<td>{{invite.status}}</td>
+{{#if (has-company-permission 'manageStaff')}}
+  <td>
+    <a href="#" class="text-danger btn btn-xs btn-danger" disabled= {{deleting}} {{action "delete" invite}}>Remove</a>
+  </td>
+{{/if}}

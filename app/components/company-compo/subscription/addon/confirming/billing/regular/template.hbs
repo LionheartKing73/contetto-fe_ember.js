@@ -1,0 +1,31 @@
+<table class="table">
+  <tbody>
+    {{#each upgradedAddons as |addon|}}
+      <tr>
+        <td>{{name}} addon({{addon.unitPrice}}) X {{addon.diff}}</td>
+        <td>{{addon.priceDiff}}</td>
+      </tr>
+    {{/each}}
+    <tr>
+      <td><i>Total days: {{totalDays}}</i></td>
+      <td>{{outstandingAddonPrice}}</td>
+    </tr>
+    <tr>
+      <td><i>Proration Days: {{prorationDays}}</i></td>
+      <td>${{addonPrice}}</td>
+    </tr>
+    {{#if subscription.coupon.billType}}
+      <tr>
+        <th colspan="2"><b>Coupon</b></th>
+      </tr>
+      <tr>
+        <td>{{subscription.coupon.perks}}</td>
+        <td>-${{discountOnAddonPrice}}({{subscription.discount}})</td>
+      </tr>
+    {{/if}}
+    <tr>
+      <th>Total</th>
+      <th>${{couponedAddonPrice}}</th>
+    </tr>
+  </tbody>
+</table>

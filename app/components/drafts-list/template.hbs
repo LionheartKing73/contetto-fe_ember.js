@@ -1,0 +1,26 @@
+<h2>Drafts</h2>
+
+{{#if sortedDrafts.length}}
+<table class="table">
+<thead>
+    <th>Date Created</th>
+    <th>Topic</th>
+    <th>Manage</th>
+</thead>
+<tbody>
+{{#each sortedDrafts as |draft|}}
+    {{#if draft.id}}
+        {{#if draft.posting.id}}
+            <tr>
+                <td>{{date-display date=draft.posting.createdAt}}</td>
+                <td>{{draft.posting.topic}}</td>
+                <td><a {{action 'editDraft' draft.posting}}>Edit</a></td>
+            </tr>
+        {{/if}}
+    {{/if}}
+{{/each}}
+</tbody>
+</table>
+{{else}}
+<div class='well'>No drafts to display.</div>
+{{/if}}

@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Creator</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select-multiple options=users selected=selectedUsers placeholder="Select users(s)" onchange=(action "changeUsers") as |user| }}
+      {{user.fullName}}
+    {{/power-select-multiple}}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="main-center wrps-dtls">
+    <div class="row wrap-main-2">
+    <div class="wrapes-inbox">
+    {{#page-options title="Company"}}
+      {{leave-company model=model.company transitionTo=(route-action "transitionTo")}}
+    {{/page-options}}
+    </div>
+	  <div class="default-model">
+	  {{outlet}}
+	  </div>
+  </div>
+</div>

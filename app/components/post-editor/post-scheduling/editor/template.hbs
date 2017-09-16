@@ -1,0 +1,138 @@
+<div class="scheduleSet bg-info">
+
+{{#unless postSchedule.isPosted}}
+ 
+Post to: {{accountName}}
+            {{#power-select
+              selected=currentMode
+              options=postModes
+              onchange=(action "setMode")
+              as |mode|
+            }}
+              {{mode.name}}
+            {{/power-select}}
+{{/unless}}   
+{{#if single}}
+   
+  {{#if (eq currentMode.name 'Now')}}
+     
+      {{#if postSchedule.isPosted}}
+             This post was sent to <strong><i class="fa fa-{{postSchedule.socialAccount.platform}}"></i> {{postSchedule.socialAccount.title}}</strong> {{date-display date=postSchedule.postedTime brand=postSchedule.socialAccount.brand}}
+      {{/if}}
+    {{/if}}
+{{/if}}
+      
+{{#if noauto}}
+  <div class="well well-sm">
+    {{#if single}}
+    Automatic scheduling is not enabled. You need to specify a recurring schedule for this social account to enable it. Visit Brand Settings > Social Accounts  and click 'Schedule' on this account.
+    {{else}}
+    Bulk automatic scheduling is not enabled. You need to specify a recurring schedule all accounts. Visit Brand Settings > Social Accounts  and click 'Schedule' on each account.
+    {{/if}}
+  </div>
+{{/if}}
+{{#if auto}}
+    <div class="auto">
+      {{#if single}}
+        {{#if postSchedule.isPosted}}
+          This post was sent to <strong><i class="fa fa-{{postSchedule.socialAccount.platform}}"></i> {{postSchedule.socialAccount.title}}</strong> {{date-display date=postSchedule.postedTime brand=postSchedule.socialAccount.brand}}
+        {{else}}
+          {{#if postSchedule.tempTime}}
+            Currently Auto-Scheduled for (est.): {{date-display date=postSchedule.tempTime brand=postSchedule.socialAccount.brand}} <a {{action 'setSpecified' postSchedule postSchedule.tempTime}}>Update Time</a>
+          {{else }}
+             Next available slot (est.): {{date-display date=postSchedule.auto brand=postSchedule.socialAccount.brand}} <a {{action 'setSpecified' postSchedule postSchedule.auto}}>Update Time</a>
+          {{/if}}
+          
+          {{#if showModeEditor}}{{#cog-lock}}
+          If your post does not get approved by the time it should go out:
+              {{#power-select
+                    selected=currentPSMode
+                    options=postingScheduleModes
+                    onchange=(action "setPSMode")
+                    as |mode|
+                  }}
+                    {{mode.name}}
+              {{/power-select}}{{/cog-lock}}
+          {{/if}}    
+        {{/if}}
+      {{else}}
+        
+          {{#each changeSet.postingSchedules as |ps|}}
+          
+              {{#if ps.isPosted}}
+              This post was sent to <strong><i class="fa fa-{{ps.socialAccount.platform}}"></i> {{ps.socialAccount.title}}</strong> {{date-display date=ps.postedTime brand=ps.socialAccount.brand}}
+              {{else}}
+                              
+                            <div class="well well-sm"><strong><i class="fa fa-{{ps.socialAccount.platform}}"></i> {{ps.socialAccount.title}}</strong><BR/>
+                            
+                              {{#if ps.tempTime}}
+                                 Currently Auto-Scheduled for (est.): {{date-display date=ps.tempTime brand=ps.socialAccount.brand}} <a {{action 'setSpecified' ps ps.tempTime}}>Update Time</a>
+                              {{else}}
+                                 Next available slot (est.): {{date-display date=ps.auto brand=ps.socialAccount.brand}}  <a {{action 'setSpecified' ps ps.auto}}>Update Time</a>
+                              {{/if}}
+                          
+                              
+                            </div>
+                                  {{#if hasTeam}}
+                                  {{#if showModeEditor}}{{#cog-lock}}
+                                  If your post does not get approved by the time it should go out:
+                                      {{#power-select
+                                            selected=currentPSMode
+                                            options=postingScheduleModes
+                                            onchange=(action "setPSMode")
+                                            as |mode|
+                                          }}
+                                            {{mode.name}}
+                                      {{/power-select}}{{/cog-lock}}
+                                {{/if}}
+                                {{/if}}
+              {{/if}}
+          {{/each}}
+      {{/if}}
+    </div>
+    
+{{/if}}
+{{#if specify}} 
+    {{#if single}} 
+      {{#if postSchedule.isPosted}}
+           This post was sent to <strong><i class="fa fa-{{postSchedule.socialAccount.platform}}"></i> {{postSchedule.socialAccount.title}}</strong> {{date-display date=postSchedule.postedTime brand=postSchedule.socialAccount.brand}}
+       {{else }}
+          <div class="specify">
+            
+              {{contetto-datetime-picker action=(action "updateTime") defaultDT=defaultDT defaultTimeZone=changeSet.brand.timezone }} 
+              {{#if hasTeam}}
+              {{#if showModeEditor}}{{#cog-lock}}
+              If your post does not get approved by the time it should go out:
+                  {{#power-select
+                        selected=currentPSMode
+                        options=postingScheduleModes
+                        onchange=(action "setPSMode")
+                        as |mode|
+                      }}
+                        {{mode.name}}
+                  {{/power-select}}{{/cog-lock}}
+              {{/if}}
+              {{/if}}
+          </div>
+      {{/if}}
+    {{else}} 
+       <div class="specify">
+             
+              {{contetto-datetime-picker action=(action "updateTime") defaultDT=defaultDT defaultTimeZone=changeSet.brand.timezone }} 
+              {{#if hasTeam}}
+              {{#if showModeEditor}}{{#cog-lock}}
+              If your post does not get approved by the time it should go out:
+                  {{#power-select
+                        selected=currentPSMode
+                        options=postingScheduleModes
+                        onchange=(action "setPSMode")
+                        as |mode|
+                      }}
+                        {{mode.name}}
+                  {{/power-select}}{{/cog-lock}}
+              {{/if}}
+              {{/if}}
+          </div>
+    {{/if}}
+{{/if}}
+</div>

@@ -1,0 +1,33 @@
+<div class="tab-content">
+    <div class="tab-pane active" id="profile">
+        {{#if model.invites.length}}
+            <table class="table table-responsive">
+            <thead>
+            <tr class="text-uppercase">
+                <th>Name</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{#each model.invites as |invite|}}
+                <tr>
+                    <td>{{invite.email}}</td>
+                    <td>{{#link-to 'home.company.roles.edit' invite.role.id class='text-primary'}}<u>{{invite.role.name}}</u>{{/link-to}}</td>
+                    <td>{{invite.status}}</td>
+                    <td>
+                      <span {{action "cancelInvite" invite }} class="text-danger"><u>Remove</u></span>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+            </table>
+        {{else}}
+            <p align="center">No results found!</p>
+        {{/if}}
+        <div class="submit-btn block-add ">
+            {{#link-to 'home.company.users.invite' class='btn btn-success text-uppercase'}}Invite User{{/link-to}}
+        </div>
+    </div>
+</div>

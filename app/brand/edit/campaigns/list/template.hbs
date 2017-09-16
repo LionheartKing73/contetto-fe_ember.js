@@ -1,0 +1,12 @@
+ 
+       
+         
+         <h2>Campaigns</h2>
+         <div class="pull-right">
+             {{#link-to  'brand.edit.campaigns.add'  model.brand.id  class='btn btn-success btn-md'}}Add Campaign{{/link-to}}
+       
+          
+        </div>
+        <div class="clearFix"></div>
+        {{campaign-list brand=model.brand campaigns=model.campaigns}}
+ 

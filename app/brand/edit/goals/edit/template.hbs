@@ -1,0 +1,4 @@
+{{log model.goal.type.name}}
+{{goal-form model=(readonly model)
+            changeset=(changeset model.goal model.goalValidations)
+            transitionTo=(route-action "transitionTo")}}

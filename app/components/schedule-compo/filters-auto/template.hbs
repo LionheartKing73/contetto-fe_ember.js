@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Schedule Mode</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select options=autoOptions selected=autoSelected placeholder="Schedule Mode" onchange=(action "changeAuto") as |autoOption| }}
+      {{autoOption.name}}
+    {{/power-select}}
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<h3 class="model-heading text-center">Change your password</h3>
+<form class="form-horizontal password-form" {{action "save" on="submit"}} autocomplete="off">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        {{one-way-password changeset.oldPassword
+                           class="form-control"
+                           placeholder="Old password"
+                           update=(action (mut changeset.oldPassword))}}
+
+        {{#each changeset.error.oldPassword.validation as |error|}}
+          <span class="help-block error">{{error}}</span>
+        {{/each}}
+        <!-- </div class="form-group"> -->
+      </div>
+      <div class="form-group">
+        {{one-way-password changeset.newPassword
+                           class="form-control"
+                           placeholder="New password"
+                           update=(action (mut changeset.newPassword))}}
+
+        {{#each changeset.error.newPassword.validation as |error|}}
+          <span class="help-block error">{{error}}</span>
+        {{/each}}
+        <!-- </div class="form-group"> -->
+      </div>
+      <div class="form-group">
+        {{one-way-password changeset.cnfPassword
+                           class="form-control"
+                           placeholder="Password Confirmation"
+                           update=(action (mut changeset.cnfPassword))}}
+
+        {{#each changeset.error.cnfPassword.validation as |error|}}
+          <span class="help-block error">{{error}}</span>
+        {{/each}}
+        <!-- </div class="form-group"> -->
+      </div>
+      <div>
+        <button type="submit" class="btn btn-success text-uppercase btn-block" disabled={{or isSubmitted changeset.isInvalid}}>
+          {{if isSubmitted "Saving..." "Save"}}
+        </button>
+
+        <button type="reset" class="btn btn-success text-uppercase btn-block" {{action "cancel"}} disabled={{isSubmitted}}>
+          Cancel
+        </button>
+      </div>
+      <!-- </div class="col-sm-12"> -->
+    </div>
+    <!-- </div class="row"> -->
+  </div>
+  <!-- </form class="form-horizontal"> -->
+</form>

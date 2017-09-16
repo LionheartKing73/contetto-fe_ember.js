@@ -1,0 +1,14 @@
+<div class='chatRoomListWindow'>
+	<ul class='roomListBar'>
+		<li class='create'>
+      {{#side-menu-link-to 'brand.edit.chat.create' brand.id}}
+      Create Room
+      {{/side-menu-link-to}}
+    </li>
+    {{#each sortedRooms as |room|}}
+      {{#unless room.isNew}}
+        {{mobile-compo/chat-room-item room=room}}
+      {{/unless}}
+    {{/each}}
+	</ul>
+</div>

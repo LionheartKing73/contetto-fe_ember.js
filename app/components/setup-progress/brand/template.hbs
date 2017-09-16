@@ -1,0 +1,58 @@
+{{#unless mini}}
+<h3>BRAND SETUP</h3>
+<h4>Details</h4>
+
+<ul class="setupProgress">
+<li>{{x-check value=details}} {{#link-to 'brand.edit.details' session.company session.brand}}Brand Settings{{/link-to}} {{field-description title="Configure your brand's profile details completely."}}</li>
+<li>{{x-check value=targetAudience}} {{#link-to 'brand.edit.targetaudience' session.company session.brand}}Create Target Audiences{{/link-to}} {{field-description title="Create target audiences to get smart recommendations from Contetto."}}</li>
+<li>{{x-check value=defaultTargetAudience}} {{#link-to 'brand.edit.targetaudience' session.company session.brand}}Set a Primary Target Audience{{/link-to}} {{field-description title="Set a target audience as primary."}}</li>
+</ul>
+
+<h4>Posting</h4>
+<ul class="setupProgress">
+<li>{{x-check value=social}} {{#link-to 'brand.edit.socialaccounts' session.company.id session.brand.id}}Add Social Accounts{{/link-to}} {{field-description title="Add social accounts to your brand."}}</li>
+</ul>
+
+<h4>Organization</h4>
+<ul class="setupProgress">
+<li>{{x-check value=categories}} {{#link-to 'brand.edit.category' session.company.id session.brand.id}}Add Categories{{/link-to}} {{field-description title="Add categories to organize your posts in."}}</li>
+</ul>
+
+<h4>Campaigns</h4>
+<ul class="setupProgress">
+<li>{{x-check value=products}} {{#link-to 'brand.edit.products' session.company.id session.brand.id}}Add Products{{/link-to}} {{field-description title="Add products to promote with campaigns."}}</li>
+</ul>
+
+
+<h4>Team</h4>
+<ul class="setupProgress">
+<li>{{x-check value=team}} {{#link-to 'brand.edit.team' session.company.id session.brand.id}}Add team members to the brand.{{/link-to}} {{field-description title="Invite team members to work with you."}}</li>
+<li>{{x-check value=chat}} {{#link-to 'brand.edit.chat.create' session.company.id session.brand.id}}Create a Chat Room{{/link-to}} {{field-description title="Create a chat room to communicate with your team."}}</li>
+</ul>
+
+<h4>Review Flow</h4>
+<ul class="setupProgress">
+<li>{{x-check value=departments}} {{#link-to 'brand.edit.reviewflow.departments' session.company.id session.brand.id}}Create Departments{{/link-to}} {{field-description title="Create departments to assign review tasks to."}}</li>
+<li>{{x-check value=managers}} {{#link-to 'brand.edit.reviewflow.departments' session.company.id session.brand.id}}Set Department Managers{{/link-to}} {{field-description title="Ensure every department has a manager."}}</li>
+<li>{{x-check value=reviewChannels}} {{#link-to 'brand.edit.reviewflow' session.company.id session.brand.id}}Create Review Channels{{/link-to}} {{field-description title="Create review channels to determine the flow of review tasks."}}</li>
+<li>{{x-check value=foundSocialReviewChannel}} {{#link-to 'brand.edit.socialaccounts' session.company.id session.brand.id}}Add Review Channels to Social Accounts{{/link-to}} {{field-description title="Select review channels on your social accounts to capture posts for review."}}</li>
+</ul>
+
+
+
+
+
+{{/unless}}
+{{#if mini}}
+{{#unless (eq doneCount count)}}
+<div class="setupProgressContainer" style="cursor:pointer" {{action 'link'}}>
+<span class="setupProgressLabel">Brand Setup</span>
+<div class="progress">
+  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+  aria-valuenow="{{doneCount}}" aria-valuemin="0" aria-valuemax="{{doneCount}}" style="width:{{donePerc}}%">
+    {{doneCount}}/{{count}} ({{donePerc}}%)
+  </div>
+</div>
+</div>
+{{/unless}}
+{{/if}}

@@ -1,0 +1,13 @@
+<table class="table table-responsive responsive-table">
+<thead>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Account</th>
+    <th>Manage</th>
+</thead>
+<tbody>
+{{#each slots as |a|}}
+    {{slot-list/slot slot=a}}
+{{/each}}
+</tbody>
+</table>

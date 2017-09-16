@@ -1,0 +1,16 @@
+{{#if company.isTrial}}
+  You are currently enjoying the free trial. The trial period started on {{company.formatStartDate}}. The trial period will end on {{company.trialEndDate}}. You earlier selected {{subscription.plan.name}} plan. You are now changing the plan to {{newPlan.name}}.
+  {{#if subscription.coupon.id}}
+    Please note that choosing this plan would invalidate your coupon.
+  {{/if}}
+  This plan will start immediately. You will be charged {{planPrice}} on {{company.billingStartDate}}.
+{{else}}
+  You have been using {{subscription.plan.name}} plan. You changed the plan to {{newPlan.name}}. This plan will be with effect from {{subscription.nextPlanBillingDate}}. You will be charged {{outstandingPlanPrice}} then.
+  {{#if subscription.coupon.id}}
+    Please note that choosing this plan would invalidate your coupon.
+  {{/if}}
+{{/if}}
+<h5>Are you sure that you want to change the plan?</h5>
+{{payment-terms paymentCheck=paymentCheck}}
+<button class="btn btn-danger" {{action 'cancelConfirmPlan'}}>Cancel</button>
+<button class="btn btn-success" disabled={{not paymentCheck}} {{action 'savePlanChange'}}>Confirm</button>

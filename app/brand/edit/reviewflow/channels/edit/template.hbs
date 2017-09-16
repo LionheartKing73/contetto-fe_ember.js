@@ -1,0 +1,10 @@
+<div class="modalContainer">
+	<div class="modalWindow">
+		<h1>Edit a Review Channel</h1>
+	 	{{brand-compo/channel/form changeset=model.changeset
+        model=model
+        transitionTo=(route-action 'transitionTo')
+        addStep=(route-action 'addStep')
+        removeStep=(route-action 'removeStep')}}
+</div>
+</div>

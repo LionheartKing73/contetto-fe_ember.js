@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-3 col-sm-12 reviewfow_tabs">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="{{if isTeamDetailsActive 'active'}}">
+        {{#link-to "brand.edit.team.user.details" member.id class="text-uppercase text-center" }}Details{{/link-to}}
+      </li>
+      <li class="{{if isTeamDeptActive 'active'}}">
+        {{#link-to "brand.edit.team.user.departments" member.id class="text-uppercase text-center" }}Departments{{/link-to}}
+      </li>
+      <li>
+        {{#link-to "brand.edit.schedule" (query-params user=member.user.id) class="text-uppercase text-center" }}Posts{{/link-to}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-9 col-sm-12">
+    <div class="tab-content">
+      <div class="tab-pane active team_detailpage">
+        {{yield}}
+      </div>
+    </div>
+  </div>
+</div>

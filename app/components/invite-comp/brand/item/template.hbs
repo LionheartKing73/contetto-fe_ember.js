@@ -1,0 +1,30 @@
+<div class="col-xs-7 text-left l-h-30x">
+  Join <strong>{{invite.brand.name}}</strong> as <strong>{{invite.brandRole.name}}</strong>
+</div>
+
+<div class="col-xs-5 text-right">
+  {{#if (eq invite.status "accept")}}
+    <button type="button"
+            class="btn btn-sm btn-warning m-t-0"
+            disabled={{invite.isLoading}}
+            {{action 'select' invite.company}}>
+      Select and continue
+    </button>
+  {{else}}
+
+    <button type="button"
+            class="btn btn-sm btn-success m-t-0"
+            disabled={{invite.isLoading}}
+            {{action 'accept' invite}}>
+      Accept
+    </button>
+
+    <button type="button"
+            class="btn btn-sm btn-danger m-t-0"
+            disabled={{invite.isLoading}}
+            {{action 'reject' invite}}>
+      Reject
+    </button>
+
+  {{/if}}
+</div>

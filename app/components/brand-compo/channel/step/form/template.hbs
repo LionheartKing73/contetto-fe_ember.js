@@ -1,0 +1,46 @@
+<div class='reviewChannelStep'>
+  <div class="col-md-12 form-group">
+    <button class="pull-right btn btn-danger btn-xs" {{action 'removeStep'}}>Remove Step</button>
+  </div>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label class="control-label col-md-3">Order* :</label>
+
+      <div class="col-md-8">
+        {{one-way-input changeset.order update=(action (mut changeset.order)) placeholder="Step Order" class="form-control"}}
+
+        {{#each changeset.error.order.validation as |error|}}
+          <span class="help-block text-left error">{{error}}</span>
+        {{/each}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3">Name* : {{field-description title="Internal Use - Name this Step"}}</label>
+
+      <div class="col-md-8">
+        {{one-way-input changeset.name update=(action (mut changeset.name)) placeholder="Step name" class="form-control"}}
+
+        {{#each changeset.error.name.validation as |error|}}
+          <span class="help-block text-left error">{{error}}</span>
+        {{/each}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3">
+        Department* : {{field-description title="Select a department that will be assigned to review any post reaching this step in the review channel."}}
+      </label>
+      <div class="col-md-8">
+        {{#power-select-with-create placeholder="Select a department" options=brand.departments selected=changeset.department searchField="name" required=true onchange=(action "changeDepartment") oncreate=(action "showDepartmentModal") buildSuggestion=(action "departmentSuggestion") as |department| }}
+          {{department.name}}
+        {{/power-select-with-create}}
+        {{#each changeset.error.department.validation as |error|}}
+          <span class="help-block text-left error">{{error}}</span>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+{{brand-compo/department/form/modal department=department
+      onSave=(action 'onSave')
+      addMember=(action 'addMember')
+      removeMember=(action 'removeMember')}}

@@ -1,0 +1,22 @@
+ 
+{{#if false}} 
+{{#each post.postingSchedules as |ps|}}
+ 
+    {{#if ps.isPosted}}
+        <div class="postMetrics">
+        
+                 Published to <strong><i class="fa fa-{{ps.socialAccount.platform}}"></i> {{ps.socialAccount.title}}</strong> {{date-display date=ps.postedTime brand=ps.socialAccount.brand}}.
+                 
+                 <ul class="metrics">
+                 
+                     <li>Engagement</li>
+                     <li>Inbox</li>
+                     
+                </ul>
+        
+        </div>
+    {{/if}}
+    
+
+{{/each}}
+{{/if}}

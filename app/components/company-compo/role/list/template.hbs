@@ -1,0 +1,25 @@
+<div class="col-xs-12 m-b-1">
+  {{#if (has-company-permission 'manageStaff')}}
+    {{#link-to "company.edit.role.add" class='btn btn-success pull-right text-uppercase' }}New Role{{/link-to}}
+  {{/if}}
+</div>
+
+{{#if roles.length}}
+  <table class="table table-bordered table-striped table-responsive">
+    <thead>
+      <tr class="text-uppercase">
+        <th>Role</th>
+        {{#if (has-company-permission 'manageStaff')}}
+          <th>Action</th>
+        {{/if}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each roles as |role|}}
+        {{company-compo/role/list/item model=role}}
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p align="center">No results found!</p>
+{{/if}}

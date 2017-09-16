@@ -1,0 +1,116 @@
+
+/*******company module***********/
+.roles-wrps {
+  max-width: 450px !important;
+  width: 100% !important;
+}
+.roles-wrps .modelbox-body > .role-id-head {
+  padding-top: 20px;
+}
+.roles-wrps .role-id-head .text-right {
+  padding-top: 7px;
+}
+.roles-wrps input[type="checkbox"] + label::before {
+  margin: 1px 5px 0 0;
+}
+.roles-wrps .submit-btn{
+	float: none;
+    margin: 0 auto;
+    width: 30%;
+}
+.roles-wrps .submit-btn > .text-uppercase{
+	margin-bottom: 15px;
+}
+.roles-wrps .checkcox-panel .checkbox {
+  margin: 10px 0!important;
+}
+
+/******company add********/
+.text-adds {
+  height: 80px !important;
+}
+.block-add.submit-btn {
+  display: block;
+  padding:10px 15px 0;
+  
+}
+
+
+/*****company detail*****/
+.wrps-dtls .tabs-left{
+ vertical-align: top; /*overflow: auto; white-space: nowrap;*/
+}
+.wrps-dtls .tabs-left li{ margin: 0 8px 0 0; float: none; display: inline-block; /*width: 180px;*/}
+.wrps-dtls .tabs-left li a.active{ background: #1abc9c; color: #fff;}
+.wrps-dtls .tabs-left li:last-child{ margin: 0;}
+.wrps-dtls .tabs-left li a{ background: #ffffff; padding: 7px 10px; border-radius: 8px 8px 0 0; margin: 0; font-size: 13px; color: #a3a3a3; border: 0 !important;}
+.wrps-dtls .right-panel{
+display: inline-block !important;
+}
+.wrps-dtls .default-model .left-panel, .wrps-dtls .default-model .right-panel {
+ 
+}
+
+/*****company responsive*****/
+@media(max-width:900px){
+  .wrps-dtls {
+    .default-model {
+      .left-panel {
+        width: 100%;
+        display: block !important;
+      }
+      .right-panel {
+        display: block !important;
+      }
+    }
+  }
+}
+
+  /*======new css 27-06=======*/
+
+/*  .modelbox-body form input[type="checkbox"]{ margin: 0;}*/
+  .editrole-page label{ font-weight: 300;}
+  .role-id-head label{ margin: 6px 0;}
+  .companymodel .col-md-6{ margin-bottom: 15px;}
+
+div.forced-inline > span > span.glyphicon {
+    padding-top: 5px;
+    font-size: 15px;
+    padding-left: 8px;
+    padding-right: 5px;
+}
+div.forced-inline { margin-left:3px; }
+.forced-inline .form-control {
+  display:inline-table;
+  width:auto;
+  border-radius:0px;
+  margin-left:-3px;
+  margin-right:-2px;
+  font-size:12px;
+  padding:3px;
+}
+div.forced-inline :first-child {
+  border-top-left-radius:5px;
+  border-bottom-left-radius:5px;
+}
+div.forced-inline :last-child {
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+}
+div.forced-inline > select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+div.forced-inline > select::-ms-expand {
+    display: none;
+}
+div.forced-inline > select > option {
+  border-radius:0px;
+}
+.field-description-table-row > div{
+  display: inline-block;
+  vertical-align: middle;
+  float: none !important;
+}

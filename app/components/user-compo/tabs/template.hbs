@@ -1,0 +1,31 @@
+<div class="default-model">
+  <div class="modelbox-body">
+    <ul class="nav nav-tabs tabs-left">
+      <li>{{link-to "DETAILS" "user.details" class="text-uppercase text-center"}}</li>
+      <li>{{link-to "PASSWORD" "user.password"  class="text-uppercase text-center"}}</li>
+      <li>{{link-to "NOTIFICATIONS" "user.notification" class="text-uppercase text-center"}}</li>
+      <li>{{link-to "CARDS" "user.cards" class="text-uppercase text-center"}}</li>
+      <li>{{link-to "SETUP" "user.setup" class="text-uppercase text-center"}}</li>
+
+    </ul>
+    <div class="mob-nav">
+      <button class="btn btn-success dropdown-toggle text-uppercase" type="button" id="user-settings-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {{openTab}}
+        <span class="caret pull-right"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="user-settings-menu">
+        <li>{{link-to "DETAILS" "user.details" class="text-uppercase text-center"}}</li>
+        <li>{{link-to "PASSWORD" "user.password"  class="text-uppercase text-center"}}</li>
+        <li>{{link-to "NOTIFICATIONS" "user.notification" class="text-uppercase text-center"}}</li>
+        <li>{{link-to "SETUP" "user.setup" class="text-uppercase text-center"}}</li>
+      </ul>
+    </div>
+    <div class="right-panel">
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          {{yield}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

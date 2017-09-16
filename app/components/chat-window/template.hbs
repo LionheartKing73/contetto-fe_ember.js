@@ -1,0 +1,16 @@
+{{#if room}}
+  {{room-settings room=room classNames="row"}}
+
+  {{#if foundMe}}
+    {{room-messages room=room socketRef=socketRef sortedMessages=sortedMessages oldestMessage=oldestMessage classNames="chat_area" moreMessages=(action "moreMessages") hasMoreMessages=hasMoreMessages emptyChat=emptyChat editLastMessageWatcher=editLastMessageWatcher
+    updateMessage="updateMessage" highlightMessageId=chatMessageId leaveRoom='leaveRoom'}} {{room-messageEntry room=room socketRef=socketRef classNames="message_write" sendMessage="sendMessage" taggedMessage=taggedMessage message=message editLastMessage="editLastMessage"
+    uploadFile="uploadFile"}}
+  {{else}}
+    <div class='well'>
+      You are not currently a member of this chat room.
+      {{#unless room.private}} <a {{action 'joinRoom' room}}>Join the Room</a> {{/unless}}
+    </div>
+  {{/if}}
+{{else}}
+  Please select a room!
+{{/if}}

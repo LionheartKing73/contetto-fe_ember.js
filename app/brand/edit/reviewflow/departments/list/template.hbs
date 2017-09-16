@@ -1,0 +1,49 @@
+<div role="tabpanel" class="tab-pane active review-department-page">
+	<div class="tab-pane active">
+	<h3>Departments</h3>
+	<p>Departments are used to group users together for selective tasks and notifications.</p>
+	<p>Departments have one manager, this person is notified of tasks or issues with assignments within the department.</p>
+
+		<div class="table-responsive">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Manager</th>
+						<th>Duties {{field-description title="Special responsibilities assigned to this department. Departments with special duties are selected by default for certain notifications and tasks."}}</th>
+            {{#if (has-brand-permission 'manageReviewStructure')}}
+						<th>Action</th>
+            {{/if}}
+					</tr>
+				</thead>
+				<tbody>
+          {{#each model as |dept|}}
+					<tr>
+            <td>{{dept.name}}</td>
+            <td>{{dept.manager.user.fullName}}</td>
+            <td>
+              {{#each dept.duties as |duty|}}
+                {{duty.name}}
+              {{/each}}
+            </td>
+            {{#if (has-brand-permission 'manageReviewStructure')}}
+            <td>
+              {{#link-to "brand.edit.reviewflow.departments.edit" dept.id
+              class="btn btn-link p-a-0"
+              disabled=deleting}}
+                Edit
+              {{/link-to}} |
+              <a class="text-danger" href="#" {{action 'removeDept' dept}}>Remove</a>
+            </td>
+            {{/if}}
+					</tr>
+          {{/each}}
+				</tbody>
+			</table>
+		</div>
+
+    {{#if (has-brand-permission 'manageReviewStructure')}}
+    {{link-to "Add New Department" "brand.edit.reviewflow.departments.add" class="btn btn-success text-uppercase m-t-1"}}
+    {{/if}}
+	</div>
+</div>

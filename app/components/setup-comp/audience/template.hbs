@@ -1,0 +1,75 @@
+<div class="container content">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 welcome-targetpage">
+          <h3 class="text-center">You can now use Contetto!</h3>
+          <div class="box">
+            <form class="form-horizontal" {{action "save" changeset on="submit"}} autocomplete="off">
+              <div class="row">
+                <div class="col-xs-12 text-center">
+                  <p>But we recommend setting up our Smart Features...</p>
+                  <p>Contetto can recommend when to post, and find great engaging content for your target audience - we
+                    just need a little more information about your brand.</p>
+                  <h5>Define your target audience for <b>{{changeset.brand.name}}</b></h5>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 text-center"><h5><b>Where is your Target Audience?</b></h5></div>
+                <div class="col-xs-12 col-sm-12 {{if changeset.error.locations.validation 'has-error'}}">
+                  {{#power-select-multiple searchField="name"
+                                           placeholder="Eg. Victoria,British Columbia"
+                                           search=(perform searchLocations)
+                                           selected=changeset.locations
+                                           onchange=(action (mut changeset.locations)) as |location|}}
+                    {{location.canonicalName}}
+                  {{/power-select-multiple}}
+
+                  {{#if changeset.error.locations}}
+                    <span class="help-block"> {{changeset.error.locations.validation}} </span>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="row" style="padding-top: 15px;">
+                <div class="col-xs-12 col-sm-12 text-center"><h5><b>What Age Ranges Apply?</b></h5></div>
+                <div class="col-xs-12 col-sm-12 {{if changeset.error.ageRanges.validation 'has-error'}}">
+                  {{#power-select-multiple searchField="name"
+                                           options=ageRanges
+                                           selected=changeset.ageRanges
+                                           onchange=(action (mut changeset.ageRanges)) as |ageRange|}}
+                    {{ageRange.name}}
+                  {{/power-select-multiple}}
+
+                  {{#if changeset.error.ageRanges}}
+                    <span class="help-block"> {{changeset.error.ageRanges.validation}} </span>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="row" style="padding-top: 15px;">
+                <div class="col-xs-12 col-sm-12 text-center"><h5><b>What Genders Apply?</b></h5></div>
+                <div class="col-xs-12 col-sm-12 {{if changeset.error.genders.validation 'has-error'}}">
+                  {{#power-select-multiple searchField="name"
+                                           options=genders
+                                           selected=changeset.genders
+                                           onchange=(action (mut changeset.genders)) as |gender|}}
+                    {{gender.name}}
+                  {{/power-select-multiple}}
+
+                  {{#if changeset.error.genders}}
+                    <span class="help-block"> {{changeset.error.genders.validation}} </span>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="row text-right p-t-1">
+                <div class="col-xs-12">
+                  <button class="btn btn-success text-uppercase" type="submit" disabled={{or saving changeset.isInvalid}}>Next</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

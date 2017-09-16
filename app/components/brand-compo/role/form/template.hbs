@@ -1,0 +1,61 @@
+<form class="form-horizontal" {{action "addRole" changeset on="submit"}} autocomplete="off">
+  <div class="row">
+    <label class="col-md-3 col-sm-12 text-right control-label">Role name</label>
+    <div class="col-md-9 col-sm-12 col-xs-12">
+      {{one-way-input changeset.name placeholder="Role Name" class="form-control" disabled=changeset.isNotEditable id="roleName" update=(action (mut changeset.name))}}
+      {{#each changeset.error.name.validation as |error|}}
+        <span class="help-block text-left error">{{error}}</span>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="checkbox">
+        {{one-way-checkbox changeset.managePosts disabled=changeset.isNotEditable update=(action (mut changeset.managePosts)) id="managePosts"}}
+        <label for="managePosts">Manage Posts {{field-description title="Ability to create/edit a post"}}</label>
+      </div>
+
+      <div class="checkbox">
+        {{one-way-checkbox changeset.viewAnalytics disabled=changeset.isNotEditable update=(action (mut changeset.viewAnalytics)) id="viewAnalytics" }}
+        <label for="viewAnalytics">View Analytics {{field-description title="Without this permission all dashboard graphs relating to team efficiency are hidden."}}</label>
+      </div>
+      <div class="checkbox">
+        {{one-way-checkbox changeset.manageSocialAccounts disabled=changeset.isNotEditable update=(action (mut changeset.manageSocialAccounts)) id="manageSocialAccounts" }}
+        <label for="manageSocialAccounts">Manage Social Accounts {{field-description title="Ability to add/edit/remove social accounts and manage their schedule/settings"}}</label>
+      </div>
+      <div class="checkbox">
+        {{one-way-checkbox changeset.manageReviewStructure disabled=changeset.isNotEditable update=(action (mut changeset.manageReviewStructure)) id="manageReviewStructure" }}
+        <label for="manageReviewStructure">Manage Review Structure {{field-description title="Ability to create/edit departments and review channels as well as change review channel settings and Post Fallback Modes on social accounts."}}</label>
+      </div>
+      {{#if (has-brand-permission 'overrideReviewStructure')}}
+        <div class="checkbox">
+          {{one-way-checkbox changeset.overrideReviewStructure disabled=changeset.isNotEditable update=(action (mut changeset.overrideReviewStructure)) id="overrideReviewStructure" }}
+          <label for="overrideReviewStructure">Override Review Structure {{field-description title="Ability to change the Fallback mode of a post and complete assignments regardless of the user/department it is assigned to."}}</label>
+        </div>
+      {{/if}}
+      <div class="checkbox">
+        {{one-way-checkbox changeset.manageTeam disabled=changeset.isNotEditable update=(action (mut changeset.manageTeam)) id="manageTeam" }}
+        <label for="manageTeam">Manage Team {{field-description title="Ability to edit roles and change the role of users, along with invite team members, manage invitations and remove team members."}}</label>
+      </div>
+      <div class="checkbox">
+        {{one-way-checkbox changeset.doNotForceReview disabled=changeset.isNotEditable update=(action (mut changeset.doNotForceReview)) id="doNotForceReview" }}
+        <label for="doNotForceReview">Do not Force Review {{field-description title="Select this permission for users who you trust to publish directly to social media, without their content being reviewed by your Content Manager."}}</label>
+      </div>
+      <div class="checkbox">
+        <label for="viewInbox">Inbox Permission {{field-description title="
+            <p><strong>No Access:</strong> No access to inbox items</p>
+            <p><strong>View Inbox:</strong> Has the ability to just view all inbox items</p>
+            <p><strong>Manage Inbox:</strong> Has the ability to respond to, archive and unarchive all inbox items</p>"}}</label> {{one-way-select inboxPermission disabled=changeset.isNotEditable options=inboxPermissions optionValuePath="id" optionLabelPath="name"
+        update=(action (mut inboxPermission)) id="inboxPermissions"}}
+      </div>
+    </div>
+    {{#if changeset.isEditable }}
+      <div class="col-md-12">
+        <div class="submit-btn m-t-1">
+          <button type="submit" class="btn btn-success pull-left text-uppercase" disabled= {{disableSave}}>Save</button>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</form>

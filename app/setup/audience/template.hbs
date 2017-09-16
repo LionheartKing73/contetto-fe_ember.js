@@ -1,0 +1,6 @@
+{{setup-comp/audience brand=model.brand changeset=(changeset model.audience model.audienceValidations)
+                      genders=(readonly model.genders)
+                      ageRanges=(readonly model.ageRanges)
+                      recommendedAgeRanges=(readonly model.recommendedAgeRanges)
+                      recommendedGenders=(readonly model.recommendedGenders)
+                      transitionTo=(route-action "transitionTo")}}

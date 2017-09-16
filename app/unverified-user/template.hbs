@@ -1,0 +1,13 @@
+{{#side-menu side="right" width="250px" classNames="burger-menu"}}
+  <ul class="nav burger-nav">
+    <li class="logout">
+      <a href="#" {{action (route-action "logout")}}>Logout <i class="fa fa-sign-out"></i>
+      </a>
+    </li>
+  </ul>
+{{/side-menu}}
+{{content-backdrop}}
+
+{{#auth-compo/container classNames="unverified-user"}}
+  {{auth-compo/unverified-user transitionTo=(route-action "transitionTo")}}
+{{/auth-compo/container}}

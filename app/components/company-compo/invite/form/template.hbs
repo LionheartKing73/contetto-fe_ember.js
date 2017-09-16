@@ -1,0 +1,43 @@
+<h3>Invite User</h3>
+
+<form class="form-horizontal" autocomplete="off">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group ">
+        <label class="control-label col-md-3">User Email: {{field-description title="Enter the email address to invite to join the company.<BR/><BR/>Note: You can invite a user to a specific brand in Brand Settings &gt; Team - the user will automatically be granted 'Guest' access to the company in order to access the brand."}}</label>
+        <div class="col-md-9">
+          {{one-way-input changeset.email type="text" class="form-control" placeholder="Email" update=(action (mut changeset.email))}}
+
+          {{#each changeset.error.email.validation as |error|}}
+            <span class="help-block error">{{error}}</span>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group ">
+        <label class="control-label col-md-3">User Role {{field-description title="Select the role to give the user if they accept the invitation. You can create more roles under Company Settings &gt; Roles"}}</label>
+        <div class="col-md-9">
+          {{one-way-select changeset.companyRole optionValuePath="id" optionLabelPath="name" class='form-control' prompt="Please select role" promptIsSelectable=true options=(sort-by 'name' allowedRoles) update=(action (mut changeset.companyRole))}}
+
+          {{#each changeset.error.companyRole.validation as |error|}}
+            <span class="help-block error">{{error}}</span>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-btn ml-20">
+    <button type="submit" class="btn btn-success pull-right text-uppercase" {{action "invite" changeset}} disabled= {{isSubmitted}}>
+      {{if isSubmitted "Sending..." "Send Invitation"}}
+    </button>
+
+    <button type="reset" class="btn btn-default pull-right text-uppercase" {{action "cancel" changeset}} disabled= {{isSubmitted}}>
+      Cancel
+    </button>
+  </div>
+</form>

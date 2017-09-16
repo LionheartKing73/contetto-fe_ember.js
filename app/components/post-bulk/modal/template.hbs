@@ -1,0 +1,31 @@
+{{#if loaded}}
+  {{#unless loadNow}}
+    <button class="btn btn-primary btn-md" {{action 'toggleModal'}}>Edit Post</button>
+  {{/unless}}
+  {{#if showModal}}
+    {{#modal-dialog close=(action 'toggleModal') }}
+      {{#if cantPost}}
+        <a class="close pull-right" style="cursor:pointer" {{action 'toggleModal'}}><i class="fa fa-window-close" aria-hidden="true"></i></a>
+        <h2>{{reasonTitle}}</h2>
+        <p>{{reason}}</p>
+        <p><button {{action 'addAccount'}} class="btn btn-success btn-md">Add Account</button></p>
+      {{else}}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" {{action 'toggleModal'}}>&times;</button>
+            {{#if post.isFollowup}}
+              <h4 class="modal-title">Followup to {{post.followupTo.topic}}</h4>
+            {{else}}
+              {{#if (eq post.isBlog 1)}}
+                <h4 class="modal-title"> <i class="fa fa-wordpress"></i> Blog Post</h4>
+              {{else}}
+                <h4 class="modal-title"> <i class="fa fa-share-square-o"></i>Post</h4>
+              {{/if}}
+            {{/if}}
+          </div>
+          {{post-bulk/editor temps=temps post=post campaign=campaign brand=brand cancelPost=(action 'cancelPost') postDone=(action 'postDone')}}
+        </div>
+      {{/if}}
+    {{/modal-dialog}}
+  {{/if}}
+{{/if}}

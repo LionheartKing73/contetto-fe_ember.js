@@ -1,0 +1,23 @@
+<td>{{account.title}}<br/>
+  <font class="tinytext">{{account.pageTitle}} </font>
+</td>
+<td>
+  {{#if account.tokenValid}}Valid{{else}}Invalid{{/if}}
+</td>
+<td style="text-transform:capitalize">{{account.platform}}</td>
+{{#if (has-brand-permission 'manageSocialAccounts')}}
+  <td>
+    {{#link-to 'brand.edit.socialaccounts.schedule' account.brand.id account.id class=" btn btn-link p-a-0" disabled=deleting}}
+      <u>Schedule</u>
+    {{/link-to}} |
+
+    {{#link-to 'brand.edit.socialaccounts.settings' account.brand.id account.id class=" btn btn-link p-a-0" disabled=deleting}}
+
+      <u>Settings</u>
+    {{/link-to}} |
+
+    <a href="#" class="btn btn-link p-a-0 text-danger" disabled= {{deleting}} {{action 'delete' account}}>
+      <u>Remove</u>
+    </a>
+  </td>
+{{/if}}

@@ -1,0 +1,106 @@
+<!-- Header beginning -->
+<div class="header app_header">
+  <div class="container-fluid {{if isTopOpened "opened"}}">
+    <div class="row">
+      {{#link-to "index" class="logo pull-left desktop-logo"}}
+        <span class="img-clipper">
+          <img class="img" src="/assets/images/logo.png" alt="Contetto">
+        </span>
+        <span>
+        Contetto<br/>
+        <span class="sc">by SoftCorp Software</span>
+        </span>
+      {{/link-to}}
+      {{#if media.isMobile}}
+        {{#if session.brand}}
+          {{#link-to "index" class="logo pull-left"}}
+            {{#if session.brand.logo}}
+              <img src={{session.brand.logo}} class="img-responsive" width="25" height="25" alt="{{session.brand.name}}" />
+            {{else}}
+              <i class="fa fa-font-awesome" aria-hidden="true"></i>
+            {{/if}}
+          {{/link-to}}
+        {{else}}
+          {{#if session.company}}
+            {{#link-to "index" class="logo pull-left"}}
+              {{#if session.company.logo}}
+              <img src={{session.company.logo}} class="img-responsive" width="25" height="25" alt="{{session.company.name}}" />
+              {{else}}
+                <i class="fa fa-building" aria-hidden="true"></i>
+              {{/if}}
+            {{/link-to}}
+          {{else}}
+            {{#link-to "index" class="logo pull-left"}}
+              <img class="img-responsive" src="/assets/images/logo.png" alt="">
+            {{/link-to}}
+          {{/if}}
+        {{/if}}
+      {{/if}}
+      <div class="right_header pull-right text-right">
+        {{#if session.company.id}}
+        <span class="mob-icons well-icons">
+          <a href="#" {{action 'openNotifications'}}>
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
+            {{#if unseenNotificationCount}}
+            <span class="count">{{unseenNotificationCount}}</span>
+            {{/if}}
+          </a>
+        </span>
+        {{/if}}
+        {{#if session.brand.id}}
+          <span class="mob-icons well-icons">
+            <a href="#" {{action 'openChats'}}>
+              <i class="fa fa-comments" aria-hidden="true"></i>
+              {{#if unseenBrandChatCount.content}}
+              <span class="count">
+                {{unseenBrandChatCount.content}}
+              </span>
+              {{/if}}
+            </a>
+          </span>
+        {{/if}}
+        <a href="#" class="mob-icons burger-menu" {{action 'openBurgerMenu'}}>
+          <i class="glyphicon glyphicon-menu-hamburger"></i>
+        </a>
+
+        <ul class="nav nav-pills deskui largedeskOnly">
+    <li role="presentation">{{setup-progress/user mini=true}}</li>
+    {{#if session.company}}
+    <li role="presentation">{{setup-progress/company mini=true}}</li>
+    {{/if}}
+    {{#if session.brand}}
+    <li role="presentation">{{setup-progress/brand mini=true}}</li>
+    {{/if}}
+    <li role="presentation">{{bs-switch size="xs" handle-width="50" off-color="primary" off-text="Available" on-color="danger" on-text="Away" checked=(eq user.dnd "1") on-switch-change=(action 'dndSwitch')}}</li>
+  <li role="presentation" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+         <div class="user_sec" {{action (toggle "session.isTopOpened" this)}}>
+          <span class="mob-views-name"> {{user.fullName}}</span>
+          {{gravatar-image email=user.email}}
+
+        </div> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+         <li><table><tr><td>
+            {{#link-to "user.details"}}
+              User Settings
+            {{/link-to}}</td><td>
+            {{field-description title="Configure personal settings such as automatic logout, notification settings, password and contact details."}}
+            </td></tr></table>
+          </li>
+          <li class="logout">
+            <a href="javascript:void(0)" {{action (route-action "logout")}}>
+              Logout <i class="fa fa-sign-out"></i>
+            </a>
+          </li>
+    </ul>
+  </li>
+
+</ul>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Header ending -->

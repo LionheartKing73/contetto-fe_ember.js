@@ -1,0 +1,7 @@
+{{#if (not-eq ps.offsetType.name "Immediate")}}
+  {{input value=ps.offset class="form-control" placeholder="Offset Amount" type="number" min="0"}}
+{{/if}}
+{{#power-select options=ots selected=ps.offsetType searchField="name" onchange=(action (mut ps.offsetType)) placeholder="Select Offset Type" as |ot|}}
+  {{ot.name}}
+  {{#if (not-eq ot.name "Immediate")}}(s){{/if}}
+{{/power-select}}

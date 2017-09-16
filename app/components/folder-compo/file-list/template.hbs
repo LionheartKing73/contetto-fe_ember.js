@@ -1,0 +1,38 @@
+<table class="table table-responsive file-actions">
+	<thead>
+		<th style="width: 40%">Name</th>
+		<th style="width: 60%">Action</th>
+	</thead>
+	<tbody>
+		{{#each files as |file|}}
+			<tr>
+				<td>
+					<a href="{{file.downloadLink}}" target=_blank>{{file.name}}</a>
+					{{#if file.isMoving}}
+						<br>
+						<div class="row">
+							<div class="col-xs-6">Moving...</div>
+							<div class="col-xs-6"> <a class="btn btn-sm btn-danger" {{action 'cancelMove' file}}>Cancel</a></div>
+						</div>
+					{{/if}}
+				</td>
+				<td>
+					<div class="row">
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<a class="btn btn-sm btn-success" {{action 'selectFile' file}}>Select File</a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<a class="btn btn-sm btn-blue" {{action 'moveFile' file}} disabled={{file.isMoving}}>Move File</a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<a class="btn btn-sm btn-sky" {{action 'renameFile' file}}>Rename</a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<a class="btn btn-sm btn-red" {{action 'deleteFile' file}}>Delete File</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

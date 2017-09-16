@@ -1,0 +1,130 @@
+<h1>Notification Settings</h1>
+<p>Contetto will keep you informed of changes to posts, chat rooms, assignments and other things. You can choose to receive notifications via email, sms, app and desktop. Your latest notifications are always visible on the right sidebar when on a high enough
+  resolution screen.</p>
+
+
+<h3>Do Not Disturb Time</h3>
+<div class="form-horizontal settings-group col-xs-12">
+  <div class="form-group">
+    <label class="col-md-4 control-label">Timezone: {{field-description title="The timezone the selected Do Not Disturb times are in."}}</label>
+    <div class="col-md-8">{{one-way-select model.user.dndTimezone class='form-control' prompt="Please select a timezone" promptIsSelectable=true options=timeZoneOptionsSet update=(action 'setDNDTZ')}}</div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Start Time: {{field-description title="Time you want Do Not Disturb to automatically activate."}}</label>
+    <div class="col-md-8">
+      <span class="ember-timepicker-wrapper">
+        {{ember-timepicker
+              classNames="form-control"
+              onChange=(action 'setStart')
+              options=optionsStart}}
+        </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">End Time: {{field-description title="Time you want Do Not Disturb to automatically deactivate."}}</label>
+    <div class="col-md-8">
+      <span class="ember-timepicker-wrapper">
+        {{ember-timepicker
+              classNames="form-control"
+              onChange=(action 'setEnd')
+              options=optionsEnd}}
+        </span>
+    </div>
+  </div>
+</div>
+
+<h3>Email Notifications</h3>
+<div class="form-horizontal settings-group col-xs-12">
+  <div class="form-group">
+    <label class="col-md-4 control-label">Email Notifications: {{field-description title="Choose whether to receive notification summaries by email."}}</label>
+    <div class="col-md-8">
+      {{#power-select options=tfs selected=emailTF placeholder="Select Preference" onchange=(action 'emailTFSet') as |tf| }}
+        {{tf.name}}
+      {{/power-select}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Summarize notifications every: {{field-description title="Contetto will email a summarized list of new notifications (if any) at this interval (in minutes)."}}</label>
+    <div class="col-md-8">
+      {{every-x-minutes-selector value=(hash id=model.user.emailInterval) update=(action (mut model.user.emailInterval))}}
+    </div>
+  </div>
+</div>
+
+
+
+<h3>SMS Notifications</h3>
+<div class="form-horizontal settings-group col-xs-12">
+  <div class="form-group">
+    <label class="col-md-4 control-label">SMS Notifications: {{field-description title="Choose whether to receive SMS notification summaries."}}</label>
+    <div class="col-md-8">
+      {{#power-select options=tfs selected=smsTF placeholder="Select Preference" onchange=(action 'smsTFSet') as |tf| }}
+        {{tf.name}}
+      {{/power-select}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">SMS Phone Number: {{field-description title="Your mobile number (including country and area code) to receive SMS notifications at. <BR/><BR/>You will need to enter a confirmation code when changing or setting this number in order to enable notifications."}}</label>
+    <div class="col-md-8">{{input value=model.user.smsPhone }}
+      {{#unless allverified}} <button class="btn btn-primary btn-sm" {{action 'sendcode'}}>Send Verification Code</button>{{/unless}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Summarize notifications every: {{field-description title="The frequency at which you would like Contetto to check if there are new notification to alert you to via SMS (in minutes)."}}</label>
+    <div class="col-md-8">
+      {{every-x-minutes-selector value=(hash id=model.user.smsInterval) update=(action (mut model.user.smsInterval))}}
+    </div>
+  </div>
+  {{#unless allverified}}
+    <div class="form-group">
+      <label class="col-md-4 control-label">Verify SMS Phone (required): {{field-description title="A verification code will be sent to your mobile number when you click the 'Send Verification Code' button above. You must enter this code here in order to enable SMS notifications"}}</label>
+      <div class="col-md-8">{{input value=smscode onchange=(action "updateSMSCode")}} <button class="btn btn-success btn-sm" {{action 'verifyCode'}}>Verify</button></div>
+    </div>
+  {{/unless}}
+</div>
+
+<h3>Browser Notifications</h3>
+<P>Contetto can push notifications to your desktop/browser if you grant it access.</P>
+{{#unless pushSetup}}
+  <div class="form-horizontal settings-group col-xs-12">
+    <label class="col-md-4 control-label">Grant push notification access to this browser: {{field-description title="Grant Contetto the ability to push notifications to this browser."}}</label>
+    <div class="col-md-8">
+      <button class="btn btn-md btn-success" {{action 'pushInit'}}>Grant Access</button>
+    </div>
+  </div>
+{{/unless}}
+
+<h3>Devices</h3>
+
+{{#each model.user.devices as |device|}}
+  <p>These are the devices that have been registered with your account for notifications.</p>
+  <div class="devices-list">
+    <div class="device-item">
+      <div class="pull-left"><span class="small">{{device.platform}}</span></div>
+      <div class="pull-right"><span class="small">{{device.deviceName}}</span></div>
+      <div style="clear:both"></div>
+      <div class="text-center text-centered device-body">
+        <strong>{{device.userDeviceName}}</strong>
+        <div style="clear:both"></div>
+        <div class="btn-group" role="group">
+          {{#if device.isMute}}<button class='btn btn-primary' {{action 'unmute' device}}>Unmute</button>{{else}}<button class='btn btn-warning' {{action 'mute' device}}>Mute</button>{{/if}}
+          <button class='btn btn-success' {{action 'test' device.id}}>Test</button>
+          <button class='btn btn-danger' {{action 'remove' device}}>Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{else}}
+    <p>There are no devices registered with your account for notifications.</p>
+{{/each}}
+<center>
+  <div class="text-centered">
+    <button class="btn btn-lg btn-success" {{action 'saveNotificationSettings'}} disabled= {{saving}}>
+  {{#if saving}}
+  Saving...
+  {{else}}
+  Save Settings
+  {{/if}}
+</button>
+  </div>
+</center>

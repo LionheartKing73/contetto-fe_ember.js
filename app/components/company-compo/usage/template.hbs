@@ -1,0 +1,59 @@
+<h4>Plan Details</h4>
+<div class="row">
+  <div class="col-md-6">
+    <label>Name</label>: <span>{{plan.name}}</span>
+  </div>
+  <div class="col-md-6">
+    <label>Monthly Price</label>: <span>{{plan.monthPrice}} $</span>
+  </div>
+</div>
+<hr>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Features</th>
+      <th>Current Plan</th>
+      <th>Addons</th>
+      <th>Current Usage</th>
+      <th>Left Plan</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th>Brands Count</th>
+      <td>{{plan.brandsCount}}</td>
+      <td>{{subscription.totalAddonBrands}}</td>
+      <td>{{company.brandsUsage}}</td>
+      <td>{{company.brandsLeft}}</td>
+    </tr>
+    <tr>
+      <th>Social Accounts Count</th>
+      <td>{{plan.socialAccountsCount}}</td>
+      <td>{{subscription.totalAddonSocialAccounts}}</td>
+      <td>{{company.socialAccountsUsage}}</td>
+      <td>{{company.socialAccountsLeft}}</td>
+    </tr>
+    <tr>
+      <th>Posts Count</th>
+      <td>{{plan.postsCount}}</td>
+      <td>{{subscription.totalAddonPosts}}</td>
+      <td>{{company.postingsUsage}}</td>
+      <td>{{company.postingsLeft}}</td>
+    </tr>
+    <tr>
+      <th>Storage Size(GB)</th>
+      <td>{{plan.storageSize}}</td>
+      <td>{{subscription.totalAddonStorage}}</td>
+      <td>{{company.fileStorageUsage}}</td>
+      <td>{{company.fileStorageLeft}}</td>
+    </tr>
+    <tr>
+      <th>Team Members Count</th>
+      <td>{{plan.teamMembersCount}}</td>
+      <td>{{subscription.totalAddonBrandMembers}}</td>
+      <td>{{company.teamMembersUsage}}</td>
+      <td>{{company.teamMembersLeft}}</td>
+    </tr>
+  </tbody>
+</table>

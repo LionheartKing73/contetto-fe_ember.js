@@ -1,0 +1,35 @@
+<div class="contetto-datetime">
+  <div class="date {{if hideDate 'hidden'}}">
+    {{bootstrap-datepicker autoclose=true autoClose=true startDate=today todayHighlight=true todayBtn=true placeholder="Select a Date" value=myDate changeDate="changeDateAction" class="form-control datepick ui dropdown"}}
+  </div>
+  <div class="form-inline">
+    <div class="hour form-time-group">
+      <select class="form-control ui dropdown" name="hour" onchange= {{action "hourChanged" value="target.value"}}>
+          {{#each hourOptions as |option|}}
+              <option value={{option.value}}  selected={{eq myHour option.value}} >{{option.label}}</option>
+          {{/each}}
+        </select>
+    </div>
+    <div class="minute form-time-group">
+      <select class="form-control ui dropdown" name="minute" onchange= {{action "minuteChanged" value="target.value"}}>
+          {{#each minuteOptions as |option|}}
+              <option value={{option.value}}  selected={{eq myMinute option.value}} >{{option.label}}</option>
+          {{/each}}
+        </select>
+    </div>
+    <div class="am-pm form-time-group">
+      <select class="form-control ui dropdown" name="mer" onchange= {{action "merChanged" value="target.value"}}>
+            <option value=am   selected={{eq myMer "am"}}>AM</option>
+            <option value=pm   selected={{eq myMer "pm"}}>PM</option>
+        </select>
+    </div>
+    <div class="time-zone form-time-group">
+      <select class="form-control ui dropdown" name="timezone" onchange= {{action "tzChanged" value="target.value"}}>
+        {{#each timeZoneOptions as |option|}}
+            <option value={{option.value}}  selected={{eq myTimeZone option.value}} >{{option.label}}</option>
+        {{/each}}
+        </select>
+    </div>
+  </div>
+  <p id="my-label">{{fromNow}} - Local: {{myDateTime}}, UTC: {{myUTCDateTime}}</p>
+</div>

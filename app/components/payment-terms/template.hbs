@@ -1,0 +1,9 @@
+<div id="payment-terms">
+    <hr>
+    {{one-way-checkbox termsCheck update=(action (mut termsCheck)) id="termsCheck"}}
+    <label for="termsCheck">I have read, understood and agree to/accept the <a href="https://contetto.com/terms-and-conditions" target="_blank">Terms & Conditions</a></label>
+    <br>
+    {{one-way-checkbox policyCheck update=(action (mut policyCheck)) id="policyCheck"}}
+    <label for="policyCheck">I have read, understood and agree to/accept the <a href="https://contetto.com/privacy" target="_blank">Privacy Policy</a></label>
+    <hr>
+</div>

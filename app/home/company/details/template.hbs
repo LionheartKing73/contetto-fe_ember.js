@@ -1,0 +1,11 @@
+<div class="modelbox-body">
+    <div class="left-panel padding-none">
+        <!-- Company Settings tab (Component) // Details tab active-->
+        {{company-tab-left-panel isDetailsTabActive=model.isDetailsTabActive companyId=model.company.id}}
+    </div>
+    {{company-details-form model=model
+                           changeset=(changeset model.company model.CompanyValidations)
+                           transitionTo=(route-action "transitionTo")}}
+
+    <div class="clearfix"></div>
+</div>

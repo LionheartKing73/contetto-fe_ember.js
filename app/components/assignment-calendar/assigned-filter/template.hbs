@@ -1,0 +1,7 @@
+<div class="schedule-filter">
+  Filter by Assigned To
+  <BR/>
+  {{#power-select-multiple options=users selected=selectedAssigned placeholder="Select users(s) to filter." onchange=(action "changeAssigned") as |user| }}
+    {{user.fullName}}
+  {{/power-select-multiple}}
+</div>

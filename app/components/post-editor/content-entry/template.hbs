@@ -1,0 +1,12 @@
+{{textarea value=changeSet.content class="assignment-content form-control" keyPress=(action 'adjustHeight') paste=(action 'adjustHeight')}}
+<span class="pull-left">Limit: <i class="fa fa-{{lowestPlatform}}"></i> {{length}}/{{max}}</span> <span class="pull-right">Recommended: {{length}}/{{rec}}</span>
+<div class="clearfix"></div>
+
+{{#if overlimit}}
+<div class="text-danger">
+    Your post content exceeds the maximum length for one or more of your selected platforms.
+    
+ 
+</div>
+{{/if}}
+<BR/>

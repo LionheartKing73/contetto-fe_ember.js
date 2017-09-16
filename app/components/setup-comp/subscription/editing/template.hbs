@@ -1,0 +1,15 @@
+<h4>
+  Seting up the subscription for <br/> <strong>{{company.name}}</strong>.
+</h4>
+<h3>Billing Information</h3> {{acceptance-marks}}
+<form autocomplete="off">
+  {{#if cards.length}}
+    {{setup-comp/subscription/editing/card-list subscription=subscription cards=cards selectCard=(action 'selectCard')}}
+    <h4>Select a card above</h4>
+    <h5>or</h5>
+  {{/if}}
+  {{setup-comp/subscription/editing/new-card locations=locations cardChangeset=cardChangeset selectCard=(action 'selectCard')}}
+  {{setup-comp/subscription/editing/plan-list plans=plans subscription=subscription}}
+  {{setup-comp/subscription/editing/coupon subscription=subscription couponCode=couponCode selectedCouponCode=selectedCouponCode codeMessage=codeMessage codeMessageClass=codeMessageClass couponApplicable=couponApplicable couponApplyMessage=couponApplyMessage}}
+  <button class="btn btn-success" disabled= {{or saving invalidChangeset}} {{action 'confirm'}}>Next</button>
+</form>

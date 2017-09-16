@@ -1,0 +1,181 @@
+.dashboard-charts {
+  padding-bottom: 20px;
+}
+.dashitem i {
+    height: 30px;
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+}
+.dashitem label {
+    text-align: center;
+    width: 100%;
+}
+.dashitem a {
+ color: #1abc9c !important
+}
+.dashitem {
+    width: 48%;
+    float: left;
+    border: 1px solid #ccc;
+    margin: 1%;
+    padding: 3%;
+    min-height: 80px;
+}
+.dashitemSuper {
+    margin: 1%;
+    border: 1px solid #ccc;
+    padding: 3%;
+    width: 98%;
+    min-height: 50px;
+    background-color: #1abc9c !important;
+     
+}
+.dashitemSuper a {
+    color: white !important;
+    font-size: 20px;
+    text-align: center;
+}
+.dashitemSuper i {
+    font-size: 31px;
+    vertical-align: middle;
+}
+.dashitemSuper a {
+    color: white !important;
+    font-size: 18px;
+    text-align: center;
+    padding-left: 8px;
+} 
+.dashitemSuper i {
+    font-size: 25px;
+    vertical-align: middle;
+}
+.dashitemSuper {
+    margin: 0.5%;
+    border: 1px solid #ccc;
+    padding: 2%;
+    width: 99%;
+    min-height: 40px;
+    background-color: #1abc9c !important;
+}
+.dashitem {
+    width: 49%;
+    float: left;
+    border: 1px solid #ccc;
+    margin: 0.5%;
+    padding: 1%;
+    min-height:80px;
+    white-space:normal !important;
+}
+.dashitem label {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0px;
+}
+.dashitemSuper label {
+    margin-bottom: 0px;
+}
+
+.dashblock {
+    margin-bottom: 4px;
+    font-size: 12px;
+    line-height: 10px;
+}
+
+
+.dash-status {
+    border: 5px solid white;
+    min-height: 75px;
+    margin-top: 6px;
+    font-size: 12px;
+    padding: 0px;
+    box-shadow: inset 0px 0px 10px #CCC;
+    display: table;
+}
+.dash-status-title {
+    font-size: 13px;
+    padding: 5px;
+}
+.dash-status-primary .dash-status-title {
+    background-color: #1abc9c;
+    color: white;
+}
+.dash-status-success .dash-status-title {
+    background-color: green;
+    color: white;
+}
+.dash-status-warning .dash-status-title {
+    color: black;
+    background-color: #fad201;
+}
+.dash-status-danger .dash-status-title {
+    background-color: red;
+    color: white;
+}
+.dash-status label {
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    font-size: 15px;
+    font-weight: normal;
+}
+.dash-status-footer {
+    text-align: center;
+    background-color: #efefef;
+    padding: 2px;
+}
+.dash-status-footer {
+    text-align: center;
+    background-color: #efefef;
+    padding: 2px;
+    font-size: 12px;
+    line-height: 14px;
+}
+.dash-status-nofooter {
+    min-height: 110px;
+    height: 110px;
+}
+.dash-status-nofooter label {
+    padding-top: 16px;
+}
+.dash-status-plain {
+    min-height: 98px;
+}
+.dash-status-plain label {
+    padding-top: 32px;
+    font-size: 16px;
+}
+.dash-status.cog-open {
+    border: none;
+    width: 100%;
+}
+.dash-status.cog-open label {
+    padding: 0px;
+    font-size: 12px;
+}
+.dash-status .cogbtn {
+    border: none;
+    font-size: 14px;
+}
+.dash-status .coglocker.o {
+    display: block;
+} 
+.dash-status.dash-status-nofooter label {
+    font-size: 16px !important;
+}
+.dashitem i {
+    height: 30px;
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+
+.dash-status-nofooter .dash-status-title {
+    font-size: 11px;
+    line-height: 11px;
+} .dash-status-warning .dash-status-title {
+    color: black;
+    background-color: #fad201;
+}

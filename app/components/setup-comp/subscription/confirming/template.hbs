@@ -1,0 +1,16 @@
+<h4>
+  Please Confirm the below entered subscription details.
+</h4>
+<h3>Billing Information</h3> {{acceptance-marks}}
+<form autocomplete="off">
+  {{setup-comp/subscription/confirming/selected-card subscription=subscription}}
+  <hr>
+  {{setup-comp/subscription/confirming/selected-subscription subscription=subscription}}
+  <hr>
+  {{setup-comp/subscription/confirming/message subscription=subscription selectedCouponCode=selectedCouponCode}}
+  <hr>
+  {{payment-terms paymentCheck=paymentCheck}}
+  <hr>
+  <button class="btn btn-danger" {{action 'back'}}>Change</button>
+  <button class="btn btn-success" disabled= {{not paymentCheck}} {{action 'save'}}>Next</button>
+</form>

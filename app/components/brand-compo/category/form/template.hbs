@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-9 col-sm-12">
+    <div class="tab-content">
+      <div class="tab-pane active">
+        <h3>Category</h3>
+        <p>Categories exist at a brand level and are for internal organizational purposes only.</p>
+        <div class="col-md-12">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="title" class="col-md-3 control-label">Title {{field-description title="Internal Use - Name this category"}}</label>
+              <div class="col-md-9">
+                {{one-way-input changeset.title placeholder='Category Title' name='title' id='title' class='form-control' update=(action (mut changeset.title)) }}
+
+                {{#each changeset.error.title.validation as |error|}}
+                  <span class="help-block text-left error">{{error}}</span>
+                {{/each}}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="category" class="col-md-3 control-label">Parent Category {{field-description title="Optional - Set a parent for this category if desired."}}</label>
+              <div class="col-md-9">
+                {{one-way-select changeset.parent prompt="Parent Category" class="form-control" optionValuePath="id" optionLabelPath="title" promptIsSelectable=true options=model.categories update=(action (mut changeset.parent)) }}
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-offset-3 col-md-9">
+                <button type="button" class="btn btn-success text-uppercase" disabled= {{disableSave}} {{action 'save' changeset}}>
+
+                   {{if isSaving 'Saving..' 'Save'}}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

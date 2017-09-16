@@ -1,0 +1,5 @@
+{{#each times as |item|}}
+{{#if (eq item.dayOfWeek day)}}
+   {{schedule-daymanager/timeblock item=item deleteAction=(action deleteAction)}}
+{{/if}}
+{{/each}}

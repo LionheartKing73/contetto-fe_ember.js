@@ -1,0 +1,19 @@
+{{#if hasHistory}}
+
+<h3>Assignment History</h3>
+ <div class="container">
+    <div class="row">
+    
+        <div class="timeline-centered">
+
+           {{#each changeSet.changeRequests as |cr|}}
+        {{post-editor/change-request-history/change-request changeSet=changeSet assignment=cr}}
+    {{/each}}
+
+    </div>
+
+    
+    </div>
+</div>
+
+{{/if}}

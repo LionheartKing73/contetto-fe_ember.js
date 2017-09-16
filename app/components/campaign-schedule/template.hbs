@@ -1,0 +1,62 @@
+
+	{{#if campaign.room.id}}
+
+		{{chat-window room=campaign.room}}
+<hr>
+	{{/if}}
+
+<H3>Manage Schedule: {{campaign.name}}</H3>
+
+<div class="btn-group btn-group-sm" role="group" aria-label="..."> 
+              <button class="btn btn-social"  {{action 'quickPost'}}><i class="fa fa-share-square-o" aria-hidden="true"></i> Social Post</button>
+              <button class="btn btn-wordpress" {{action 'quickBlog'}}><i class="fa fa-wordpress" aria-hidden="true"></i> Blog Post</button>
+            </div>
+            
+            
+{{#div-wrapper setId="outbox-room" doSet=micro}}
+{{#div-wrapper setId="myBrand" doSet=micro}}
+{{#div-wrapper setId="outbox" doSet=micro}}
+{{#div-wrapper setClass="grey" doSet=micro}}
+{{#div-wrapper setClass="main-msg-box" doSet=micro}}
+		<div class="green-stripe">
+			<div class="padding-container">
+				<div class="row">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab1defaultFuture" id="tab1Future-link" data-toggle="tab">Future ({{campaignPosts.length}})</a></li>
+						<li><a href="#tab2defaultHistory" id="tab2History-link" data-toggle="tab">History ({{campaignPostsHistory.length}})</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<section id="content">
+			<div class="padding-container">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab1defaultFuture">
+					
+					{{#each campaignPosts as |post|}}
+  
+                    	{{campaign-schedule/post post=post}}
+                    
+                    {{/each}}
+
+					</div>
+					<div class="tab-pane fade" id="tab2defaultHistory">
+					{{#each campaignPostsHistory as |post|}}
+  
+                    	{{campaign-schedule/post post=post}}
+                    
+                    {{/each}}
+					
+					</div>
+				</div>
+			</div>
+		</section>
+
+{{/div-wrapper}}
+{{/div-wrapper}}
+{{/div-wrapper}}
+{{/div-wrapper}}
+{{/div-wrapper}}
+
+<div style="display:none">{{allPosts.length}} {{allPosting.length}}</div>

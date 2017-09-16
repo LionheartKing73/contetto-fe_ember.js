@@ -1,0 +1,65 @@
+<div class="default-model">
+  <div class="modelbox-body">
+    <ul class="nav nav-tabs tabs-left">
+      {{#if (has-company-permission 'manageCompanyDetails')}}
+        <li>{{link-to "details" "company.edit.details" class="text-uppercase text-center"}}</li>
+      {{/if}}
+      {{#if (has-company-permission 'manageCompanyDetails')}}
+        <li>{{link-to "subscription" "company.edit.subscription" class="text-uppercase text-center"}}</li>
+      {{/if}}
+      {{#if (has-company-permission 'manageCompanyDetails')}}
+        <li>{{link-to "payments" "company.edit.payments" class="text-uppercase text-center"}}</li>
+      {{/if}}
+      {{#if (has-company-permission 'manageStaff')}}
+        <li>{{link-to "members" "company.edit.member" class="text-uppercase text-center"}}</li>
+      {{/if}}
+      {{#if (has-company-permission 'manageStaff')}}
+        <li>{{link-to "roles" "company.edit.role" class="text-uppercase text-center"}}</li>
+      {{/if}}
+      {{#if (has-company-permission 'manageStaff')}}
+        <li>{{link-to "invites" "company.edit.invite" class="text-uppercase text-center"}}</li>
+      {{/if}}
+      {{#if (has-company-permission 'manageBrands')}}
+        <li>{{link-to "brands" "company.edit.brands" class="text-uppercase text-center"}}</li>
+      {{/if}}
+    </ul>
+    <div class="mob-nav">
+      {{#if (has-company-permission 'manageCompanyDetails')}}
+        <button class="btn btn-success dropdown-toggle text-uppercase" type="button" id="company-settings-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          {{openTab}}
+          <span class="caret pull-right"></span>
+        </button>
+      {{/if}}
+      <ul class="dropdown-menu" aria-labelledby="company-settings-menu">
+        {{#if (has-company-permission 'manageCompanyDetails')}}
+          <li>{{link-to "details" "company.edit.details" class="text-uppercase text-center"}}</li>
+        {{/if}}
+        {{#if (has-company-permission 'manageCompanyDetails')}}
+          <li>{{link-to "subscription" "company.edit.subscription" class="text-uppercase text-center"}}</li>
+        {{/if}}
+        {{#if (has-company-permission 'manageCompanyDetails')}}
+          <li>{{link-to "payments" "company.edit.payments" class="text-uppercase text-center"}}</li>
+        {{/if}}
+        {{#if (has-company-permission 'manageStaff')}}
+          <li>{{link-to "members" "company.edit.member" class="text-uppercase text-center"}}</li>
+        {{/if}}
+        {{#if (has-company-permission 'manageStaff')}}
+          <li>{{link-to "roles" "company.edit.role" class="text-uppercase text-center"}}</li>
+        {{/if}}
+        {{#if (has-company-permission 'manageStaff')}}
+          <li>{{link-to "invites" "company.edit.invite" class="text-uppercase text-center"}}</li>
+        {{/if}}
+        {{#if (has-company-permission 'manageBrands')}}
+          <li>{{link-to "brands" "company.edit.brands" class="text-uppercase text-center"}}</li>
+        {{/if}}
+      </ul>
+    </div>
+    <div class="right-panel">
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          {{yield}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

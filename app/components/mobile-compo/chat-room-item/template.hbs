@@ -1,0 +1,8 @@
+{{#side-menu-link-to 'brand.edit.chat.details' room.brand.id room.id}}
+  #{{room.name}}
+  {{#if unreadCount}}
+  <span class="count">
+    {{unreadCount}}
+  </span>
+  {{/if}}
+{{/side-menu-link-to}}

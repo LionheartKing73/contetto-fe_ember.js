@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Post Type</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select-multiple options=netTypes selected=selectedNetworkTypes placeholder="Select type(s)" onchange=(action "changeNetworkTypes") as |networkType| }}
+      {{networkType.name}}
+    {{/power-select-multiple}}
+  </div>
+</div>

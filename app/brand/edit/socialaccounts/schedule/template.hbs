@@ -1,0 +1,40 @@
+<div class="tab-content">
+  <div class="tab-pane active account-schedulepage">
+     <h3 class="model-heading text-center">Schedule</h3>
+     <h1>Recurring Schedule - {{model.account.platform}}: {{model.account.title}}</h1>
+     <p>Contetto recommends that each social account be configured with a recurring weekly schedule. This allows Contetto to alert you when you are not posting enough, as well as automatically schedule your posts.</p>
+     <p>We divide the types of posts you create on social media into two types:
+         <UL>
+             <li><strong>General</strong>: General posts are the kind that you create in order to get people to respond or <em>engage</em> with the post in some way. These types of posts should not be trying to sell something, simply providing valuable - or entertaining - information to your followers. On most social networks, engagement is very valuable for multiple reasons. Engagement will make your post (and brand) more visible to your followers and their friends. This helps with brand amplification and follower growth.</li>
+             <li><strong>Sales</strong>: Sales posts usually involve an effort to sell or generate leads. They discuss a product or service - directly or indirectly - and typically have a Call to Action that will allow you to engage with or directly sell to qualified leads or buyers.</li>
+         </UL>
+     </p>
+     <p>These two types of posts are scheduled at a different time and frequency, since there are better times to post marketing type materials - and these posts should be less frequent, and strongly buffered, by engaging posts.</p>
+     <p>Based on the type of network your social account is, we offer a basic recurring schedule that we recommend to get the most out of your account. You can edit this or disable it (by removing all the times) below. </p>
+
+   
+
+     <div class="table-responsive">
+     
+    <div>
+     <h2>General Post Schedule</h2>
+     <p>These are times you will be prompted to have general/engaging content ready for each week.</p>
+     
+    {{socialaccount-schedulemanager account=model.account networkType=model.general scheduleaddAction="addTime" removeAction="removeTime"}}
+     	
+     </div>
+     
+         
+     
+   
+    <div>
+     <h2>Sales Post Schedule</h2>
+     <p>These are times you will be prompted to have sales/marketing content ready for each week.</p>
+     
+     {{socialaccount-schedulemanager account=model.account networkType=model.sales addAction="addTime" removeAction="removeTime"}}
+     	
+     </div>
+     
+  </div>
+</div>
+</div>

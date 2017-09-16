@@ -1,0 +1,51 @@
+<form class="p-a-1" autocomplete="off">
+  <div class="form-group">
+    <label>Role name</label> {{one-way-input changeset.name class="form-control" disabled=changeset.isNotEditable update=(action (mut changeset.name))}}
+
+    {{#each changeset.error.name.validation as |error|}}
+      <span class="help-block error">{{error}}</span>
+    {{/each}}
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+
+      {{#if (has-company-permission 'administrator')}}
+        <div class="checkbox">
+          <label>
+          {{one-way-checkbox changeset.administrator update=(action (mut changeset.administrator)) disabled=changeset.isNotEditable}} Administrator {{field-description title="Users with this permission are able to change things related to billing/plan/limits and ultimately delete the company if wanted."}}
+        </label>
+        </div>
+      {{/if}}
+      <div class="checkbox">
+        <label>
+          {{one-way-checkbox changeset.manageBrands update=(action (mut changeset.manageBrands)) disabled=changeset.isNotEditable}} Manage Brands {{field-description title="Ability to add/remove brands and brand members."}}
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          {{one-way-checkbox changeset.manageStaff update=(action (mut changeset.manageStaff)) disabled=changeset.isNotEditable}} Manage Staff {{field-description title="Ability to add/remove staff members and edit/create roles."}}
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          {{one-way-checkbox changeset.manageCompanyDetails update=(action (mut changeset.manageCompanyDetails)) disabled=changeset.isNotEditable}} Manage Company Details {{field-description title="Ability to update basic company profile settings."}}
+        </label>
+      </div>
+
+
+
+    </div>
+
+  </div>
+  {{#if changeset.isEditable}}
+    <div class="submit-btn ml-20">
+      <button type="submit" class="btn btn-success pull-right text-uppercase" {{action "save" changeset}} disabled= {{isSubmitted}}>
+        {{if isSubmitted "Saving..." "Save"}}
+      </button>
+
+      <button type="reset" class="btn btn-default pull-right text-uppercase" {{action "cancel" changeset}} disabled= {{isSubmitted}}>
+        Cancel
+      </button>
+    </div>
+  {{/if}}
+</form>

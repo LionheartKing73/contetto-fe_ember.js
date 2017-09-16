@@ -1,0 +1,30 @@
+<h4>Review Channel Configuration</h4>
+<p>Add the Steps in the order that you want posts to be reviwed. Activate this review channel by selecting it in your social account's settings (Brand Settings &gt; Social Accounts &gt; Settings).</p>
+
+<div class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-md-2">Name* :</label>
+
+    <div class="col-md-8">
+      {{one-way-input changeset.name update=(action (mut changeset.name)) placeholder="Review Channel Name" id="channel-name" class="form-control"}}
+
+      {{#each changeset.error.name.validation as |error|}}
+        <span class="help-block text-left error">{{error}}</span>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+<button class='btn btn-primary btn-md m-t-1' {{action 'addStep'}}>Add Step</button>
+
+{{#each changeset.error.steps.validation as |error|}}
+  <span class="help-block text-left pull-right error">{{error}}</span>
+{{/each}}
+
+{{#each sortedSteps as |step|}}
+  {{brand-compo/channel/step/form changeset=step brand=model.brand department=model.department addMember=(action 'addMember') removeMember=(action 'removeMember') removeStep=(action 'removeStep')}}
+{{/each}}
+<br/><br/>
+<div class="well text-center">
+  <button class='btn btn-success btn-lg' {{action 'save' changeset}}>Save Review Channel</button>
+</div>

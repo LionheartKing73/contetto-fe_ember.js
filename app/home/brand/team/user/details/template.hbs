@@ -1,0 +1,21 @@
+<div class="row">
+        <div class="col-md-3 col-sm-12 reviewfow_tabs">
+          {{brand-team-tab isTeamDetailsActive=model.isTeamDetailsActive member=model.member}}
+        </div>
+        
+        <div class="col-md-9 col-sm-12">
+         <div class="tab-content">
+            <div class="tab-pane active team_detailpage">
+                <ul>
+                  <li><strong>Name: </strong> {{model.member.user.fullName}}</li>
+                  <li><strong>Address: </strong> {{model.member.user.address}}</li>
+                  <li><strong>City & Postal: </strong> {{model.member.user.city}} {{model.member.user.postalCode}}</li>
+                  <li><strong>Phone Number: </strong> {{model.member.user.phoneNumber}}</li>
+                  <li><strong>Email: </strong> {{model.member.user.email}}</li>
+                  <li><strong>Mail Company: </strong> {{model.member.brand.company.name}}</li>
+                  <li><strong>Role: </strong> {{model.member.brandRole.name}} &nbsp; &nbsp; {{#link-to 'brand.edit.team.user.edit' model.member.id class="text-primary"}}Change{{/link-to}}</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+</div>

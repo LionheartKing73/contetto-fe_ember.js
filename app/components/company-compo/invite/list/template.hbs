@@ -1,0 +1,29 @@
+<H3>Pending Invitations</H3>
+<P>Manage the pending invitations to join this company.</P>
+{{#if (has-company-permission 'manageStaff')}}
+  <div class="col-xs-12 m-b-1">
+    {{#link-to 'company.edit.invite.add' class='btn btn-success pull-right text-uppercase' }}Invite User{{/link-to}}
+  </div>
+{{/if}}
+
+{{#if invites.length}}
+  <table class="table table-responsive">
+    <thead>
+      <tr class="text-uppercase">
+        <th>Name</th>
+        <th>Role</th>
+        <th>Status</th>
+        {{#if (has-company-permission 'manageStaff')}}
+          <th>Action</th>
+        {{/if}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each invites as |invite|}}
+        {{company-compo/invite/list/item model=invite}}
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p align="center">No results found!</p>
+{{/if}}

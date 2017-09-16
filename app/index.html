@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Contetto</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    {{content-for "head"}}
+  
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/contetto.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/stylesheets/outdatedbrowser.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,300,700">
+    <link rel="manifest" href="{{rootURL}}manifest.json">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+    <div id="outdated">
+      <h6>Your browser is out-of-date!</h6>
+      <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+      <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    {{content-for "body"}}
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDwtv02LPFMbjqw6o1C1Xj-JKwTLBVWgwU",
+    authDomain: "contetto-f2a5c.firebaseapp.com",
+    databaseURL: "https://contetto-f2a5c.firebaseio.com",
+    projectId: "contetto-f2a5c",
+    storageBucket: "contetto-f2a5c.appspot.com",
+    messagingSenderId: "519204338860"
+  };
+  firebase.initializeApp(config);
+  /*// Give the service worker access to Firebase Messaging.
+// Note that you can only use Firebase Messaging here, other Firebase libraries
+// are not available in the service worker.
+importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
+
+// Initialize the Firebase app in the service worker by passing in the
+// messagingSenderId.
+firebase.initializeApp({
+  'messagingSenderId': '519204338860'
+});
+
+// Retrieve an instance of Firebase Messaging so that it can handle background
+// messages.
+const messaging = firebase.messaging();*/
+const messaging = firebase.messaging();
+messaging.onMessage(function(payload) {
+ // console.log("Message received. ", payload);
+  // ...
+});
+</script>
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/contetto.js"></script>
+    <script src="{{rootURL}}assets/javascripts/outdatedbrowser.min.js"></script>
+
+    {{content-for "body-footer"}}
+
+    <script type="text/javascript">
+      //event listener: DOM ready
+     /* function addLoadEvent(func) {
+        var oldonload = window.onload;
+        if (typeof window.onload != 'function') {
+          window.onload = func;
+        } else {
+          window.onload = function() {
+            if (oldonload) {
+              oldonload();
+            }
+            func();
+          }
+        }
+      }*/
+      //call plugin function after DOM ready
+    /*  addLoadEvent(function(){
+        outdatedBrowser({
+          bgColor: '#f25648',
+          color: '#ffffff',
+          lowerThan: 'transform'
+        })
+      });*/
+    </script>
+<script type="text/javascript" src="https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js"></script>
+<script type="text/javascript">
+	FreshWidget.init("", {"queryString": "&widgetType=popup&searchArea=no", "utf8": "✓", "widgetType": "popup", "buttonType": "text", "buttonText": "Support", "buttonColor": "white", "buttonBg": "#006063", "alignment": "2", "offset": "235px", "formHeight": "500px", "url": "https://support.contetto.com"} );
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-99895083-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script src="{{rootURL}}assets/javascripts/image-resize.min.js"></script>
+  </body>
+</html>
+ 

@@ -1,0 +1,57 @@
+<div class="all-menus {{if session.isTopOpened "opened"}}">
+  <div class="company_tabs_wrapper">
+    <div class="company_tabs">
+      <ul>
+        {{#each model as |company|}}
+          {{#unless company.isNew}}
+            <li>
+              {{#link-to "company.edit" company.id}}
+                <span class="ellipsis">
+                  {{#if company.logo}}
+                    <img src={{company.logo}} class="img-circle" width="25" height="25" alt="logo" />
+                  {{else}}
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                  {{/if}}
+                  {{company.name}}
+                </span>
+              {{/link-to}}
+            </li>
+          {{/unless}}
+        {{/each}}
+
+        <li class="add">
+          {{#link-to "setup"}}
+            <span><i class="fa fa-plus"></i></span>
+          {{/link-to}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="green_tabs">
+    {{brand-compo/tab-list brands=session.company.brands}}
+    <ul class="settings_tab">
+      {{#if session.brand.id}}
+        <li>
+          {{link-to "Brand Settings" "brand.edit.details" session.brand.company.id session.brand.id}} {{field-description title="Manage the majority of your settings here. Configure timezone, social accounts, products, team members, review channels, departments, categories and more."}}
+        </li>
+      {{/if}}
+
+      {{#if session.company.id}}
+        <li>
+          {{link-to "Company Settings" "company.edit.details" session.company.id}} {{field-description title="Configure company settings such as billing/plan details, company roles and company team members."}}
+        </li>
+        
+      {{/if}}
+      {{#if (and session.brand.id session.currentBrandRole.managePosts )}}
+        <li><div class="btn-group btn-group-sm" role="group" aria-label="..."> 
+              <button class="btn btn-social"  {{action 'quickPost'}}><i class="fa fa-share-square-o" aria-hidden="true"></i> Social Post</button>
+              <button class="btn btn-wordpress" {{action 'quickBlog'}}><i class="fa fa-wordpress" aria-hidden="true"></i> Blog Post</button>
+            </div>
+           
+        </li>
+      
+      {{/if}}
+      </ul>
+  </div>
+</div>
+ 

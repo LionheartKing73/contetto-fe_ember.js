@@ -1,0 +1,43 @@
+<div class="panel-heading">
+  <ul class="seasonalUl">
+    <li><i class="fa fa-lg fa-facebook-square" aria-hidden="true"></i> {{!-- Seasonal Tires Facebook --}}</li>
+    <li class="pull-right"> {{moment-format post.start 'lll'}}</li>
+  </ul>
+</div>
+<div class="panel-body">
+  <ul class="byUl">
+    <li>Type: {{post.type}}</li>
+    <li>Status: {{post.status}} </li>
+  </ul>
+  <div class="row">
+    <div class="col-md-9 col-sm-7">
+      <p>{{html-safe post.title}}</p>
+      <div class="campaignDiv">
+        <ul>
+          <li>
+            Campaign:
+              {{#if post.campaignTitle}}
+                {{post.campaignTitle}}
+              {{else}}
+                No Campaign
+              {{/if}}
+          </li>
+          <li>
+            Category:
+              {{#if post.category}}
+                {{post.category}}
+              {{else}}
+                NO category
+              {{/if}}
+          </li>
+        </ul>
+        {{!-- <p>#tag #tag #tag more...</p> --}}
+
+      </div>
+
+    </div>
+    <div class="col-md-3 col-sm-5 pMarginNegative">
+      <ul class="panelRightUl"><li><a class="tickIcon" href="javascript:void()"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a></li><li><a class="crossIcon" href="javascript:void()"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></li><li><a class="minusIcon" href="javascript:void()"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></a></li><li><a class="btnBorder" href="javascript:void()">1K Likes</a></li><li><a class="btnBorder" href="javascript:void()">30 Shares</a></li><li><a class="btnBorder" href="javascript:void()">Post Goal Met</a></li></ul>
+    </div>
+  </div>
+</div>

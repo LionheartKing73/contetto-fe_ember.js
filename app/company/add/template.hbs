@@ -1,0 +1,14 @@
+<div class="default-model">
+  <div class="modelbox-body">
+    <div class="right-panel">
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          {{company-compo/form model=model
+                               changeset=(changeset model.company model.CompanyValidations)
+                               transitionTo=(route-action "transitionTo")}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

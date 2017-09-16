@@ -1,0 +1,37 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <td>Old Plan</td>
+      <td>{{subscription.plan.name}}: {{subscription.plan.priceWithUnits}}</td>
+    </tr>
+    <tr>
+      <td>New Plan</td>
+      <td>{{newPlan.name}}: {{newPlan.priceWithUnits}}</td>
+    </tr>
+    <tr>
+      <td>Price Difference</td>
+      <td>{{priceDiff}}</td>
+    </tr>
+    <tr>
+      <td><i>Total days: {{totalDays}}</i></td>
+      <td>{{priceDiff}}</td>
+    </tr>
+    <tr>
+      <td><i>Proration Days: {{prorationDays}}</i></td>
+      <td>${{outstandingPlanPrice}}</td>
+    </tr>
+    {{#if subscription.coupon}}
+      <tr>
+        <th colspan="2"><b>Coupon</b></th>
+      </tr>
+      <tr>
+        <td>{{subscription.coupon.perks}}</td>
+        <td>-${{discountOnOutstandingPlanPrice}}({{subscription.discount}})</td>
+      </tr>
+    {{/if}}
+    <tr>
+      <th>Total</th>
+      <th>${{couponedOutstandingPlanPrice}}</th>
+    </tr>
+  </tbody>
+</table>

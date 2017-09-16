@@ -1,0 +1,43 @@
+<div class="main-center wrps-dtls">
+  <div class="row wrap-main-2">
+    <div class="wrapes-inbox">
+		{{page-options title="Company Invites"}}
+    </div>
+    <div class="default-model">
+      {{#if waitingInvites.length}}
+          <table class="table table-responsive">
+          <thead>
+          <tr class="text-uppercase">
+              <th>Email</th>
+              <th>Role</th>
+              <th>Company</th>
+              <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+              {{#each waitingInvites as |invite|}}
+              <tr>
+                  <td>{{invite.email}}</td>
+                  <td><u>{{invite.role.name}}</u></td>
+                  <td><u>{{invite.company.name}}</u></td>
+                  <td>
+                    <button type="button"
+                            class="btn btn-sm btn-success" {{action 'acceptInvite' invite}}>
+                      Accept
+                    </button>
+                    <button type="button"
+                            class="btn btn-sm btn-warning" {{action 'rejectInvite' invite}}>
+                      Reject
+                    </button>
+                  </td>
+              </tr>
+              {{/each}}
+          </tbody>
+          </table>
+      {{else}}
+          <p align="center">No results found!</p>
+      {{/if}}
+    </div>
+    <!-- </div class="main-center"> -->
+  </div>
+</div>

@@ -1,0 +1,9 @@
+{{#if subscription.company.isTrial}}
+  You are currently enjoying the free trial. The trial period started on {{company.formatStartDate}}. The trial period will end on {{company.trialEndDate}}. You have selected {{subscription.plan.name}}.
+{{/if}}
+{{#if subscription.planChange}}
+  The current plan is {{subscription.plan.name}}. This plan will end on {{subscription.currentPlanEndDate}}. You have changed the plan to {{subscription.changedPlan.name}}. This new plan
+  will be in effect from {{subscription.nextPlanStartDate}}.
+  If you wish to continue with {{subscription.plan.name}} instead of {{subscription.changedPlan.name}}.Please remove it.
+  <button class="btn btn-primary" {{action 'removeChangedPlan'}}>Remove</button>
+{{/if}}

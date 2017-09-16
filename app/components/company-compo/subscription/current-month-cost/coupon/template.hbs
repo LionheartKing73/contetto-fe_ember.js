@@ -1,0 +1,9 @@
+{{#if subscription.coupon.id}}
+  <div id="coupons">
+    {{#if subscription.currentMonthApplied}}
+      <b>Your coupon is applicable this month. As a result, you get {{subscription.coupon.offer}}</b>
+    {{else}}
+      <b>Your coupon is not applicable this month.</b>
+    {{/if}}
+  </div>
+{{/if}}

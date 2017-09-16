@@ -1,0 +1,31 @@
+{{#if hasSchedule}} 
+    {{#if multiAccount}}
+     
+    			
+    			
+    		Post to social accounts
+                {{#power-select
+                  selected=multiModeItem
+                  options=multiModes
+                  onchange=(action "setMulti")
+                  as |mode|
+                }}
+                  {{mode.name}}
+                {{/power-select}}
+    		{{#if multiMode}}
+    			{{#each changeSet.postingSchedules as |postSchedule|}}
+    				{{post-editor/post-scheduling/editor setSpecified=(action 'setSpecified') updateWarnings=updateWarnings hasTeam=hasTeam assigning=assigning hasPending=hasPending postingScheduleModes=postingScheduleModes  setMultiAccount=setMultiAccount setMulti=(action 'setMulti') multiMode=multiMode deleted=deleted  scheduleIsMulti=scheduleIsMulti schedulePostMode=schedulePostMode scheduleAllNow=scheduleAllNow scheduleAllAuto=scheduleAllAuto mode="individual" allNowAction=(action "allNowAction") child-registry=children postSchedule=postSchedule changeSet=changeSet networkType=changeSet.networkType}}	
+    			{{/each}}
+    		{{else}}
+    			{{post-editor/post-scheduling/editor setSpecified=(action 'setSpecified') updateWarnings=updateWarnings hasTeam=hasTeam assigning=assigning hasPending=hasPending postingScheduleModes=postingScheduleModes  setMultiAccount=setMultiAccount setMulti=(action 'setMulti') multiMode=multiMode deleted=deleted scheduleLastTime=scheduleLastTime scheduleIsMulti=scheduleIsMulti schedulePostMode=schedulePostMode scheduleAllNow=scheduleAllNow scheduleAllAuto=scheduleAllAuto  mode="bulk" allNowAction=(action "allNowAction") child-registry=children  changeSet=changeSet networkType=changeSet.networkType}}
+    		{{/if}}
+    {{else}}
+    		{{#each changeSet.postingSchedules as |postSchedule|}}
+    		  {{post-editor/post-scheduling/editor setSpecified=(action 'setSpecified') updateWarnings=updateWarnings hasTeam=hasTeam assigning=assigning hasPending=hasPending postingScheduleModes=postingScheduleModes  setMultiAccount=setMultiAccount  setMulti=(action 'setMulti') multiMode=multiMode deleted=deleted  scheduleLastTime=scheduleLastTime scheduleIsMulti=scheduleIsMulti schedulePostMode=schedulePostMode scheduleAllNow=scheduleAllNow scheduleAllAuto=scheduleAllAuto mode="individual" allNowAction=(action "allNowAction") changeSet=changeSet networkType=changeSet.networkType postSchedule=postSchedule}}
+        {{/each}}
+    {{/if}}
+     
+{{else}}
+    Please select an account.
+{{/if}}
+{{post-editor/post-scheduling/warnings setSpecified=(action 'setSpecified') changeSet=changeSet}}

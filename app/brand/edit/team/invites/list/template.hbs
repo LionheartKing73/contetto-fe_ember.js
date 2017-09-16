@@ -1,0 +1,35 @@
+{{#if model.invites.length}}
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped text-center">
+      <tbody>
+        <tr class="text-uppercase">
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          {{#if (has-brand-permission 'manageTeam')}}
+          <th>Action</th>
+          {{/if}}
+        </tr>
+        {{#each model.invites as |invite|}}
+          <tr>
+            <td>{{invite.email}}</td>
+            <td>{{#link-to 'brand.edit.team.roles.edit' invite.brandRole.id class='text-primary'}}<u>{{invite.brandRole.name}}</u>{{/link-to}}</td>
+            <td>{{invite.status}}</td>
+            {{#if (has-brand-permission 'manageTeam')}}
+            <td>
+              <span {{action "cancelInvite" invite }} class="text-danger"><u>Remove</u></span>
+            </td>
+            {{/if}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{else}}
+  <p align="center">There are no pending invitations.</p>
+{{/if}}
+{{#if (has-brand-permission 'manageTeam')}}
+<div class="center-block submit-btn">
+  {{#link-to "brand.edit.team.invite" class="btn btn-success  text-uppercase" }}Add User{{/link-to}}
+</div>
+{{/if}}

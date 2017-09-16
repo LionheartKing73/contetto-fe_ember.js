@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Draft Status</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select options=draftOptions selected=draftSelected placeholder="Draft Status" onchange=(action "changeDraft") as |draftOption| }}
+      {{draftOption.name}}
+    {{/power-select}}
+  </div>
+</div>

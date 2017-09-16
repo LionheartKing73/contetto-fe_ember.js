@@ -1,0 +1,36 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+    <div class="col-md-12">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="name" class="col-md-3 control-label">Name</label>
+          <div class="col-md-9">
+            {{one-way-input changeset.name placeholder='Product Group Name' name='name' id='name' class='form-control' update=(action (mut changeset.name)) }}
+
+            {{#each changeset.error.name.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description" class="col-md-3 control-label">Description</label>
+          <div class="col-md-9">
+            {{one-way-input changeset.description placeholder='Product Group Description' name='description' id='description' class='form-control' update=(action (mut changeset.description)) }}
+
+            {{#each changeset.error.description.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="button" class="btn btn-success text-uppercase" disabled= {{disableSave}} {{action 'save' changeset}}>
+
+               {{if isSaving 'Saving..' 'Save'}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

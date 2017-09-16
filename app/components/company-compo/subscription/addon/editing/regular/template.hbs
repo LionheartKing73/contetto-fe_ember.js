@@ -1,0 +1,26 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Addon Type</th>
+      <th>Perks(per unit)</th>
+      <th>Price(per unit)</th>
+      <th>Quantity(original)</th>
+      <th>Quantity(editable)</th>
+      <th>Total Perks(after editing)</th>
+      <th>Total Price(after editing)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each editableSubscriptionAddons.addons as |addon|}}
+      <tr>
+        <td>{{addon.name}} addon</td>
+        <td>{{addon.unitPerks}}</td>
+        <td>{{addon.unitPrice}}</td>
+        <td>{{addon.count}}</td>
+        <td>{{one-way-input addon.newCount type="number" min="0" step="1" update=(action (mut addon.newCount))}}</td>
+        <td>{{addon.newPerks}}</td>
+        <td>{{addon.newPrice}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

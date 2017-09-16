@@ -1,0 +1,115 @@
+.no-messages {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.wrapes-inbox {
+  background-color: #42c8ad;
+  padding: 10px 10;
+
+  ul li {
+    color: #333;
+    display: inline-block;
+    font-weight: 300;
+    list-style: outside none none;
+    padding: 0 16px;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  p {
+    color: #fff;
+    font-size: 13px;
+    padding: 12px;
+  }
+}
+
+.wrapes-inbox a {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.outbox {
+  .date-filter {
+    input {
+      display: inline-block;
+    }
+  }
+}
+
+.inbox {
+  .left-filters {
+    .filter-section {
+      margin-bottom: 10px;
+    }
+  }
+
+  .date-filter {
+    margin-right: 10px;
+  }
+
+  .date-filter,
+  .page-filter {
+    input {
+      display: inline-block;
+    }
+  }
+
+  .inbox-list,
+  .roomList {
+    padding: 10px 0;
+
+    .inboxItem {
+      display: table;
+      width: 100%;
+      padding: 5px 0;
+
+      .inboxItem-title {
+        background-color: #efefef;
+        padding: 0 10px;
+        margin-bottom: 10px;
+      }
+
+      .message-wrapper {
+        .message-left {
+          padding: 5px;
+          width: 100px;
+        }
+
+        .message-right {
+          padding: 5px;
+          width: calc(100% - 100px);
+
+          .message-contents {
+            margin-bottom: 10px;
+          }
+        }
+      }
+
+      .send-box {
+        .reply-wrapper {
+          width: calc(100% - 101px);
+        }
+
+        textarea.reply {
+          width: 100%;
+          height: 34px;
+        }
+      }
+    }
+  }
+}
+.msg-images{
+  img{
+    width: 100px;
+    height: 100px;
+  }
+  .lazy-image-container{
+    width: 100px;
+    min-height: 100px;
+    height: 100px;
+  }
+}

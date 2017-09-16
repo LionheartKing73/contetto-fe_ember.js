@@ -1,0 +1,22 @@
+<div id="coupons">
+  <div class="description d-inline-block">
+    <b>Got any coupon code? Enter here</b>
+  </div>
+  <div class="code d-inline-block">
+    <div class="input d-inline-block">
+      {{input type="text" value=couponCode}}
+    </div>
+    <div class="submit d-inline-block">
+      <a class="btn btn-success" disabled= {{not couponEntered}} {{action 'validateCode'}}>Submit</a>
+      <a class="btn btn-danger" disabled= {{not subscription.coupon.id}} {{action 'removeCoupon'}}>Remove</a>
+    </div>
+    <div class="message d-inline-block {{codeMessageClass}}">
+      {{codeMessage}}
+    </div>
+  </div>
+  {{#unless couponApplicable}}
+    <div class="text-danger">
+      {{couponApplyMessage}}
+    </div>
+  {{/unless}}
+</div>

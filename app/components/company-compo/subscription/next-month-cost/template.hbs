@@ -1,0 +1,6 @@
+<h4>Next month</h4>
+{{#if company.isTrial}}
+  {{company-compo/subscription/next-month-cost/trial subscription=subscription company=company}}
+{{else}}
+  {{company-compo/subscription/next-month-cost/regular subscription=subscription company=company}}
+{{/if}}

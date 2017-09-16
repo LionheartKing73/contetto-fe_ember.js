@@ -1,0 +1,24 @@
+.dashboard-charts {
+  .date-filters {
+    .pull-right {
+      margin-right: 10px;
+    }
+    .datepick {
+      display: inline-block;
+    }
+  }
+
+  .chart {
+    min-height: 50%;
+
+    > .chart-wrapper {
+      margin: 10px 0px;
+      border: 1px solid #dddddd;
+      border-radius: 3px;
+      background-color: #f9f9f9;
+
+      .highcharts-wrapper {
+      }
+    }
+  }
+}

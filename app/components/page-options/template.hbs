@@ -1,0 +1,14 @@
+<p class="inbox">
+  {{bread-crumbs tagName="span" linkable=false crumbClass="breadcrumb-item"}}
+  
+  
+  <ul class="pull-right">
+    <li>{{route.name}}</li>
+  
+    <li><a href="https://support.contetto.com" target=_blank>Help</a></li>
+    <li class=mobileOnly> <a {{action 'quickpost'}}>Social Post</a></li>
+    <li class=mobileOnly> <a {{action 'quickblog'}}>Write Blog</a></li>
+    <li><a {{action 'support'}} href="#"><i class="fa fa-ticket" aria-hidden="true"></i></a></li>
+    {{yield}}
+  </ul>
+</p>

@@ -1,0 +1,17 @@
+<div class="row">
+        <div class="col-md-3 col-sm-12 reviewfow_tabs">
+          <ul class="nav nav-tabs" role="tablist">
+	          <li class="{{if model.isTeamUsersActive 'active'}}">{{#link-to "brand.edit.team.list" class="text-uppercase text-center"}}Users{{/link-to}}</li>
+            <li class="{{if model.isTeamRolesActive 'active'}}">{{#link-to "brand.edit.team.roles.list" class="text-uppercase text-center"}}Roles{{/link-to}}</li>
+	          <li class="{{if model.isTeamInvitesActive 'active'}}">{{#link-to "brand.edit.team.invites.list" class="text-uppercase text-center"}}Invites{{/link-to}}</li>
+          </ul>
+        </div>
+
+        <div class="col-md-9 col-sm-12">
+         <div class="tab-content">
+            <div class="tab-pane active teamlist-page">
+              	{{outlet}}
+            </div>
+          </div>
+        </div>
+</div>

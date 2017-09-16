@@ -1,0 +1,14 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#unless inline}}
+    {{input type="text" class="form-control" disabled=disabled name=textFieldName placeholder=placeholder}}
+  {{else}}
+    <div class="inline-target"></div>
+  {{/unless}}
+{{/if}}
+{{#unless (or noIcon inline)}}
+  <span class="input-group-addon">
+    <span class="{{dateIcon}}"></span>
+  </span>
+{{/unless}}

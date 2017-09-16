@@ -1,0 +1,15 @@
+{{#company-compo/tabs openTab='details' }}
+  {{#if (has-not-company-permission 'manageCompanyDetails')}}
+    {{#if (has-not-company-permission 'manageStaff')}}
+      {{#if (has-not-company-permission 'manageBrands')}}
+        <div class="no-company-permission">You do not have permission to access this page.</div>
+      {{else}}
+        {{company-compo/form model=model changeset=model.changeset transitionTo=(route-action "transitionTo")}}
+      {{/if}}
+    {{else}}
+      {{company-compo/form model=model changeset=model.changeset transitionTo=(route-action "transitionTo")}}
+    {{/if}}
+  {{else}}
+    {{company-compo/form model=model changeset=model.changeset transitionTo=(route-action "transitionTo")}}
+  {{/if}}
+{{/company-compo/tabs}}

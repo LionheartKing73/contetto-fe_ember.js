@@ -1,0 +1,24 @@
+{{#if session.company.id}}
+  {{#if session.brand.id}}
+    <div class='chatAside'>
+
+
+
+      {{#power-select options=sortedRooms selected=activeRoom onchange=(action 'setRoom') placeholder="Select Chat Room" as |room|}}
+        {{room.friendlyName}}
+      {{/power-select}}
+
+
+      {{#each boxOpenChats as |chatRoom|}}
+        <div class="micro-chat-aside-wrapper">
+
+          {{micro-chat room=chatRoom offset=chatRoom.offset closeAction=(action 'closeMC')}}
+        </div>
+      {{/each}}
+
+    </div>
+  {{/if}}
+  <div style='display:none'>
+    {{roomUpdate}}
+  </div>
+{{/if}}

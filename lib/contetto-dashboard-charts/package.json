@@ -1,0 +1,19 @@
+{
+  "name": "contetto-dashboard-charts",
+  "version": "0.0.1",
+  "repository": "contetto-dashboard-charts",
+  "license": "MIT",
+  "description": "An internal addon used by contetto for displaying charts in dashboard",
+  "keywords": [
+    "ember-addon",
+    "ember-engine"
+  ],
+  "dependencies": {
+    "broccoli-sass": "^0.6.0",
+    "broccoli-merge-trees": "^1.1.1",
+    "ember-cli-babel": "^5.1.7",
+    "ember-cli-htmlbars": "^1.1.1",
+    "ember-cli-htmlbars-inline-precompile": "^0.3.6",
+    "ember-one-way-controls": "2.0.0"
+  }
+}

@@ -1,0 +1,92 @@
+<div role="tabpanel" class="tab-pane active review-department-page">
+  <div class="tab-pane active">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-md-4 col-sm-5">Name: {{field-description title="Internal Use - Name this department"}}</label>
+        <div class="col-md-8 col-sm-7">
+          {{one-way-input changeset.name placeholder='Department Name' name='name' id='name' class='form-control' update=(action (mut changeset.name)) }}
+
+          {{#each changeset.error.name.validation as |error|}}
+            <span class="help-block text-left error">{{error}}</span>
+          {{/each}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-4 col-sm-5">Review Time (Hours): {{field-description title="The amount of time required for members of this department to review a post (in hours).<br/><br/> When a post is being created for a social account that utilizes Review Channels, the sum of this value from all of it's departments is used to warn you if you select a scheduled time that is too soon.<br/><br/>The sum of this value in all of the steps of a Review Channel is also used to recommend an Automatic time far enough in the future to make it through all of the review steps."}}</label>
+        <div class="col-md-8 col-sm-7">
+          {{every-x-hours-selector value=(hash id=changeset.reviewTime) id='reviewTime' name="reviewTime" update=(action (mut changeset.reviewTime))}}
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-4 col-sm-5">Duties: {{field-description title="Assign duties to this department to make the manager (and members) responsible for certain functions within this brand.<br/><br/><strong>Posting Schedule Management</strong> - This duty keeps the members of this department informed of any post that is not ready on time due to pending assignments or review channel steps that are not completed."}}</label>
+        <div class="col-md-8 col-sm-7">
+          {{#power-select-multiple searchField="name" options=model.duties selected=changeset.duties placeholder="Select duties" onchange=(action (mut changeset.duties)) as |duty|}}
+            {{duty.name}}
+          {{/power-select-multiple}}
+
+
+          {{#each changeset.error.duties.validation as |error|}}
+            <span class="help-block text-left error">{{error}}</span>
+          {{/each}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-4 col-sm-5">Members: {{field-description title="Select team members that belong to this department and designate a team members as the manager of this department."}}</label>
+        <div class="col-md-8 col-sm-7">
+          {{#each changeset.error.departmentMembers.validation as |error|}}
+            <span class="help-block text-left error">{{error}}</span>
+          {{/each}}
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Manager {{field-description title="The manager of this department is kept informed of incomplete assignments and issues related to the department's duties."}}</th>
+                      <th>User</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each model.departmentMembers as |member|}}
+                      <tr>
+                        <td>
+                          {{one-way-radio value=manager.id name="department_manager" option=member.id update=(action (mut manager))}}
+                        </td>
+                        <td>
+                          {{one-way-select member.user prompt="Select member" name='manager' class='form-control' optionValuePath="id" optionLabelPath="fullName" promptIsSelectable=true options=model.members update=(action (mut member.user)) }}
+
+                          {{#each member.error.user.validation as |error|}}
+                            <span class="help-block text-left error">{{error}}</span>
+                          {{/each}}
+                        </td>
+                        <td><a class="btn btn-danger btn-xs" href="#" {{action 'removeMember' member}}>Remove</a></td>
+                      </tr>
+                    {{/each}}
+                    <tr>
+                      <td colspan="3">
+                        <button class="btn btn-success pull-right" {{action 'addMember'}}>Add Member</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-4 col-sm-5">&nbsp;</label>
+        <div class="col-md-8 col-sm-7">
+          <div class="well text-center">
+            <button type="button" class="btn btn-lg btn-success text-uppercase" {{action 'save' changeset}}>
+
+             {{if isSaving 'Saving..' 'Save Department'}}
+          </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

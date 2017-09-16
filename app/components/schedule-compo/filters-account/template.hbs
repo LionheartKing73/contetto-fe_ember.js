@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Social Account</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select-multiple options=brand.socialAccounts selected=selectedAccounts placeholder="Select account(s)" onchange=(action "changeAccounts") as |account| }}
+      <i class="fa fa-{{account.platform}}"></i> {{account.title}}
+    {{/power-select-multiple}}
+  </div>
+</div>

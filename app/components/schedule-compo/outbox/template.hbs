@@ -1,0 +1,91 @@
+<div id="outbox-room">
+  <section id="myBrand">
+    <div class="padding-container" id="outbox-container">
+      <div class="row">
+        <div class="box-tab">
+          <a href="#" class="nav-tabs-dropdown btn btn-block green btn-big-mob">Tabs</a>
+          <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal">
+            <li class="active"><a data-toggle="tab" href="#outbox">OUTBOX</a></li>
+            <li class="pull-right">
+              <ul class="filters list-inline" id="quick-filters">
+                <li>Quick Filters :</li>
+                <li><a {{action 'viewDrafts'}} id="mydraft">My Draft</a></li>
+                <li><a {{action 'viewSending'}} id="sending">Sending</a></li>
+                <li><a {{action 'viewReview'}} id="review">Review</a></li>
+                <li><a {{action 'viewSent'}} id="sent">Sent</a></li>
+                <li><a {{action 'clearFilters'}}>Clear Filters</a></li>
+                <li><a {{action 'advancedToggle'}}>Advanced Filters</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div id="outbox" class="tab-pane fade in active">
+              <div class="row">
+                <div class="col-md-3" id="advance-filters-cols">
+                  <div class="dropdown">
+                    <button class="btn btn-grey dropdown-toggle hidden-md hidden-lg btn-big-mob" id="menu1" type="button" data-toggle="dropdown">
+                      Filters <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" role="menu" aria-labelledby="menu1" id="advanced-filters">
+                      {{schedule-compo/tz brand=brand selectedTZ=selectedTZ updateTZ=(action "updateTZ")}} {{schedule-compo/filters-account brand=brand selectedAccounts=selectedAccounts updateAccounts=(action "updateAccounts")}}
+                      {{schedule-compo/filters-networkType brand=brand
+                      selectedNetworkTypes=selectedNetworkTypes updateNetworkTypes=(action "updateNetworkTypes")}}
+                      {{schedule-compo/filters-campaign brand=brand selectedCampaigns=selectedCampaigns updateCampaigns=(action "updateCampaigns")}}
+                      {{schedule-compo/filters-category brand=brand selectedCategories=selectedCategories updateCategories=(action "updateCategories")}}
+                      {{schedule-compo/filters-tag brand=brand selectedTags=selectedTags updateTags=(action "updateTags")}}
+                      {{schedule-compo/filters-draft brand=brand selectedDraft=selectedDraft updateDrafts=(action "updateDrafts")}}
+                      {{schedule-compo/filters-status brand=brand selectedStatus=selectedStatus updateStatuses=(action "updateStatuses")}}
+                      {{schedule-compo/filters-users brand=brand selectedUsers=selectedUsers updateUsers=(action "updateUsers")}}
+                      {{schedule-compo/filters-auto brand=brand selectedAuto=selectedAuto updateAuto=(action "updateAuto")}}
+                      <div class="btn-main">
+                        <button class="btn btn-green btn-big-mob" style="margin:20px 0; padding:10px 30px; text-align:center;width: 100%" {{action 'clearFilters'}}>Clear Filters</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-9" id="content-cols">
+                  <div class="grey-box">
+                    <div class="row">
+                      <div class="form-inline">
+                        <div class="form-group col-md-4 col-xs-6">
+                          <label for="date1">From</label> {{bootstrap-datepicker todayHighlight=true todayBtn=true placeholder="From Date" value=fromDate changeDate=(action (mut fromDate)) class="form-control datepick"}}
+                        </div>
+                        <div class="form-group col-md-4 col-xs-6">
+                          <label for="date2">To</label> {{bootstrap-datepicker todayHighlight=true todayBtn=true placeholder="End Date" value=endDate changeDate=(action (mut endDate)) class="form-control datepick"}}
+                        </div>
+                        <div class="form-group col-md-4 col-xs-12">
+                          <div class="btn-refresh">
+                            <button class="btn btn-green pull-right btn-big-mob" disabled= {{checking}} {{action 'refresh'}}><i class="fa fa-refresh" aria-hidden="true"></i> Filter</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grey">
+                    <div class="main-msg-box">
+                      {{#if bulkEditor}}
+                        <div class="row" id="bulkEditor" class="m-b-1">
+                          {{post-bulk premade=premade temps=temps brand=brand postDone=(action 'postDone') tempUpdate=(action 'tempUpdate') tempRemove=(action 'tempRemove') tempAdd=(action 'tempAdd') campaign=campaign classNames="col-md-12"}}
+                        </div>
+                      {{/if}}
+                      {{#each quickposts as |post|}}
+                        {{post-bulk/modal temps=temps brand=brand post=post loadNow=true closer=(action 'quickPostDone')}}
+                      {{/each}}
+                      {{#each quickedit as |post|}}
+                        {{post-bulk/modal temps=temps cancelPost=(action 'cancelPost') brand=brand postid=post.id loadNow=true closer=(action 'closeEdit')}}
+                      {{/each}}
+                      {{post-list posts=events}}
+                      <div style="display:none">
+                        {{eventsFetch}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

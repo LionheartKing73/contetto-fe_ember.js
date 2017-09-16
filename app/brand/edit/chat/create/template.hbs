@@ -1,0 +1,5 @@
+<h4 class="model-heading text-center">Create Room</h4>
+{{brand-compo/chat/form changeset=(changeset model.room model.roomValidations)
+        model=model
+        members=(readonly model.brandUsers)
+        transitionTo=(route-action "transitionTo")}}

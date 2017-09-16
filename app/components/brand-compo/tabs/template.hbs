@@ -1,0 +1,39 @@
+<div class="default-model">
+  <div class="modelbox-body">
+    <div class="brand_options_tabs_wrapper">
+      <div class="brand_options_tabs" id="brand-options-tabs-collapse">
+        <ul class="nav nav-tabs tabs-left">
+          <li>{{link-to "DETAILS" "brand.edit.details" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "SOCIAL ACCOUNTS" "brand.edit.socialaccounts" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "TEAM" "brand.edit.team" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "TARGET AUDIENCE" "brand.edit.targetaudience" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "REVIEW FLOW" "brand.edit.reviewflow" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "CATEGORIES" "brand.edit.category" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "PRODUCTS" "brand.edit.products" session.brand.id class="text-uppercase text-center"}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mob-nav">
+      <button class="btn btn-success dropdown-toggle text-uppercase" type="button" id="brand-settings-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {{openTab}}
+        <span class="caret pull-right"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="brand-settings-menu">
+        <li>{{link-to "DETAILS" "brand.edit.details" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "SOCIAL ACCOUNTS" "brand.edit.socialaccounts" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "TEAM" "brand.edit.team" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "TARGET AUDIENCE" "brand.edit.targetaudience" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "REVIEW FLOW" "brand.edit.reviewflow" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "CATEGORIES" "brand.edit.category" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "PRODUCTS" "brand.edit.products" session.brand.id class="text-uppercase text-center"}}</li>
+      </ul>
+    </div>
+    <div class="right-panel">
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          {{yield}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

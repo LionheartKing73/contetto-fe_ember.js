@@ -1,0 +1,5 @@
+{{#each post.postingSchedules as |ps|}}
+  {{#if ps.isPosted}}
+    {{post-bulk/editor/analytics/post ps=ps}}
+  {{/if}}
+{{/each}}

@@ -1,0 +1,92 @@
+/*
+DEFAULTS
+-- Body
+-- Placeholder
+-- Links
+-- Buttons
+
+HEADER
+-- Header
+-- Logo
+-- Menu
+
+MAIN
+-- Content
+-- Forms
+-- Custom buttons
+-- Custom checkbox
+-- Custom dropdown
+-- Custom table
+
+
+HELPERS
+-- Classes
+*/
+
+@import "ember-power-select";
+@import "ember-side-menu";
+
+/* Company */
+@import "company.scss";
+/* DEFAULTS
+================================== */
+/* Body */
+@import "post.scss";
+@import "team.scss";
+@import "login.scss";
+@import "homecommon.scss";
+@import "billing.scss";
+@import "left-navbar.scss";
+@import "right-navbar.scss";
+@import "inbox.scss";
+@import "inbox-layout.scss";
+@import "accountsetting.scss";
+@import "feeds.scss";
+@import "froala.scss";
+@import "power-select-overrides";
+@import "task.scss";
+@import "footer.scss";
+@import "brand.scss";
+@import "chats.scss";
+@import "campaign.scss";
+@import "responsive.scss";
+@import "helpers.scss";
+@import "breadcrumb.scss";
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+@import "modal.scss";
+@import "dashboard.scss";
+@import "timeline.scss";
+@import "dash2.scss";
+body {
+  color: #111;
+  background: #ededed;
+  font-family: 'Nunito', sans-serif !important;
+  font-weight: 400;
+  font-style:normal;
+   
+}
+
+.svg-spinner {
+  width: 75px;
+  height: 75px;
+  margin: 15% auto;
+  background: transparent !important;
+  
+}
+.container {
+  padding-left:30px;
+  padding-right:30px;
+}
+.unverified-user .accopy {
+    opacity: 0;
+}
+
+.sc {
+    font-size: 10px !important;
+    line-height: 10px;
+    color: #999 !important;
+    float: left;
+    padding-left: 51px;
+    margin-top: -10px;
+}

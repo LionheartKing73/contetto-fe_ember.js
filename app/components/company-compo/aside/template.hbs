@@ -1,0 +1,51 @@
+<div class="panel-group" id="quick-widget-ca" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="notification_aside_label">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#quick-widget-ca" href="#notification_aside" aria-expanded="true" aria-controls="notification_aside">
+        Notifications ({{notifications.length}})
+        </a>
+      </h4>
+    </div>
+    <div id="notification_aside" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="notification_aside_label">
+      <div class="panel-body">
+
+
+        <div>
+          <div class="text-center">
+            <h4 class="text-center">Notifications <i class="fa fa-bell"></i></h4>
+            {{#if notifications}}
+              <div class="m-t-2">
+                {{link-to "Manage Notifications" "user.notification"}}
+              </div>
+            {{/if}}
+            <div class="brands_select">
+              {{one-way-select brand prompt="Brand" class="form-control notification-brand" optionValuePath="id" optionLabelPath="name" prompt="All Brands" promptIsSelectable=true options=brands update=(action (mut brand))}}
+            </div>
+            <div class="notifications-social">
+
+              {{#unless showLoading}}
+                {{#each notifications as |notification|}}
+                  {{company-compo/aside/notification-row notification=notification}}
+
+                  {{else}}
+                    <div class="m-y-3">No Notifications</div>
+                {{/each}}
+
+                {{else}}
+                  {{loading-component}}
+              {{/unless}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+</div>

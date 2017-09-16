@@ -1,0 +1,15 @@
+<h4 class="text-center">Recent posts</h4>
+<div class="row date-filters">
+  <div class="col-md-12 form-group">
+    <div class="pull-right">
+      <label class="control-label">From:</label>
+      {{bootstrap-datepicker endDate=today placeholder="Select a Date" value=fromDate changeDate="setFromDate" autoclose=true class="form-control datepick"}}
+    </div>
+  </div>
+</div>
+{{#eb-table
+      pageSize=5
+      content=recentPosts
+      emptyMessage="There is no recent post to show!"
+      columns=columns}}
+{{/eb-table}}

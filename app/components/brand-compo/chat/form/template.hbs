@@ -1,0 +1,39 @@
+<form class="form-horizontal" {{action "save" changeset on="submit"}} autocomplete="off">
+  <div class="col-md-12">
+    <div class="form-group">
+      <label class="col-md-3 col-sm-6">Room Name:</label>
+
+      <div class="col-md-6 col-sm-6">
+        {{one-way-input changeset.name placeholder='Room Name' class="form-control" update=(action (mut changeset.name))}}
+
+        {{#each changeset.error.name.validation as |message|}}
+          <span class="help-block">{{message}}</span>
+        {{/each}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 col-sm-6">Room Members:</label>
+      {{#power-select-multiple searchField="Select user(s) to invite" options=members selected=changeset.users classNames="col-md-6 col-sm-6" onchange=(action (mut changeset.users)) as |user|}}
+        {{user.fullName}}
+      {{/power-select-multiple}}
+
+      {{#if changeset.error.users}}
+        <span class="help-block error"> {{changeset.error.users.validation}} </span>
+      {{/if}}
+    </div>
+    <div class="form-group">
+      <div class="col-md-6 col-sm-12">
+        <button class="btn btn-success" role="button" disabled= {{or saving changeset.isInvalid}}>
+          {{#if changeset.isNew}}
+            Create
+          {{else}}
+            Update
+          {{/if}}
+          Room
+        </button>
+      </div>
+    </div>
+  </div>
+
+</form>
+<!-- /form -->

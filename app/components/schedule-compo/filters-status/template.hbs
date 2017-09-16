@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Status</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select-multiple options=postingStatuses selected=selectedStatus placeholder="Select status(es)" onchange=(action "changeStatus") as |status| }}
+      {{status.cleanName}}
+    {{/power-select-multiple}}
+  </div>
+</div>

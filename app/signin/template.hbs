@@ -1,0 +1,5 @@
+{{#auth-compo/container}}
+  {{auth-compo/signin changeset=(changeset model.user model.SigninValidations)
+                      transitionTo=(route-action "transitionTo")
+  }}
+{{/auth-compo/container}}

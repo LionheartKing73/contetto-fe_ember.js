@@ -1,0 +1,42 @@
+<div class="mc_window" id="microchat_{{room.id}}">
+	<div class="mc_title">
+		<div class="mc_title_name ellipsis">#{{room.friendlyName}}</div>
+		<div class="mc_controls pull-right">
+      <a {{action 'launchRoom'}}>
+        <span class="glyphicon glyphicon-collapse-up"></span>
+      </a>
+      <a {{action 'closeRoom'}}>
+        <span class="glyphicon glyphicon-collapse-down"></span>
+      </a>
+    </div>
+	</div>
+	<div class="mc_content micro_chat_area">
+    <div class="chat-empty"></div>
+    <div class="chat-messages">
+      <div class="load_earlier">
+				{{#if emptyChat}}
+					<span class="text-muted">No Chat Messages Available!</span>
+				{{else}}
+					{{#if hasMoreMessages}}
+						<a {{action "moreMsgs"}} class="text-muted">Load Older Messages</a>
+					{{/if}}
+				{{/if}}
+      </div>
+
+      <ul class="list-unstyled">
+        {{#each sortedMessages as |message|}}
+          {{#if (eq message.room.id room.id)}}
+						{{#if (eq message.id latestMessageId)}}
+            	{{message-details message=message room=room classNames="chat_message" updateMessage="updateMessage" isEditing=isEditing microchat=true}}
+						{{else}}
+							{{message-details message=message room=room classNames="chat_message" updateMessage="updateMessage" microchat=true}}
+						{{/if}}
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+	</div>
+	<div class="mc_content_entry">
+    {{trigger-textarea  editorId=tid message=message sendMessage="sendMessage" placeholder="Message room" taggedMessage=taggedMessage divClassName="microchat-input" editLastMessage="editLastMessage" uploadedAction=(action 'uploadFile')}}
+  </div>
+</div>

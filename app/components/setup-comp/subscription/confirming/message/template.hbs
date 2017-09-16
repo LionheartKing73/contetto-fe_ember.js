@@ -1,0 +1,53 @@
+<b>
+  Your free trial will end on {{subscription.company.trialEndDate}}<br>
+  At which point you will be charged for the remaining {{subscription.company.prorationDays}} day{{unless subscription.company.oneProrationDay 's'}} in {{subscription.prorationBillingMonth}}.<br>
+  <br>
+    <div id="coupons">
+      {{#if subscription.coupon.id}}
+        <b>You used coupon: {{selectedCouponCode}}. As a result, you will get {{subscription.coupon.perks}}</b>
+{{/if}}
+</div>
+<br> Your current subscription total is {{subscription.plan.priceWithUnits}} including addons.
+<br> You will be charged ${{subscription.couponedProratedPlanBill}} on {{subscription.company.billingStartDate}}.
+</b>
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="2">Plan: {{subscription.plan.name}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><i>Total days: {{subscription.company.prorationBillingMonthDays}}</i></td>
+      <td>{{subscription.plan.priceWithUnits}}</td>
+    </tr>
+    <tr>
+      <td><i>Proration Days: {{subscription.company.prorationDays}}</i></td>
+      <td>${{subscription.proratedPlanBill}}</td>
+    </tr>
+    {{#if subscription.coupon}}
+      <tr>
+        <th colspan="2"><b>Coupon</b></th>
+      </tr>
+      <tr>
+        <td>{{subscription.coupon.perks}}</td>
+        <td>-${{subscription.discountOnProratedPlanBill}}({{subscription.discount}})</td>
+      </tr>
+    {{/if}}
+    <tr>
+      <th>Total</th>
+      <th>${{subscription.couponedProratedPlanBill}}</th>
+    </tr>
+  </tbody>
+</table>
+<b>
+  {{#if subscription.plan.yearly}}
+    You have chosen yearly subscription. You will be charged {{subscription.plan.priceWithUnits}} on {{subscription.company.regularBillingStartDate}}. And after this, your plan will be active for 1 year.
+    You will be billed this amount{{if subscription.coupon '(coupon will be applied if applicable)'}} every subsequent year for the continuation of this plan.
+  {{/if}}
+  {{#if subscription.plan.monthly}}
+    You have chosen monthly subscription. You will be charged {{subscription.plan.priceWithUnits}} on {{subscription.company.regularBillingStartDate}}. And after this, your plan will be active for 1 month.
+    You will be billed this amount{{if subscription.coupon '(coupon will be applied if applicable)'}} every subsequent month for the continuation of this plan.
+  {{/if}}
+  {{if subscription.coupon 'The coupon will be applied if applicable.'}}
+</b>

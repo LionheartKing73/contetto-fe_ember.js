@@ -1,0 +1,247 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+    <div class="col-md-12">
+      <form class="form-horizontal product_form">
+        <div class="form-group">
+          <label for="name" class="col-md-3 control-label">Name: {{field-description title="The name of this product."}}</label>
+          <div class="col-md-9">
+            {{one-way-input changeset.name placeholder='Product Name' name='name' id='name' class='form-control' update=(action (mut changeset.name)) }}
+
+            {{#each changeset.error.name.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-group" class="col-md-3 control-label">Product Group:  {{field-description title="Create Product Groups under Brand Settings &gt; Products &gt; Product Groups<br/></br>Product Groups are for internal organizational purposes only."}}</label>
+          <div class="col-md-9">
+
+
+            {{#power-select-multiple options=model.productGroups selected=changeset.groups placeholder="Select group(s)." onchange=(action (mut changeset.groups)) as |group| }}
+              {{group.name}}
+            {{/power-select-multiple}}
+
+            {{#each changeset.error.groups.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-type" class="col-md-3 control-label">Product Type: {{field-description title="Select the product type that best matches this product.<br/><br/><strong>Physical</strong> - Select Physical if the product is a tangible object.<br/><br/><strong>Digital</strong> - Select digital if the product is a downloadable/streamable product.<br/><br/><strong>Service</strong> - Select service if you are defining a service rather than a product."}}</label>
+          <div class="col-md-9">
+
+            {{#power-select options=model.productTypes selected=changeset.type placeholder="Select product type." onchange=(action (mut changeset.type)) as |type| }}
+              {{type.name}}
+            {{/power-select}}
+
+
+
+            {{#each changeset.error.type.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-delivery" class="col-md-3 control-label">Product Delivery {{field-description title="Select the delivery method(s) that best match the product you are configuring."}}</label>
+          <div class="col-md-9">
+            {{#power-select-multiple options=model.productDeliveries selected=changeset.deliveries placeholder="Select Delivery Methods" searchField="name" onchange=(action 'setShip') as |delivery| }}
+              {{delivery.name}}
+            {{/power-select-multiple}}
+
+
+            {{#each changeset.error.deliveries.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+        {{#if isShippingProduct}}
+          <div class="form-group dynammic">
+            <label for="shipping-regions" class="col-md-3 control-label">Shipping Regions {{field-description title="Select the region(s) your product can be shipped to."}}</label>
+            <div class="col-md-9">
+
+              {{#power-select-multiple options=model.locations selected=changeset.shippingRegions placeholder="Select shipping region(s)." searchField="name" onchange=(action (mut changeset.shippingRegions)) as |region| }}
+                {{region.name}}
+              {{/power-select-multiple}}
+              {{#each changeset.error.shippingRegions.validation as |error|}}
+                <span class="help-block text-left error">{{error}}</span>
+              {{/each}}
+            </div>
+          </div>
+        {{/if}}
+        <div class="form-group">
+          <label for="description" class="col-md-3 control-label">Featured Photo {{field-description title="Select the primary photo of this product. (Optional)"}}</label>
+          <div class="col-md-9">
+            {{file-entry isMulti=false uploadedAction=(action 'uploadFeatured')}}
+            <ul class='uploadList'>
+              {{#if changeset.primaryPhoto}}
+                <li>{{changeset.primaryPhoto.name}} - <a class='danger' {{action 'removeFeaturedFile' changeset.primaryPhoto}}>Remove</a></li>
+              {{/if}}
+            </ul>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description" class="col-md-3 control-label">Additional Photos {{field-description title="Upload any additional photo(s) of this product. (Optional)"}}</label>
+          <div class="col-md-9">
+            {{file-entry isMulti=true uploadedAction=(action 'uploadOthers')}}
+            <ul class='uploadList'>
+              {{#each changeset.photos as |file|}}
+                <li>{{file.name}} - <a class='danger' {{action 'removeOtherFile' file}}>Remove</a></li>
+              {{/each}}
+            </ul>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description" class="col-md-3 control-label">Description {{field-description title="Describe this product."}}</label>
+          <div class="col-md-9">
+            {{one-way-input changeset.description placeholder='Product Description' name='description' id='description' class='form-control' update=(action (mut changeset.description)) }}
+
+            {{#each changeset.error.description.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="col-md-3 control-label">Pricing Type {{field-description title="Select the pricing type that best matches this product."}}</label>
+          <div class="col-md-9">
+
+            {{#power-select options=model.pricingTypes selected=changeset.pricingType placeholder="Select Frequency" onchange=(action (mut changeset.pricingType)) as |pricingType| }}
+              {{pricingType.name}}
+            {{/power-select}}
+
+
+
+
+
+          </div>
+        </div>
+
+
+        {{#if (eq changeset.pricingType.name 'One time')}}
+          <div class="form-group">
+            <label for="description" class="col-md-3 control-label">Price Details: {{field-description title="Select the currency and enter the price of this product."}}</label>
+            <div class="col-md-9">
+              {{one-way-input changeset.oneTimePrice placeholder='0.00' name='onetimeprice' id='onetimeprice' class='form-control' update=(action (mut changeset.oneTimePrice)) }}
+
+
+              {{#power-select options=model.currencies selected=changeset.oneTimeCurrency placeholder="Select Currency" onchange=(action (mut changeset.oneTimeCurrency)) as |currency| }}
+                {{currency.name}}
+              {{/power-select}}
+
+            </div>
+          </div>
+
+        {{/if}}
+        {{#if (eq changeset.pricingType.name 'Rate')}}
+          <div class="form-group">
+            <label for="description" class="col-md-3 control-label">Rate Details: {{field description title="Select the currency and enter the rate of this product/service."}}</label>
+            <div class="col-md-9">
+              <table>
+                <tr>
+                  <Td>
+                    {{one-way-input changeset.ratePrice placeholder='0.00' name='rateprice' id='rateprice' class='form-control' update=(action (mut changeset.ratePrice)) }}
+                  </td>
+                  <td>
+
+                    {{#power-select options=model.currencies selected=changeset.rateCurrency placeholder="Select Currency" onchange=(action (mut changeset.rateCurrency)) as |currency| }}
+                      {{currency.name}}
+                    {{/power-select}}
+                  </td>
+                  <td>
+                    per
+                  </td>
+                  <td>
+                    {{#power-select options=model.frequencies selected=changeset.rateFrequency placeholder="Select Frequency" onchange=(action (mut changeset.rateFrequency)) as |frequency| }}
+                      {{frequency.name}}
+                    {{/power-select}}
+
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        {{/if}}
+
+        {{#if (eq changeset.pricingType.name 'Subscription')}}
+          <div class="form-group">
+            <label for="description" class="col-md-3 control-label">Subscription Details: {{field-description title="Enter all the subscription formats (Monthly/Yearly etc) for this product/service."}}</label>
+            <div class="col-md-9">
+              {{#each changeset.subscriptionPrices as |subscription|}}
+                {{brand-compo/product/form/subscriptions removeSubscriptionAction=(action 'removeSubscription') model=model changeset=changeset subscription=subscription}}
+              {{/each}}
+              <button class='btn btn-primary btn-md' {{action 'addSubscription'}}>Add Pricing Option</button>
+            </div>
+          </div>
+
+        {{/if}}
+        <div class="form-group">
+          <label for="price-assessment" class="col-md-3 control-label">Market Price Assessment {{field-description title="Using your best judgement, compare the price point of this product/service to competitors."}}</label>
+          <div class="col-md-9">
+
+            {{#power-select options=model.productAssessments selected=changeset.priceAssessment placeholder="Select market price assessment." onchange=(action (mut changeset.priceAssessment)) as |priceAssessment| }}
+              {{priceAssessment.name}}
+            {{/power-select}}
+
+
+
+
+            {{#each changeset.error.priceAssessment.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="primary-ta" class="col-md-3 control-label">Primary TA {{field-description title="Select the primary target audience that would be interested in this product. You can create more target audiences in Brand Settings &gt; Target Audience"}}</label>
+          <div class="col-md-9">
+            {{one-way-select changeset.primaryTA name='primary_ta' id='primary_ta' options=model.targetAudiences optionValuePath="id" optionLabelPath="title" class='form-control' update=(action (mut changeset.primaryTA)) }}
+
+            {{#each changeset.error.primaryTA.validation as |error|}}
+              <span class="help-block text-left error">{{error}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="landing-page-url" class="col-md-3 control-label">Primary Landing Page {{field-description title="Enter the URL of the primary landing page for this product. (Optional)"}}</label>
+          <div class="col-md-9">
+            {{#if hasPLP}}
+              {{one-way-input changeset.primaryLandingPage.url placeholder='http://' name='plpurl' id='plpurl' class='form-control' update=(action (mut changeset.primaryLandingPage.url)) }}
+              <a {{action 'removePrimaryLP'}}>Remove</a>
+            {{else}}
+              <button class='btn btn-primary btn-md' {{action 'addPrimaryLP'}}>Add Landing Page</button>
+            {{/if}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="landing-page-url" class="col-md-3 control-label">Additional Landing Pages {{field-description title="Enter any additional landing pages on the web that detail/promote this product. (Optional)"}}</label>
+          <div class="col-md-9">
+
+            <button class='btn btn-primary btn-md' {{action 'addLP'}}>Add Landing Page</button>
+            <ul>
+              {{#each changeset.landingPages as |lp|}}
+                <li> {{one-way-input lp.url placeholder='http://' class='form-control' update=(action (mut lp.url)) }} - <a class="text-danger" {{action 'removeLP' lp}}>Remove</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-3 col-md-9">
+            <div class="well text-center">
+                <button type="button" class="btn btn-lg btn-default text-uppercase" disabled= {{disableSave}} {{action 'cancel' changeset}}>
+
+               Cancel
+            </button>
+              <button type="button" class="btn btn-lg btn-success text-uppercase" disabled= {{disableSave}} {{action 'save' changeset}}>
+
+               {{if isSaving 'Saving..' 'Save Product'}}
+            </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

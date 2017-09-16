@@ -1,0 +1,35 @@
+
+{{#if (eq activeStep 1)}}
+<div class="campaignwizard campaignstep step1">
+{{campaign-wizard/step-one hasCategories=hasCategories hasProduct=hasProduct campaign=campaign brand=brand goals=goals productGoal=productGoal step1done=step1done products=products nextStep=(action 'nextStep')}}
+</div>
+{{/if}}
+
+{{#if (eq activeStep 2)}}
+<div class="campaignwizard campaignstep step2">
+
+{{campaign-wizard/step-two campaign=campaign brand=brand goals=goals productGoal=productGoal step2done=step2done products=products previousStep=(action 'previousStep') nextStep=(action 'nextStep')}}
+ 
+ 
+</div>
+{{/if}}
+
+ {{#if (eq activeStep 3)}}
+<div class="campaignwizard campaignstep step3">
+
+{{campaign-wizard/step-three recheck=(action 'recheck') campaign=campaign brand=brand goals=goals productGoal=productGoal step3done=step3done products=products previousStep=(action 'previousStep') nextStep=(action 'nextStep')}}
+ 
+ 
+</div>
+{{/if}}
+
+
+{{#if (eq activeStep 4)}}
+<div class="campaignwizard campaignstep step4">
+
+{{campaign-wizard/step-four campaign=campaign brand=brand goals=goals productGoal=productGoal step4done=step4done products=products previousStep=(action 'previousStep') saveCampaign=(action 'saveCampaign') nextStep=(action 'nextStep')}}
+ 
+ 
+</div>
+{{/if}}
+<div style="display:none">{{s3dcheck}}</div>

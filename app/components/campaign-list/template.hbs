@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Campaign</th>
+            <th class="deskOnly">Goal</th>
+            <th class="deskOnly">Start Date</th>
+            <th class="deskOnly">Length</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each campaigns as |campaign|}}
+        <tr>
+            <td>{{campaign.name}}</td>
+            <td class="deskOnly">{{campaign.goal.cleanName}}</td>
+            <td class="deskOnly">{{date-display date=campaign.startDate brand=brand}}</td>
+            <td class="deskOnly">{{campaign.lengthNumber}} Days</td>
+            <td>{{#link-to 'brand.edit.campaigns.edit' brand.id campaign.id}}Edit{{/link-to}} | {{#link-to 'brand.edit.campaigns.schedule' brand.id campaign.id}}Schedule{{/link-to}} | 
+            <a {{action 'deleteCampaign' campaign}} class='text-danger'>Delete</a></td>
+        </tr>
+    
+    
+    {{/each}}
+    </tbody>
+</table>

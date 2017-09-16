@@ -1,0 +1,9 @@
+<ul class="left-nav">
+  {{#each rooms as |room|}}
+    <li>
+      {{#link-to 'brand.edit.chat.details' room.brand.id room.id}}
+        {{room.friendlyName}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>

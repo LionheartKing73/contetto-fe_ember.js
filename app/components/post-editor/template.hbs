@@ -1,0 +1,196 @@
+{{#unless deleted}} 
+<div class="col-md-5 col-lg-7 col-sm-12 col-xl-8">
+
+ 
+
+
+					  	{{#if changeSet.isBlog}}
+			{{#power-select options=changeSet.brand.socialAccounts
+                  selected=sas.firstObject
+                  searchEnabled=false
+                  onchange=(action "changeAccounts")
+                  aceholder="Select Wordpress Site"
+                  as |account|}}
+                  {{#if (eq account.platform 'wordpress')}}
+           <i class="fa fa-{{account.platform}}"></i>  {{account.title}}
+           {{/if}}
+        {{/power-select}}
+			{{else}}
+        {{#power-select-multiple options=changeSet.brand.socialAccounts
+                    selected=sas
+                    onchange=(action "changeAccounts")
+                    placeholder="Select social account"
+                    as |account|}}
+      {{#unless (eq account.platform 'wordpress')}}
+       <i class="fa fa-{{account.platform}}"></i>   {{account.title}}
+       {{/unless}}
+        {{/power-select-multiple}}
+        
+        {{/if}}
+					  
+			<div class="clearfix"></div>
+			<div class="col-md-12 col-lg-3 nopadding">	
+				{{#power-select
+              options=networkTypes
+              optionValuePath="id"
+              optionLabelPath="name"
+              selected=changeSet.networkType
+              onchange=(action (mut changeSet.networkType))
+              placeholder="Type" as |type|}}
+          {{type.name}}
+        {{/power-select}}
+			</div>
+			<div class="col-md-12 col-lg-9 nopadding">
+			{{input value=changeSet.topic class="form-control dropmatch"  required="required" placeholder="Topic (Required - Internal Use)"}} 
+			</div>			
+			<div class="clearfix"></div>
+			
+			<div class="content-input">
+				{{#if hasPending}}
+					 {{assignment-list/assignment-view postMode=true assignment=pending}}
+				
+				{{/if}}
+			
+				<label>Content:</label>
+				   {{#if changeSet.isBlog}}
+       
+       {{froala-editor
+  content=changeSet.content
+  update=(action "setAndSave")
+}}
+<button class="btn btn-info btn-sm" {{action 'addSnippet'}}>Create Snippet</button>
+
+{{#if changeSet.snippets.length}}
+<strong>Snippets:</strong>
+<table class="table snippetTable">
+{{#each changeSet.snippets as |snippet|}}
+<tr><td>{{textarea value=snippet.name class="snippetText"}}<br/>Characters: {{snippet.name.length}}</td><td><button class="btn btn-danger btn-xs" {{action 'removeSnippet' snippet}}>Remove</button></td></tr>
+{{/each}}
+</table>
+
+{{/if}}
+					{{else}}
+				{{post-editor/content-entry deleted=deleted limitedAction=(action "contentLimitChanged") changeSet=changeSet socialAccounts=socialAccounts}}
+				{{/if}}
+			    {{#if changeSet.isBlog}}Featured Image:{{else}}Post Image/Video:{{/if}}: {{file-entry changeSet=changeSet uploadedAction=(action "addFile")}}
+			    <BR/>
+			    {{#if hasFile}}
+			        
+			         <div class="col-md-12 col-lg-4">
+			    	{{#if hasImage}}
+			    
+			    	<img src="{{changeSet.file.downloadLink}}" style="max-height:110px; max-width:120px">
+			    	{{else}}
+			    		{{#if hasVideo}}
+			    			Posting video: {{changeSet.file.name}}
+			    		{{else}}
+			    			Unsupported file ({{changeSet.file.name}})
+			    		{{/if}}
+			    	{{/if}}
+			    
+			    	<br />{{changeSet.file.name}}
+			    	</div>
+			    	<div class="col-md-12 col-lg-8">
+				    	File Name: {{changeSet.file.name}}<BR />
+				    	Dimensions: {{changeSet.file.imageWidth}}x{{changeSet.file.imageHeight}} {{rezWarning}}<BR />
+				    	Size: {{changeSet.file.fileSize}} {{sizeWarning}}<BR />
+				    	Mime: {{changeSet.file.mimeType}}<BR />
+				    	Download Link: <input value="{{changeSet.file.downloadLink}}">
+				    	<button class='btn btn-warning btn-xs' {{action 'noFile'}}>Cancel/Remove File</button>
+			    	</div>
+			    	
+			    {{/if}}
+			</div>
+			
+		</div>
+		<div class="col-md-7 col-lg-5 col-sm-12 col-xl-4">
+		<div class="postingStatus">
+		<strong>Status:</strong>	{{changeSet.postingStatus.cleanName}}
+		{{#if changeSet.isDraft}} <strong>Just a draft!</strong> {{/if}}
+		<br/>
+		<table><tr><td><strong>Created: </strong></td><td> {{date-display date=changeSet.createdAt}}</td><td>&nbsp; by {{changeSet.user.fullName}}</td></tr></table>
+		</div>
+			<div class="scheduling">
+			
+		 
+			
+				{{post-editor/post-scheduling hasTeam=hasTeam updateWarnings=(action 'updateWarnings') warningTime=warningTime hasPending=hasPending assigning=assigning postingScheduleModes=postingScheduleModes setMultiAccount=(action 'setMultiAccount') deleted=deleted scheduleLastTime=scheduleLastTime scheduleIsMulti=scheduleIsMulti schedulePostMode=schedulePostMode scheduleAllNow=scheduleAllNow scheduleAllAuto=scheduleAllAuto ntid=changeSet.networkType.id changeSet=changeSet allNowAction=(action "allNowChanged") hasSchedule=hasSchedule multiAccount=multiAccount}}
+			</div>
+			<div class="campaign">
+			 
+			 
+					  
+					  
+					  {{#power-select options=changeSet.brand.campaigns
+                      searchField="name"
+                      selected=changeSet.campaign
+                      onchange=(action (mut changeSet.campaign))
+                      placeholder="Select a campaign"
+                      as |campaign|}}
+          {{campaign.name}}
+        {{/power-select}}
+			</div>	
+			<div class="campaign">
+				 
+				{{ember-selectize
+  
+					content=changeSet.brand.categories  
+					multiple=true  
+					optionValuePath="content.id"
+  
+					optionLabelPath="content.title"
+  
+					selection=changeSet.categories
+					  placeholder="Select categories, if desired." }}
+			</div>	
+			<div class="campaign">
+				Tags
+				
+				{{#power-select-with-create
+    options=changeSet.brand.tags 
+    selected=changeSet.tags
+    searchField="name"
+    multiple=true
+    multi=true
+    placeholder="Select a tag"
+    onchange=(action (mut changeSet.tags))
+    oncreate=(action "createTag") as |tag|
+}}
+  {{tag.name}}
+{{/power-select-with-create}}
+ 
+ 
+			</div>	
+		</div>
+<div class="clearFix"></div>
+ <br/>
+{{post-metrics post=changeSet}}
+<div class="clearFix"></div>
+ <br/>
+
+ {{#unless canPost}}
+   {{#unless changeSet.content.length}}
+     <p class="bg-danger alert">
+       Write some content, if you want to post!
+     </p>
+   {{/unless}}
+   {{#unless socialAccounts.length}}
+     <p class="bg-danger alert">
+      Select a social account to post to.
+     </p>
+   {{/unless}}
+   {{#unless allOK}}
+     <p class="bg-danger alert">
+      Ensure you have selected a time in the future for each social network you are posting to.
+     </p>
+   {{/unless}}
+ {{/unless}}
+<div class="well">
+	{{post-editor/post-actions deletes=deletes allOK=allOK hasTeam=hasTeam   assignedToMe=assignedToMe thisStep=thisStep  isStep=isStep    isDepartmentMember=isDepartmentMember    isBrandOwner=isBrandOwner assigningChange=(action "updateAssigning") foundPending=(action "showPending") deleteAction=(action "deleting") brandMembers=brandMembers changeSet=changeSet canPost=canPost allNow=allNow socialAccounts=socialAccounts}}
+</div>
+{{post-editor/change-request-history deleted=deleted changeSet=changeSet editing=editing}}
+
+
+{{/unless}}
+
+{{canPostCheck}}

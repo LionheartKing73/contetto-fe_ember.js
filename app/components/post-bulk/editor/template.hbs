@@ -1,0 +1,421 @@
+<div class="modal-body">
+	<form class="quickpost quickpost-item form-horizontal" {{action 'saveDraft' on="submit"}}>
+		<div class="padding-container">
+			<div class="row">
+				{{#if post.createdAt}}
+					<div class="form-group">
+						<label for="sales">Created</label> {{date-display date=post.createdAt}} &nbsp; by {{post.user.fullName}}
+					</div>
+				{{/if}}
+				<div class="form-group">
+					<label for="sales">
+						Post Type: {{field-description title="There are two types of post in Contetto, <strong>General</strong> and <strong>Sales</strong>.<br/><br/> We make this distinction because it isn't accurate to compare the metrics of a funny/popular 'engagement/general' style post to one with strong marketing/sales content. It also allows us to better recommend recurring schedule times and valuable content."}}
+					</label>
+					<div class="ui dropdown form-control selection power-select-wrapper">
+						{{#power-select options=networkTypes selected=post.networkType searchEnabled=false onchange=(action (mut post.networkType)) as |networkType|}}
+							{{networkType.name}}
+						{{/power-select}}
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="social">
+						Social Accounts {{field-description title="You can post to more than one social account at a time. You'll have the opportunity to select sending times, and we'll automatically recommend some, when you have selected the social accounts you wish to post to."}}
+					</label>
+					{{#if post.isBlog}}
+						<div class="ui dropdown form-control selection power-select-wrapper">
+							{{#power-select options=brand.wordpressAccounts selected=socialAccounts.firstObject searchEnabled=false onchange=(action "changeAccounts") placeholder="Select Wordpress Site" as |account|}}
+								{{#if (eq account.platform 'wordpress')}}
+									<i class="fa fa-{{account.platform}}"></i> {{account.title}}
+								{{/if}}
+							{{/power-select}}
+						</div>
+						{{else if post.isFollowup}}
+						<div class="ui dropdown form-control selection power-select-wrapper">
+							{{#power-select options=followupAccountOptions selected=socialAccounts.firstObject searchEnabled=false onchange=(action "changeAccounts") placeholder="Select a Social Account" as |account|}}
+								{{#if post.slot}}
+									{{#if (eq post.slot.platform account.platform)}}
+										<i class="fa fa-{{account.platform}}"></i> {{account.title}}
+									{{/if}}
+								{{else}}
+									{{#if (not-eq account.platform 'wordpress')}}
+										<i class="fa fa-{{account.platform}}"></i> {{account.title}}
+									{{/if}}
+								{{/if}}
+							{{/power-select}}
+						</div>
+
+					{{else}}
+						<div class="ui dropdown form-control selection power-select-wrapper">
+							{{#power-select-multiple options=brand.nonWordPressAccounts selected=socialAccounts onchange=(action "changeAccounts") placeholder="Select social account" as |account|}}
+								{{#unless (eq account.platform 'wordpress')}}
+									<i class="fa fa-{{account.platform}}"></i> {{account.title}}
+								{{/unless}}
+							{{/power-select-multiple}}
+						</div>
+					{{/if}}
+				</div>
+				<div class="form-group">
+					<label>
+						Post Schedule {{field-description title="Select the time(s) at which you would like this post to go out."}}
+					</label>
+					<div class="t-website ">
+						{{#each post.postingSchedules as |ps|}}
+							<div class="row post-schedule-configure">
+								<div class="col-md-4">
+									<p class="p-web"> <i class="fa fa-{{ps.socialAccount.platform}}"></i> {{ps.socialAccount.title}}</p>
+								</div>
+								<div class="col-md-7">
+									{{#if post.isFollowup}}
+										{{post-bulk/editor/followup-schedule temps=temps post=post ps=ps networkType=post.networkType onchange=(action 'updatecheck')}}
+									{{else}}
+										{{post-bulk/editor/schedule temps=temps ps=ps networkType=post.networkType onchange=(action 'updatecheck')}}
+									{{/if}}
+								</div>
+								<div class="col-md-1">
+									{{#unless ps.isPosted}}
+										<a class="close" href="#" {{action 'removeSocial' ps}}>x</a>
+									{{/unless}}
+								</div>
+							</div>
+						{{/each}}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						{{#if hasCampaigns}}
+
+							<div class="col-md-6">
+								<label>
+									Campaign {{field-description title="If this post is part of a campaign, select it here. You can create new campaigns by clicking 'Campaigns' from the menu."}}
+								</label>
+								<div class="ui dropdown form-control selection power-select-wrapper">
+									{{#power-select options=brand.campaigns selected=post.campaign searchField="name" allowClear=true onchange=(action (mut post.campaign)) placeholder="Select a campaign" as |campaign|}}
+										{{campaign.name}}
+									{{/power-select}}
+								</div>
+							</div>
+						{{/if}}
+						<div class="col-md-6">
+							<label>
+								Topic {{field-description title="For internal use only - This is how Contetto will reference this post when displaying it in a list or calendar."}}
+							</label> {{input value=post.topic class="form-control" placeholder="Post Topic (Required)"}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{#if pending}}
+			{{#if (eq pending.status.name 'Pending')}}
+				<section id="content">
+					<div class="padding-container">
+						<div class="row">
+							{{assignment-list/assignment-view brandMembers=brandMembers assignment=pending brand=brand postMode=true removeAssignment=(action 'removeAssignment')}}
+						</div>
+					</div>
+				</section>
+			{{/if}}
+		{{/if}}
+		<div class="green-stripe">
+			<div class="padding-container">
+				<div class="row">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab1default" id="tab1-link" data-toggle="tab">Content {{field-description title="The content that will be posted to the social account(s) selected. Remember to take into account content limitations of the selected platform(s). Such as the 140 character limit of tweets."}}</a></li>
+						{{#unless newPost}}
+							{{#if post.isBlog}}
+								<li><a href="#tab2default" id="tab2-link" data-toggle="tab">Social Followup</a></li>
+							{{/if}}
+							{{#if post.changeRequests.length}}
+								<li><a href="#tab3default" id="tab3-link" data-toggle="tab">Assignment History</a></li>
+							{{/if}}
+							<li><a href="#tab4default" id="tab4-link" data-toggle="tab">Discussion</a></li>
+							{{#if hasPublished}}
+								<li><a href="#tab5default" id="tab5-link" data-toggle="tab">Analytics</a></li>
+							{{/if}}
+						{{/unless}}
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<section id="content">
+			<div class="padding-container">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab1default">
+						<div class="row">
+							<div class="form-group">
+								{{#if post.isBlog}}
+
+									{{froala-editor content=post.content update=(action "setAndSave") }}
+									<button class="btn btn-info btn-sm" {{action 'addSnippet'}}>Create Snippet</button>
+
+									{{#if post.snippets.length}}
+										<strong>Snippets:</strong>
+										<table class="table snippetTable">
+											{{#each post.snippets as |snippet|}}
+												<tr>
+													<td>{{textarea value=snippet.name class="snippetText"}}<br/>Characters: {{snippet.name.length}}</td>
+													<td><button class="btn btn-danger btn-xs" {{action 'removeSnippet' snippet}}>Remove</button></td>
+												</tr>
+											{{/each}}
+										</table>
+
+									{{/if}}
+
+								{{else}}
+									{{!textarea value=post.content placeholder="Posting content (required)" class="form-control"}}
+									{{#if post.isFollowup}}
+										{{#if post.followupTo.snippets.length}}
+											<div class="panel panel-primary">
+												<div class="panel-heading">
+													<h3 class="panel-title">Snippets ({{post.followupTo.snippets.length}})</h3>
+													<span id="toggle-followups" class="pull-right clickable" {{action 'togglePanel'}}><i class="glyphicon glyphicon-chevron-up"></i></span>
+												</div>
+												<div class="panel-body">
+													<table class='table'>
+														{{#each post.followupTo.snippets as |snip|}}
+															<tr>
+																<td><span class='snipContainer'>{{snip.name}}</span></td>
+																<td><button class="btn btn-sm btn-default" {{action 'useSnip' snip}}>Select</button></td>
+															</tr>
+														{{/each}}
+													</table>
+												</div>
+											</div>
+
+
+										{{/if}}
+									{{/if}}
+									{{post-editor/content-entry limitedAction=(action "contentLimitChanged") changeSet=post socialAccounts=socialAccounts}}
+								{{/if}}
+							</div>
+						</div>
+					</div>
+					{{#unless newPost}}
+						{{#if post.isBlog}}
+							<div class="tab-pane fade" id="tab2default">{{post-bulk/editor/followups post=post}}</div>
+						{{/if}}
+						<div class="tab-pane fade" id="tab3default">{{post-editor/change-request-history deleted=deleted changeSet=post editing=editing}}</div>
+						<div class="tab-pane fade" id="tab4default">
+							{{#if post.chatRoom.id}}
+								{{chat-window room=post.chatRoom}}
+							{{else}}
+								No chat room. Please save the post.
+							{{/if}}
+						</div>
+						<div class="tab-pane fade" id="tab5default">
+							{{#if hasPublished}}
+								{{post-bulk/editor/analytics post=post}}
+							{{else}}
+								No analytics available.
+							{{/if}}
+						</div>
+					{{/unless}}
+				</div>
+			</div>
+		</section>
+		<div id="tab1-file-explorer">
+			<section id="content">
+				<div class="padding-container">
+					<div class="row">
+						<div class="featured-image">
+							{{#if post.isBlog}}
+								Featured Image(s)
+							{{else}}
+								Post Image/Videos:
+							{{/if}}
+							{{field-description title="You can upload image or video files to post to social networks that support them. Remember to check with the social network directly for their latest recommendations when it comes to resolution, size and file types.<br/><br/>Also
+							note: Adding an image/video to a tweet will use up some of the character limit. Check with Twitter for the latest stats."}} :
+						</div>
+					</div>
+				</div>
+			</section>
+			{{#if post.file.id}}
+				<div class="row">
+					<div class="col-md-8">
+						<img src="{{post.file.downloadLink}}" style="max-height:110px; max-width:120px; float: right;">
+					</div>
+					<div class="col-md-3">
+						{{post.file.name}}
+						<br>
+						<button class="btn btn-danger btn-xs" {{action "removeFile" post.file}}>Remove</button>
+					</div>
+				</div>
+			{{/if}}
+			{{file-entry changeSet=post uploadedAction=(action "addFile") multiple=false}}
+		</div>
+		<br>
+		<div class="padding-container">
+			<div class="row">
+				{{#if hasCategories}}
+					<div class="col-md-6">
+						<label>
+							Category {{field-description title="For internal organizational purposes only. You can create categories under Brand Settings &gt; Categories."}}
+						</label>
+						<div class="ui dropdown form-control selection power-select-wrapper">
+							{{#power-select-multiple options=brand.categories selected=post.categories onchange=(action (mut post.categories)) placeholder="Select Category" as |category|}}
+								{{category.title}}
+							{{/power-select-multiple}}
+						</div>
+					</div>
+				{{/if}}
+				<div class="col-md-6">
+					<label>
+						Tags {{field-description title="For internal organization purposes only. Hashtags must be written directly into the content.<br/><br/>You can create more tags simply by typing one that doesn't exist and clicking 'Add <em>tag name</em>...' from the drop down."}}
+					</label>
+					<div class="ui dropdown form-control selection power-select-wrapper">
+						{{#power-select-with-create placeholder="Select tag(s)" options=brand.tags placeholder="Select a tag" selected=post.tags searchField="name" multiple=true multi=true onchange=(action (mut post.tags)) oncreate=(action "createTag") as |tag| }}
+							{{tag.name}}
+						{{/power-select-with-create}}
+					</div>
+				</div>
+			</div>
+		</div>
+		{{#if assigning}}
+			<div class="green-stripe">
+				<div class="padding-container">
+					<div class="row">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a>Assignment Details</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<section id="assignment">
+				<div class="padding-container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>
+									Assignee {{field-description title="Select the user who you would like to assign this post to."}}
+								</label>
+								<div class="ui dropdown form-control selection power-select-wrapper">
+									{{#power-select selected=cr.assignedToUser options=brandMembers searchField="fullName" placeholder="Select assignee (Required)" onchange=(action (mut cr.assignedToUser)) as |user|}}
+										{{user.fullName}}
+									{{/power-select}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>
+									Assignment Due {{field-description title="Select the date/time you wish this assignment to be completed by."}}
+								</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							{{contetto-datetime-picker action=(action "updateTime") defaultTimeZone=session.brand.timezone }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>
+									Instructions {{field-description title="Enter the details about the assignment. What would like the assignee to do?"}}
+								</label> {{textarea value=cr.content class="form-control" placeholder="Assignment instructions"}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="content">
+				<div class="padding-container">
+					<div class="row">
+						<div class="featured-image">
+							Assignment Files {{field-description title="Attach any files that may be relevant to the assignee."}}
+						</div>
+					</div>
+				</div>
+			</section>
+			{{file-entry changeSet=changeSet uploadedAction=(action "addCRFile")}}
+			<ul class='uploadList'>
+				{{#each cr.files as |file|}}
+					<li>{{file.name}} - <button class='btn btn-danger btn-xs' {{action 'removeCRFile' file}}>Remove</button></li>
+
+				{{/each}}
+			</ul>
+
+		{{/if}}
+		<div style="clear:both" />
+		<br/> {{post-metrics post=post}}
+		<div style="clear:both" />
+		<br/>
+		<hr>
+		<section id="last">
+			<div class="padding-container">
+				{{#unless post.topic.length}}
+					<div class="row">
+						<p>You must enter a topic to proceed.</p>
+					</div>
+				{{/unless}}
+				<div class="row">
+					<div class="col-md-3 col-xs-12">
+						<button class="btn btn-primary" {{action 'saveDraft'}}>
+							<span>
+								Save Draft {{field-description title="Save this post as a draft. You can access your drafts under 'Drafts' in the menu. <br/><br/>Drafts will not be posted to social media.<br/><br/>Clicking Save Draft will not send the assignment to the assignee."}}
+							</span>
+						</button>
+					</div>
+					{{#if assigning}}
+						<div class="col-md-3 col-xs-12">
+							<button class="btn btn-success" {{action 'saveAssign'}} disabled= {{disableAssignmentSubmit}}>
+								<span>
+									Send Assignment {{field-description title="Send this assignment to the assignee."}}
+								</span>
+							</button>
+						</div>
+						<div class="col-md-3 col-xs-12">
+							<button class="btn btn-danger" {{action 'cancelAssign'}}>
+								<span>
+									Cancel Assign {{field-description title="Do not assign this post. Cancel creation of assignment."}}
+								</span>
+							</button>
+						</div>
+					{{else}}
+						{{#if hasTeam}}
+							{{#if canAssign}}
+								<div class="col-md-3 col-xs-12">
+									<button class="btn btn-primary" {{action 'assign'}}>
+										<span>
+											Assign {{field-description title="You can assign this post to a team member to handle. Use this to get content written or reviewed.<br/><br/>Note that the Fallback Mode of the Social Account (Brand Settings &gt; Social Accounts &gt; Settings) will determine if the post will be sent out to the social networks even if the assignment is incomplete."}}
+										</span>
+									</button>
+								</div>
+							{{/if}}
+						{{/if}}
+					{{/if}}
+					{{#unless assigning}}
+						<div class="col-md-3 col-xs-12">
+							{{#if canPost}}
+								<button class="btn btn-success" {{action 'post'}}>
+									<span>
+										Post {{field-description title="Click this button if you want the post to be sent to social media at the schedule time(s). <br/><br/>The post will automatically be pushed into any Review Channels you have created (Brand Settings &gt; Review Flow) and activated (Brand Settings &gt; Social Accounts &gt; Settings)."}}
+									</span>
+								</button>
+							{{else}}
+								<button class="btn btn-success" disabled="true">
+									<span>
+										Post {{field-description title="The post does not meet the minimum requirements to be sent to social media. You must select at least one social account, enter a topic, enter content and select a time in the future at which to post."}}
+									</span>
+								</button>
+
+							{{/if}}
+						</div>
+					{{/unless}}
+					{{#if canCancelPost}}
+						<div class="col-md-3 col-xs-12">
+							<button class="btn btn-danger" {{action 'cancelPost'}}>
+								<span>
+									Cancel Post {{field-description title="Cancel this post. The post will not be sent to social media."}}
+								</span>
+							</button>
+						</div>
+					{{/if}}
+				</div>
+			</div>
+		</section>
+	</form>
+</div>

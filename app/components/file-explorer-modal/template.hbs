@@ -1,0 +1,24 @@
+<div class="modal fade" id="file-explorer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				<h4 class="modal-title">Folder: {{folderPath}}</h4>
+      </div>
+      <div class="modal-body">
+				<section id="content" style="font-size: initial;">
+					<div class="padding-container less-modal-padding">
+						<div class="row padding-row">
+							{{#if (or folders.length folder.id)}}
+								{{file-explorer-modal/folders folder=folder folders=folders brand=brand select=(action 'selectFolder')}}
+							{{/if}}
+							{{file-explorer-modal/files folder=folder files=files brand=brand select=(action 'select')}}
+						</div>
+					</div>
+				</section>
+      </div>
+    </div>
+  </div>
+</div>

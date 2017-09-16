@@ -1,0 +1,136 @@
+<div class="col-md-12">
+  {{#with model.account as |account|}}
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-12 col-xs-12 text-right">Title* : {{field-description title='Internal Use - What do you want to call this social account?'}}</label>
+        <div class="form-group col-md-7 col-sm-12 col-xs-12">
+          {{one-way-input account.title
+            name="title"
+            class="form-control"
+            update=(action (mut account.title))}}
+
+          {{#each account.error.title.validation as |error|}}
+            <span class="help-block text-left error">{{error}}</span>
+          {{/each}}
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-12 col-xs-12 text-right">Not Ready Alert (Hours)* :  {{field-description title='When a post has a pending assignment, whether it is sent to social media or not depends on the Post Fallback Mode. <br/><br/>If this Not Ready Alert value is set to a number greater than 0, Contetto will check each post to confirm it no longer has any pending assignments this many hours before it is scheduled. If there are still pending assignments at this time, Contetto will send you an alert.'}}</label>
+        <div class="form-group col-md-7 col-sm-12 col-xs-12">
+          {{every-x-hours-selector value=(hash id=account.readyOffset)
+                name="readyOffset"
+                update=(action (mut account.readyOffset))}}
+
+          {{#each account.error.readyOffset.validation as |error|}}
+            <span class="help-block text-left error">{{error}}</span>
+          {{/each}}
+        </div>
+      </div>
+
+      {{#if (has-brand-permission 'manageReviewStructure')}}
+       <div class="form-group">
+        <label class="control-label col-md-3 col-sm-12 col-xs-12 text-right">Sales Post Review Channel {{field-description title="Posts within Contetto fall under two types. Sales and General. If you are taking advantage of Contetto's Review Channel system then this is where you would select which review channel Sales posts from this social account will enter automatically for review.<br/><br/>You can create Review Channels under Brand Settings &gt; Review Flow."}}</label>
+        <div class="form-group col-md-7 col-sm-12 col-xs-12">
+        {{#power-select
+            allowClear=true
+            options=model.account.brand.reviewChannels
+            selected=account.marketingChannel
+            placeholder="Select a review channel, if desired."
+            onchange=(action "updateMarketingChannel" account)
+            as |channel|
+          }}
+            {{channel.name}}
+          {{/power-select}}
+
+
+
+        </div>
+      </div>
+      {{/if}}
+
+      {{#if (has-brand-permission 'overrideReviewStructure')}}
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-12 col-xs-12 text-right">Sales Post Fallback Mode {{field-description title="When a Sales post from this social account has a pending assignment (or has not yet been fully approved by all steps in the review channel), this setting will decide what happens to the post.<br/><br/><strong>Hold</strong> - When this option is selected, the post will not be sent to social media. No other posts will be rescheduled to take it's place.<br/><br/><strong>Release</strong> - When this mode is selected, the post will not be sent to social media. However if the post is in an Automatic slot, the next approved Automatic post of the same type for this account will be bumped up to take it's place.<br/><br/><strong>Post</strong> - If this mode is selected, the post will be sent to social media regardless of approval status or pending assignments."}}</label>
+        <div class="form-group col-md-7 col-sm-12 col-xs-12">
+        {{#power-select
+            options=model.postingScheduleModes
+            selected=account.marketingPostScheduleMode
+            placeholder="Hold Mode"
+             onchange=(action "updateMarketingPostingScheduleMode" account)
+            as |channel|
+          }}
+            {{channel.name}}
+          {{/power-select}}
+
+
+
+        </div>
+      </div>
+      {{/if}}
+
+
+      {{#if (has-brand-permission 'manageReviewStructure')}}
+       <div class="form-group">
+        <label class="control-label col-md-3 col-sm-12 col-xs-12 text-right">General Post Review Channel  {{field-description title="Posts within Contetto fall under two types. Sales and General. If you are taking advantage of Contetto's Review Channel system then this is where you would select which review channel General posts from this social account will enter automatically for review.<br/><br/>You can create Review Channels under Brand Settings &gt; Review Flow."}}</label>
+        <div class="form-group col-md-7 col-sm-12 col-xs-12">
+        {{#power-select
+            options=model.account.brand.reviewChannels
+            selected=account.engagementChannel
+            placeholder="Select a review channel, if desired."
+             onchange=(action "updateEngagementChannel" account)
+            as |channel|
+          }}
+            {{channel.name}}
+          {{/power-select}}
+
+
+
+        </div>
+      </div>
+      {{/if}}
+
+      {{#if (has-brand-permission 'overrideReviewStructure')}}
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-12 col-xs-12 text-right">General Post Fallback Mode  {{field-description title="When an General post from this social account has a pending assignment (or has not yet been fully approved by all steps in the review channel), this setting will decide what happens to the post.<br/><br/><strong>Hold</strong> - When this option is selected, the post will not be sent to social media. No other posts will be rescheduled to take it's place.<br/><br/><strong>Release</strong> - When this mode is selected, the post will not be sent to social media. However if the post is in an Automatic slot, the next approved Automatic post of the same type for this account will be bumped up to take it's place.<br/><br/><strong>Post</strong> - If this mode is selected, the post will be sent to social media regardless of approval status or pending assignments."}}</label>
+        <div class="form-group col-md-7 col-sm-12 col-xs-12">
+        {{#power-select
+            options=model.postingScheduleModes
+            selected=account.engagementPostScheduleMode
+            placeholder="Hold Mode"
+             onchange=(action "updateEngagementPostingScheduleMode" account)
+            as |channel|
+          }}
+            {{channel.name}}
+          {{/power-select}}
+
+
+
+        </div>
+      </div>
+      {{/if}}
+
+      <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+          <button
+            type="submit"
+            class="btn btn-success text-uppercase"
+            disabled={{model.isLoading}}
+            {{action (route-action 'save' account)}}>
+
+            Save
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            disabled={{model.isLoading}}
+            {{action 'getProvider' model.account.platform model.account}}>
+
+            Renew Token {{field-description title="If your social account's token is Invalid, you can press this button to reconnect the account with Contetto. A new token will be captured and the account will resume working, if you sign in with an account that has sufficient privileges and grant access to Contetto."}}
+          </button>
+        </div>
+      </div>
+    </form>
+  {{/with}}
+</div>

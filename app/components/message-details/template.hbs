@@ -1,0 +1,45 @@
+{{gravatar-image email=message.user.email size=30 classNames="chat-img"}}
+
+<div class="chat-header">
+  <span class="chat-user-name">
+    {{message.user.fullName}}
+  </span>
+  {{date-display date=message.date tagName="span" classNames="chat_time text-muted pull-right"}}
+  <div class="chat-body clearfix">
+    {{#if isEditing}}
+      {{#click-outside action=(action "cancel")}}
+        {{content-editable value=message.message
+                           type="html"
+                           class="form-control input-sm"
+                           id=message.id
+                           }}
+        {{#if microchat}}
+          <a {{action 'cancel'}}><i class="fa fa-times microchat-msg-cancel"></i></a>
+        {{else}}
+          <div class="msg-edit-actions">
+            <a class="btn btn-success" {{action "save"}}>Save</a>
+            <a class="btn btn-danger" {{action "cancel"}}>Cancel</a>
+          </div>
+        {{/if}}
+      {{/click-outside}}
+    {{else}}
+      <p>
+        {{#each message.attachments as |attachment|}}
+          {{#if attachment.downloadLink}}
+            <a href="{{attachment.downloadLink}}" target=_blank>{{lazy-image url=attachment.downloadLink}}</a>
+          {{/if}}
+        {{else}}
+          {{{message.message}}}
+          {{#if message.edited}}
+            {{date-display date=message.date tagName="span" classNames="chat_time text-muted pull-right" placeholder="(edited)" placeClass="edited-msg"}}
+          {{/if}}
+          <div class="msg-edit">
+            <a {{action 'pin'}}><i class="fa fa-thumb-tack {{if message.pinned 'message-pinned' 'message-unpinned'}}"></i></a>
+            <a {{action 'check'}}><i class="fa {{if message.checked 'fa-check-square message-checked' 'fa-check-square-o message-unchecked'}}"></i></a>
+            <a {{action 'edit'}}><i class="fa fa-edit message-edit"></i></a>
+          </div>
+        {{/each}}
+      </p>
+    {{/if}}
+  </div>
+</div>

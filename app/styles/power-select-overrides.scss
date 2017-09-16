@@ -1,0 +1,38 @@
+.power-select-wrapper {
+  padding: 0 !important;
+  display: inline-block !important;
+  height: inherit;
+
+  .ember-power-select-trigger {
+    height: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 6px;
+  }
+}
+
+.ember-power-select-option {
+  padding: 7px;
+  height: 40px;
+  border-top: 1px solid #FAFAFA;
+}
+
+.ember-power-select-option[aria-current="true"] {
+  color: #000;
+  background: rgba(0,0,0,.05);
+}
+
+.ember-power-select-option[aria-selected="true"] {
+  color: #000;
+  background: rgba(0,0,0,.05);
+}
+
+.ember-power-select-multiple-option {
+  padding: 1px 3px !important;
+  margin: 0 !important;
+}
+
+.ember-basic-dropdown-content {
+  z-index: 1051 !important;
+}

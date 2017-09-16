@@ -1,0 +1,15 @@
+{{#brand-compo/team/user/tabs isTeamDetailsActive=true member=model.brandMember}}
+<ul>
+  <li><strong>Name: </strong> {{model.member.fullName}}</li>
+  <li><strong>Address: </strong> {{model.member.address}}</li>
+  <li><strong>City & Postal: </strong> {{model.member.city}} {{model.member.postalCode}}</li>
+  <li><strong>Phone Number: </strong> {{model.member.phone}}</li>
+  <li><strong>Email: </strong> {{model.member.email}}</li>
+  <li><strong>Mail Company: </strong> {{model.brand.company.name}}</li>
+  <li><strong>Role: </strong> {{model.brandRole.name}} &nbsp; &nbsp; 
+    {{#if (has-brand-permission 'manageTeam')}}
+    {{#link-to 'brand.edit.team.user.edit' class="text-primary"}}Change{{/link-to}}
+    {{/if}}
+  </li>
+</ul>
+{{/brand-compo/team/user/tabs}}

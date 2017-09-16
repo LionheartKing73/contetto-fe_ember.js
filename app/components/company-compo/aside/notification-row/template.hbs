@@ -1,0 +1,18 @@
+<div class="notification-row {{seenclass}}" id="notificationRow_{{notification.id}}" style="cursor:pointer">
+  <div class="nrx" {{action 'handled' notification}}>
+    <i class="fa fa-window-close pull-right" aria-hidden="true"></i></div>
+  <div style="clear:both" />
+  <div class="nri" {{action 'notificationLink' notification}}>
+    <div class="p10">
+      {{#if logoCheck}}
+        <img src= {{logoSrc.content}} class="img-circle" width="45" height="45" alt="logo" />
+      {{else}}
+        <i class="fa fa-sticky-note"></i>
+      {{/if}}
+      <p>{{notification.subject}} </p>
+      <p>{{notification.body}} </p>
+      <p>{{date-display date=notification.sendTime}} </p>
+      {{ember-ic-you}}
+    </div>
+  </div>
+</div>

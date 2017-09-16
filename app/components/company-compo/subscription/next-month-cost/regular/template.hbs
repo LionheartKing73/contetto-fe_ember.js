@@ -1,0 +1,58 @@
+You will be billed on <b>{{subscription.nextBillingDate}}</b>.<br> Your billing total will be <b>${{subscription.couponedNextBillingDateTotalBill}}</b>.<br> You already paid for your {{subscription.plan.name}} plan upto {{subscription.currentPlanBilledUpto}}.
+{{#if subscription.changedPlan}}
+  You have already chosen {{subscription.changedPlan.name}} plan. You will be billed for it on next billing cycle.
+{{/if}}
+You will be billed for your plan on {{subscription.nextPlanBillingDate}}.
+Bill Breakdown:
+<table class="table">
+  <tbody>
+    {{#if subscription.nextBillingDatePlanBilled}}
+      <tr>
+        <th>Plan</th>
+        <td>{{subscription.nextPlan.name}}: {{subscription.nextPlan.priceWithUnits}}</td>
+      </tr>
+      {{#if (and subscription.nextBillingDateCouponApplicable subscription.coupon.planType)}}
+        <tr>
+          <th colspan="2"><b>Coupon</b></th>
+        </tr>
+        <tr>
+          <td>{{subscription.coupon.perks}}</td>
+          <td>-${{subscription.discountOnNextBillingDatePlanBill}}({{subscription.discount}})</td>
+        </tr>
+        <tr>
+          <td>Total Plan Bill</td>
+          <td>${{subscription.couponedNextBillingDatePlanBill}}</td>
+        </tr>
+      {{/if}}
+    {{/if}}
+    {{#if subscription.hasNextMonthAddonItems}}
+      <tr>
+        <th colspan="2">Addons</th>
+      </tr>
+      {{#each-in subscription.groupedAddonItems as |name addonItem|}}
+        <tr>
+          <td>{{name}} addon({{addonItem.unitPrice}}) X {{addonItem.count}}</td>
+          <td>{{addonItem.price}}</td>
+        </tr>
+      {{/each-in}}
+      <tr>
+        <th>Total Addon Bill</th>
+        <th>${{subscription.totalAddonItemsPrice}}</th>
+      </tr>
+
+    {{/if}}
+    {{#if (and subscription.nextBillingDateCouponApplicable subscription.coupon.billType)}}
+      <tr>
+        <th colspan="2"><b>Coupon</b></th>
+      </tr>
+      <tr>
+        <td>{{subscription.coupon.perks}}</td>
+        <td>-${{subscription.discountOnNextBillingDateTotalBill}}({{subscription.discount}})</td>
+      </tr>
+    {{/if}}
+    <tr>
+      <th>Total Bill</th>
+      <th>${{subscription.couponedNextBillingDateTotalBill}}</th>
+    </tr>
+  </tbody>
+</table>

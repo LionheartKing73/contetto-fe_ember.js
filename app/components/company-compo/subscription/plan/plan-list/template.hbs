@@ -1,0 +1,39 @@
+<div class="form-group">
+  <h3><label>Change Plan</label></h3>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Brands Count</th>
+        <th>Social Accounts Count</th>
+        <th>Posts Count</th>
+        <th>Storage Size(GB)</th>
+        <th>Team Members Count</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each sortedPlans as |plan|}}
+        <tr class="{{if (eq newPlan.id plan.id) 'active'}}" {{action 'updateCurrentPlan' plan}}>
+          <td>{{plan.name}}</td>
+          <td>{{plan.priceWithUnits}}</td>
+          <td>{{plan.brandsCount}}</td>
+          <td>{{plan.socialAccountsCount}}</td>
+          <td>{{plan.postsCount}}</td>
+          <td>{{plan.storageSize}}</td>
+          <td>{{plan.teamMembersCount}}</td>
+          <td>
+            {{#unless (eq newPlan.id plan.id)}}
+              <button class="btn btn-primary">Change Plan</button>
+            {{/unless}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{#if (not-eq newPlan.id subscription.plan.id)}}
+  <button class="btn btn-success" {{action 'confirmUpdatePlan'}}>Update Plan</button>
+  <button class="btn btn-danger" {{action 'cancelChanges'}}>Cancel Change</button>
+{{/if}}

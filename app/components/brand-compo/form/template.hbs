@@ -1,0 +1,204 @@
+<form autocomplete="off">
+  <div class="row">
+    {{#unless allFilled}}
+      <div class="alert">Fill out all fields to complete Brand Profile Setup</div>
+    {{/unless}}
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Brand name* {{field-description title="The name of this brand."}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-input changeset.name class="form-control" placeholder="Brand Name" update=(action (mut changeset.name))}}
+
+          {{#if changeset.error.name}}
+            <span class="help-block error">{{changeset.error.name.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Vertical* {{field-description title="A business vertical that best matches that of your brand. Used for targeting recommendations"}} </label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-select changeset.vertical optionValuePath="id" optionLabelPath="vertical" class='form-control' prompt="Please select vertical" promptIsSelectable=true options=(sort-by 'vertical' model.verticals) update=(action (mut changeset.vertical))}}
+
+          {{#if changeset.error.vertical}}
+            <span class="help-block error">{{changeset.error.vertical.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Phone  {{field-description title="Phone number for this brand."}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-input changeset.phone type="tel" class="form-control" placeholder="+1 (250) 208 5736" update=(action (mut changeset.phone))}}
+
+          {{#if changeset.error.phone}}
+            <span class="help-block error">{{changeset.error.phone.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Country  {{field-description title="This brand's country"}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-select changeset.country optionValuePath="id" optionLabelPath="name" class='form-control' prompt="Please select country" promptIsSelectable=true disabled=states.isPending options=(sort-by 'name' countries) update=(action (mut changeset.country))}}
+
+          {{#if changeset.error.state}}
+            <span class="help-block error">{{changeset.error.state.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">City  {{field-description title="This brand's city."}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-input changeset.city class="form-control" placeholder="City" update=(action (mut changeset.city))}}
+
+          {{#if changeset.error.city}}
+            <span class="help-block error">{{changeset.error.city.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">State / Province  {{field-description title="This brand's state/province."}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-select changeset.state optionValuePath="id" optionLabelPath="name" class='form-control' promptIsSelectable=true prompt=(if states.isPending "Loading..." "Please select state/province") options=(sort-by 'name' statesFulfilled) update=(action
+          (mut changeset.state))}}
+
+          {{#if changeset.error.state}}
+            <span class="help-block error">{{changeset.error.state.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Zip / Postal  {{field-description title="This brand's zip/postal code."}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-input changeset.postal class="form-control" placeholder="V9B-0B1" update=(action "updatePostal" changeset)}}
+
+          {{#if changeset.error.postal}}
+            <span class="help-block error">{{changeset.error.postal.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Address  {{field-description title="This brand's address."}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-input changeset.address class="form-control" placeholder="123 Your Street" update=(action (mut changeset.address))}}
+
+          {{#if changeset.error.address}}
+            <span class="help-block error">{{changeset.error.address.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Description  {{field-description title="A description of this brand (internal use)."}}</label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-textarea changeset.description rows="3" class="form-control" placeholder="Description" update=(action (mut changeset.description))}}
+
+          {{#if changeset.error.description}}
+            <span class="help-block error">{{changeset.error.description.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4">Brand Logo:  {{field-description title="Upload a logo for this brand (optional)."}}</label>
+        <div class="col-md-8">
+          <div class="row">
+            {{#if changeset.logo}}
+              <p class="logo-preview col-md-12">
+                <img src="{{changeset.logo}}" class="row col-md-12" />
+              </p>
+            {{/if}}
+
+            <div class="col-md-12 form-group">
+              {{#pl-uploader for="upload-image" extensions="jpg jpeg png gif" onfileadd="uploadLogo" multiple=false as |queue dropzone|}}
+                {{#if queue.length}}
+                  {{#if isUploading}}
+                    Uploading files ({{queue.progress}}%)
+                  {{else}}
+                    {{queue.firstObject.name}}
+                  {{/if}}
+                {{/if}}
+                <span class="btn btn-success fileinput-button uploader-btnss {{if isUploading 'disabled'}}" id="upload-image">
+                {{#if changeset.logo}}
+                  Change Logo...
+                {{else}}
+                  Browse...
+                {{/if}}
+              </span>
+              {{/pl-uploader}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right"> Timezone:  {{field-description title="The default timezone for all scheduling and calendar displays when working with this brand."}} </label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-select changeset.timezone class='form-control' prompt="Please select timezone" promptIsSelectable=true options=timeZoneOptionsSet update=(action "setTZ")}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Content Manager:  {{field-description title="The person responsible for approving content submitted by members without the authority to publish directly to social networks."}} </label>
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
+          {{one-way-select changeset.contentManager class='form-control' prompt=(if brandUsers.isPending "Loading..." "Please select content manager") promptIsSelectable=true optionValuePath="id" optionLabelPath="fullName" options=brandUsers.content update=(action
+          (mut changeset.contentManager))}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+
+
+
+  <div class="submit-btn ml-20">
+    {{#unless changeset.isNew}}
+      <button class="btn btn-danger pull-left" {{action "leaveBrand"}}>Leave Brand</button>
+    {{/unless}}
+    <button type="submit" class="btn btn-success pull-right text-uppercase" {{action "updateInfo"}} disabled= {{isSubmitted}}>
+      {{if isSubmitted "Saving..." "Save"}}
+    </button>
+
+    <button type="reset" class="btn btn-default pull-right text-uppercase" {{action "cancel"}} disabled= {{isSubmitted}}>
+      Cancel
+    </button>
+  </div>
+</form>

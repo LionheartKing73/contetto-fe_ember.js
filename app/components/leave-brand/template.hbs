@@ -1,0 +1,5 @@
+{{#if (eq canDelete null)}}
+  Loading...
+{{else}}
+  <a href="#" {{action "leaveBrand"}}>{{if canDelete "Delete" "Leave"}} Brand</a>
+{{/if}}

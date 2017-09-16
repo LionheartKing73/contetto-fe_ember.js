@@ -1,0 +1,162 @@
+<div class="assignment	{{if assignedToMe 'assignedToMe' ''}} {{if assignedByMe 'assignedByMe' ''}}">
+	<div class="row assignment-header bg-info">
+		<div class="col-md-5">
+
+			<div class="row">
+				<div class="col-sm-6 col-md-5 assignment-header-col">
+					<strong>Assigned to:</strong>
+				</div>
+				<div class="col-sm-6 col-md-7">
+					{{#if editingMode}}
+						{{#power-select selected=assignment.assignedToUser options=brandMembers searchField="fullName" placeholder="Select assignee (Required)" onchange=(action (mut assignment.assignedToUser)) as |user|}}
+							{{user.fullName}}
+						{{/power-select}}
+					{{else}}
+						{{assignment.assignedToUser.fullName}}
+					{{/if}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6 col-md-5 assignment-header-col">
+					<strong>Type:</strong>
+				</div>
+				<div class="col-sm-6 col-md-7">
+					{{assignment.posting.networkType.name}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6 col-md-5 assignment-header-col">
+					<strong>Status:</strong>
+				</div>
+				<div class="col-sm-6 col-md-7">
+					{{assignment.status.name}}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-sm-6 col-md-5 assignment-header-col">
+					<strong>Due:</strong>
+				</div>
+				<div class="col-sm-6 col-md-7">
+					{{#if editingMode}}
+						{{contetto-datetime-picker action=(action "updateDT") defaultDT=assignment.requestDue defaultTimeZone=brand.timezone}}
+					{{else}}
+						{{date-display brand=brand date=assignment.requestDue}}
+					{{/if}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-5 assignment-header-col">
+					<strong>Assigned by:</strong>
+				</div>
+				<div class="col-sm-6 col-md-7">
+					{{assignment.requestBy.fullName}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-5 assignment-header-col">
+					<strong>Assigned at:</strong>
+				</div>
+				<div class="col-sm-6 col-md-7">
+					{{date-display brand=brand date=assignment.requestTime}}
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-{{if postMode '12' '9'}}">
+			<div class="row-fluid">
+				{{#unless postMode}}
+					<div class="assignment-section">
+						<div class="assignment-label pull-left">Post Topic:</div>
+						<div class="widebox">{{assignment.posting.topic}}&nbsp;</div>
+					</div>
+				{{/unless}}
+				{{#if assignment.channelStep.id}}
+					<div class="assignment-section">
+						<div class="assignment-label pull-left">Department:</div>
+						<div class="widebox">{{assignment.channelStep.department.name}}&nbsp;</div>
+					</div>
+
+				{{/if}}
+				<div class="assignment-section">
+					<div class="assignment-label">
+						Request Details:
+					</div>
+					<div class="{{if editingMode 'assignmentBox' 'scrollbox'}}">
+						{{#if editingMode}}
+							{{textarea value=assignment.content}}
+						{{else}}
+							{{assignment.content}}
+						{{/if}}
+					</div>
+					<BR/>
+				</div>
+			</div>
+		</div>
+		{{#unless postMode}}
+			<div class="col-md-3 pull-right mobile-full-width-btns">
+				<button {{action 'manage' assignment.posting}} class="btn btn-md btn-primary m-t-1">Manage</button>
+				{{#if canComplete}}
+					<button {{action 'completeAssignment' assignment}} class="btn btn-md btn-success m-t-1">Mark Complete</button>
+				{{/if}}
+			</div>
+		{{/unless}}
+	</div>
+	<div class="row assignment-footer">
+		<div class="col-md-8">
+			<div class="assignment-section">
+				<div class="assignment-label pull-left">Files:</div>
+				<div class="{{if editingMode 'assignmentBox files' 'widebox'}}">
+					{{#if editingMode}}
+						<ul class='uploadList'>
+							{{#each assignment.files as |file|}}
+								<li>{{file.name}} - <button class='btn btn-danger btn-xs' {{action 'removeCRFile' file}}>Remove</button></li>
+
+							{{/each}}
+						</ul>
+
+						{{file-entry multi=true uploadedAction=(action "addCRFile")}}
+					{{else}}
+						{{#if assignment.files}}
+							{{#each assignment.files as |file|}}{{file.name}} {{/each}}
+						{{else}}None{{/if}}
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		{{#unless postMode}}
+			<div class="col-md-4">
+				<div class="assignment-section">
+					<div class="assignment-label pull-left">Accounts:</div>
+					<div class="widebox">
+						{{#if assignment.posting.postingSchedules.length}}
+							{{#each assignment.posting.postingSchedules as |ps|}}{{ps.socialAccount.title}} {{/each}}
+						{{else}}None{{/if}}
+					</div>
+				</div>
+			</div>
+		{{/unless}}
+		{{#if postMode}}
+			<div class="col-md-4">
+				{{#if canEdit}}
+					{{#if editingMode}}
+						<button class='btn btn-success btn-md ' {{action 'save'}}>Save Changes</button>
+						<button class='btn btn-danger btn-md ' {{action 'cancelEdit'}}>Cancel</button>
+					{{else}}
+						<button class='btn btn-primary btn-md' {{action 'edit'}}>Edit</button>
+					{{/if}}
+				{{/if}}
+				{{#if canComplete}}
+					{{#unless editingMode}}
+						<button {{action 'completeAssignment' assignment}} class="btn btn-md btn-success">Mark Complete</button>
+					{{/unless}}
+				{{/if}}
+			</div>
+		{{/if}}
+	</div>
+</div>

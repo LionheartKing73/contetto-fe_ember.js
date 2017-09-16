@@ -1,0 +1,58 @@
+        <div class="form-group">
+        <div class="pull-left" style="margin-top:5px; padding-right:5px"><label>Timezone: {{field-description title="Timezone of the times below."}}</label></div>
+                        <div  class="pull-left">{{one-way-select myTimezone
+                           class='form-control'
+                           prompt="Please select a timezone"
+                           promptIsSelectable=true
+                           options=timeZoneOptionsSet
+                           update=(action "setTZ")}}
+                           </div>
+        </div>
+        <div class="clearFix"></div>
+     	<table class="table table-bordered text-center">
+     		<thead>
+     			<tr>
+            <th>Day</th>
+            <th>Schedule</th>
+          </tr>
+     		</thead>
+     		<tbody>
+          <tr>
+            <td>Sun</td>
+            <td>{{schedule-daymanager networkType=networkType account=model day=7 addAction=(action "addTime") deleteAction=(action "deleteTime")  times=times}}</td>
+          </tr>
+          <tr>
+            <td>Mon</td>
+            <td>{{schedule-daymanager networkType=networkType account=model day=1 addAction=(action "addTime") deleteAction=(action "deleteTime")  times=times}}</td>
+          </tr>
+          <tr>
+            <td>Tue</td>
+            <td>{{schedule-daymanager networkType=networkType account=model day=2 addAction=(action "addTime") deleteAction=(action "deleteTime")  times=times}}</td>
+          </tr>
+          <tr>
+            <td>Wed</td>
+            <td>{{schedule-daymanager networkType=networkType account=model day=3 addAction=(action "addTime") deleteAction=(action "deleteTime")  times=times}}</td>
+          </tr>
+          <tr>
+            <td>Thu</td>
+            <td>{{schedule-daymanager networkType=networkType account=model day=4 addAction=(action "addTime") deleteAction=(action "deleteTime")  times=times}}</td>
+          </tr>
+          <tr>
+            <td>Fri</td>
+            <td>{{schedule-daymanager networkType=networkType account=model day=5 addAction=(action "addTime") deleteAction=(action "deleteTime")  times=times}}</td>
+          </tr>
+          <tr>
+            <td>Sat</td>
+            <td>{{schedule-daymanager networkType=networkType account=model day=6 addAction=(action "addTime") deleteAction=(action "deleteTime")  times=times}}</td>
+          </tr>
+     		</tbody>
+     	</table>
+     	<div style="clear:both"></div>
+     	<BR />
+     	<span class="pull-left">
+      	<button class="btn btn-sm btn-danger" {{action "deleteAll"}}>Delete All</button>
+      	<button class="btn btn-sm btn-warning" {{action "resetAll"}}>Reset to Recommended Schedule {{field-description title="This will delete your schedule, and set it to the schedule recommended by Contetto."}}</button>
+      </span>
+      <span class="pull-right">
+       	<button class="btn btn-lg btn-success" {{action "saveSchedule"}}>Save Schedule</button>
+      </span>

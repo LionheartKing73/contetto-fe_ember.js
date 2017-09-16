@@ -1,0 +1,12 @@
+<h4>This month</h4>
+{{#if company.isTrial}}
+  {{company-compo/subscription/current-month-cost/trial subscription=subscription company=company}}
+{{/if}}
+{{#if company.isProration}}
+  {{company-compo/subscription/current-month-cost/proration subscription=subscription company=company}}
+{{/if}}
+{{#if company.isRegular}}
+  {{company-compo/subscription/current-month-cost/regular subscription=subscription}}
+{{/if}}
+{{company-compo/subscription/current-month-cost/coupon subscription=subscription}}
+{{company-compo/subscription/current-month-cost/invoices subscription=subscription company=company invoices=invoices}}

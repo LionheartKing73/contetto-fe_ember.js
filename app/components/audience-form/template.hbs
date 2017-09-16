@@ -1,0 +1,68 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+    <h3 class="model-heading">Target Audience</h3>
+    <form {{action "save" changeset on="submit"}} class="form-horizontal audience-form">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="audience-name" class="col-md-3 control-label">Name {{field-description title="Internal Use - What do you want to call this Target Audience?"}}</label>
+          <div class="col-md-6">
+            {{one-way-input changeset.title update=(action (mut changeset.title)) placeholder="Audience Name" id="audience-name" class="form-control"}}
+
+            {{#if changeset.error.title}}
+              <span class="help-block error"> {{changeset.error.title.validation}} </span>
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="form-group">
+
+          <label for="" class="col-md-3 control-label">Locations {{field-description title="Select all the locations that apply to your targeting."}}</label>
+          <div class="col-md-6">
+            {{#power-select-multiple searchField="name" placeholder="eg. Victoria, British Columbia" search=(perform searchLocations) selected=changeset.locations onchange=(action (mut changeset.locations)) as |location|}}
+              {{location.canonicalName}}
+            {{/power-select-multiple}}
+
+            {{#if changeset.error.locations}}
+              <span class="help-block error"> {{changeset.error.locations.validation}} </span>
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-md-3 control-label">Age {{field-description title="Select all the age ranges that apply to your targeting."}}</label>
+          <div class="col-md-6">
+            {{#power-select-multiple searchField="name" options=ageRanges selected=changeset.ageRanges onchange=(action (mut changeset.ageRanges)) as |ageRange|}}
+              {{ageRange.name}}
+            {{/power-select-multiple}}
+
+            {{#if changeset.error.ageRanges}}
+              <span class="help-block error"> {{changeset.error.ageRanges.validation}} </span>
+            {{/if}}
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="" class="col-md-3 control-label">Gender {{field-description title="Select the gender(s) that apply to your targeting."}}</label>
+          <div class="col-md-6">
+            {{#power-select-multiple searchField="name" options=genders selected=changeset.genders onchange=(action (mut changeset.genders)) as |gender|}}
+              {{gender.name}}
+            {{/power-select-multiple}}
+
+            {{#if changeset.error.genders}}
+              <span class="help-block error"> {{changeset.error.genders.validation}} </span>
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-success text-uppercase" disabled= {{saving}}>Save</button>
+            <button class="btn btn-success text-uppercase" {{action "reset" changeset}} disabled= {{saving}}>Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

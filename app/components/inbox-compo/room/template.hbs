@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="main-message">
+    <div class="col-md-8">
+      <p><i class="fa fa-{{room.socialAccount.platform}}"></i> {{room.socialAccount.title}}</p>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-refresh">
+        <button class="btn btn-green pull-right btn-big-mob" disabled= {{checking}} {{action 'sync'}}><i class="fa fa-refresh" aria-hidden="true"></i> Check For New Messages</button>
+        {{#if updating}}
+          <div class="alert alert-info" role="alert">Updating...</div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="grey">
+      <div class="main-msg-box">
+
+        {{#if room.topMessage.id}}
+          {{#unless noTM}}
+            <div class="topMessage">
+              {{#if (eq room.topMessage.id highlightItemId)}}
+                {{inbox-compo/room/message inboxRoom=room message=room.topMessage room=room brand=brand highlight=true}}
+              {{else}}
+                {{inbox-compo/room/message inboxRoom=room message=room.topMessage room=room brand=brand}}
+              {{/if}}
+            </div>
+          {{/unless}}
+        {{/if}}
+
+        {{inbox-compo/room/list isRoom=true brand=brand sortedMessages=sortedMessages inboxRoom=room showReplies=false highlightItemId=highlightItemId}}
+
+      </div>
+      {{#if (eq actionName 'Direct Message')}}
+        <div class="row">
+          <div class="send-message">
+            <div class="col-md-9">
+              <div class="input-group">
+                {{input type="text" value=replyText class="form-control"}}
+                {{#if replyError}}
+                  <span class="help-block error"> {{replyError}} </span>
+                {{/if}}
+                 {{sendFile.name}} {{#if sendFile.name}} - <a {{action 'removeReplyFile'}}>Remove</a>{{/if}}
+                    
+                  {{#unless (eq room.socialAccount.platform 'twitter')}}
+                    {{file-entry multi=false uploadedAction=(action "addReplyFile")}} 
+                  {{/unless}}
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <button class="btn btn-green" {{action 'send'}}>Send Reply</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+<div style="display:none">{{actionType}}</div>

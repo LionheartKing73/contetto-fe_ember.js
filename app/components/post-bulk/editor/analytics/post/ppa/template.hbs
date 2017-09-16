@@ -1,0 +1,18 @@
+<table class=table>
+<thead>
+    <th>Age</th>
+    <th>Avg</th>
+    <th>Engagement</th>
+    <th>Perc</th>
+</thead>
+<tbody>
+{{#each items as |item|}}
+<tr>
+    <td>{{item.age}}</td>
+    <td>{{item.avg}}</td>
+    <td>{{item.interactions}}</td>
+    <td>{{item.perc}}</td>
+</tr>
+{{/each}}
+</tbody>
+</table>

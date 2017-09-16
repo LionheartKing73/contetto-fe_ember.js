@@ -1,0 +1,39 @@
+<H3>Role Management</H3>
+
+<form class="form-horizontal" autocomplete="off">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group ">
+        <label class="control-label col-md-3">User Email {{field-description title="The email address invited to Contetto"}}</label>
+        <div class="col-md-9">
+          <span>{{model.member.email}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group ">
+        <label class="control-label col-md-3">User Role {{field-description title="The user's role within the company. If you have sufficient privileges, you can create more roles under Company Settings &gt; Roles"}}</label>
+        <div class="col-md-9">
+          {{one-way-select changeset.companyRole optionValuePath="id" optionLabelPath="name" class='form-control' prompt="Please select role" promptIsSelectable=true options=(sort-by 'name' allowedRoles) update=(action (mut changeset.companyRole))}}
+
+          {{#each changeset.error.companyRole.validation as |error|}}
+            <span class="help-block error">{{error}}</span>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-btn ml-20">
+    <button type="submit" class="btn btn-success pull-right text-uppercase" {{action "save" changeset}} disabled= {{isSubmitted}}>
+      {{if isSubmitted "Sending..." "Save Changes"}}
+    </button>
+
+    <button type="reset" class="btn btn-default pull-right text-uppercase" {{action "cancel"}} disabled= {{isSubmitted}}>
+      Cancel
+    </button>
+  </div>
+</form>

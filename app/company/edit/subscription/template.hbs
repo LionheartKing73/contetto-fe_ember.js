@@ -1,0 +1,18 @@
+{{#company-compo/tabs openTab='subscription' }}
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#usage">Usage</a></li>
+  <li><a data-toggle="tab" href="#cards">Cards</a></li>
+  <li><a data-toggle="tab" href="#subscription">Subscription</a></li>
+</ul>
+<div class="tab-content subscription-tab-content">
+  <div id="usage" class="tab-pane fade in active">
+    {{company-compo/usage plan=model.subscription.plan company=model.company subscription=model.subscription}}
+  </div>
+  <div id="cards" class="tab-pane fade">
+    {{company-compo/card card=model.subscription.card cards=model.cards user=model.user locations=model.locations subscription=model.subscription}}
+  </div>
+  <div id="subscription" class="tab-pane fade">
+    {{company-compo/subscription company=model.company subscription=model.subscription card=model.subscription.card cards=model.cards user=model.user locations=model.locations subscriptionChangeset=(changeset model.subscription model.subscriptionValidations) plans=model.plans addons=model.addons addonItems=model.addonItems addonTypes=model.addonTypes invoices=model.invoices}}
+  </div>
+</div>
+{{/company-compo/tabs}}

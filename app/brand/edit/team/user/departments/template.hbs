@@ -1,0 +1,30 @@
+{{#brand-compo/team/user/tabs isTeamDeptActive=true member=model.brandMember}}
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-responsive text-center">
+      <tbody>
+        <tr class="text-uppercase">
+          <th>Name</th>
+          <th>Manager </th>
+          <th>Actions</th>
+        </tr>
+        {{#each model.departments as |dept|}}
+        <tr>
+          <td>{{dept.name}}</td>
+          <td>{{dept.manager.user.fullName}}</td>
+          <td>
+            {{#link-to "brand.edit.reviewflow.departments.edit" dept.id
+            class="btn btn-link p-a-0"
+            disabled=deleting}}
+            Edit
+            {{/link-to}} |
+            <a class="text-danger" href="#" {{action 'removeDept' dept}}>Remove</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="submit-btn m-t-1">
+      {{link-to "Add New Department" "brand.edit.reviewflow.departments.add" class="btn btn-success text-uppercase"}}
+    </div>
+  </div>
+{{/brand-compo/team/user/tabs}}

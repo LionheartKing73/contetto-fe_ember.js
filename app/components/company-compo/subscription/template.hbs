@@ -1,0 +1,51 @@
+<!-- General Heading -->
+<h4>Current Subscription</h4>
+<div class="row">
+  <div class="col-md-4">
+    <label>Start Date</label>: <span>{{subscription.formatStartDate}}</span>
+  </div>
+  <div class="col-md-4">
+    <label>Card</label>: <span>{{subscription.card.cardNumber}}</span>
+  </div>
+  <div class="col-md-4">
+    <label>Plan</label>: <span>{{subscription.plan.name}}</span>
+  </div>
+</div>
+<hr>
+{{#if company.isTrial}}
+{{#if company.cancelledSubscription}}
+<b>
+  The company will be deleted as of {{subscriptionEndDate}}. Click below to undo the cancellation. Once, the company is deleted, it cannot be undone.
+</b>
+Undo Cancellation? (<b>Note: This will undo the cancellation and start normal billing cycle from {{billingStartDate}} according to your plan.</b>)<br> <button class="btn btn-primary" {{action 'undoCancellation'}}>Undo</button>
+{{else}}
+Cancel Trial? (<b>Note: The company will be deleted as of {{subscriptionEndDate}} if you donot undo the cancellation. Once, the company is deleted, it cannot be undone.</b>) <br> <button class="btn btn-danger" {{action 'cancelTrial'}}>Cancel</button>
+{{/if}}
+
+{{/if}}
+<hr>
+<!-- General Heading End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#current-month-cost" {{action 'refreshTabs'}}>Current Month Costs</a></li>
+  <li><a data-toggle="tab" href="#next-month-cost" {{action 'refreshTabs'}}>Next Month Costs</a></li>
+  <li><a data-toggle="tab" href="#plan" {{action 'refreshTabs' 'plan'}}>Edit Plan</a></li>
+  <li><a data-toggle="tab" href="#addons" {{action 'refreshTabs' 'addon'}}>Edit Addons</a></li>
+</ul>
+<div class="tab-content">
+  <div id="current-month-cost" class="tab-pane fade in active">
+    <br>
+    {{company-compo/subscription/current-month-cost invoices=invoices company=company subscription=subscription}}
+  </div>
+  <div id="next-month-cost" class="tab-pane fade">
+    <br>
+    {{company-compo/subscription/next-month-cost subscription=subscription company=company}}
+  </div>
+  <div id="plan" class="tab-pane fade">
+    <br>
+    {{company-compo/subscription/plan subscription=subscription subscriptionChangeset=subscriptionChangeset plans=plans company=company confirmPlan=confirmPlan cards=cards locations=locations user=user}}
+  </div>
+  <div id="addons" class="tab-pane fade">
+    <br>
+    {{company-compo/subscription/addon subscription=subscription company=company resetAddons=resetAddons confirmAddon=confirmAddon cards=cards locations=locations user=user}}
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Tags</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select-multiple options=brand.tags selected=selectedTags placeholder="Select tag(s)" onchange=(action "changeTags") as |tag| }}
+      {{tag.name}}
+    {{/power-select-multiple}}
+  </div>
+</div>

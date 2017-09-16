@@ -1,0 +1,43 @@
+<H2>Campaign Goal</H2>
+<table class='table'>
+<tr>
+	<td><label>Campaign Name: {{field-description title="Enter a name for this campaign."}}</label></td><td>{{input class="form-control" value=campaign.name}}</td>
+</tr>
+{{#if hasCategories}}
+<tr>
+	<td><label>Categories (optional): {{field-description title="Select any category/categories this campaign should belong to. For internal organizational purposes only.<br/><br/>You can create more categories under Brand Settings &gt; Categories"}}</label></td><td>{{#power-select-multiple   options=brand.categories placeholder="Select categories" searchField="title" selected=campaign.categories onchange=(action (mut campaign.categories)) as |category|}}{{category.title}}{{/power-select-multiple}}</td>
+</tr>
+{{/if}}
+<tr>
+	<td><label>Goal: {{field-description title="Select the goal that best matches the purpose of this campaign. <br/><br/><strong>Engagement</strong> - Campaigns of this type are meant specifically to increase interaction with your social account. Most of the posts should be 'General' type and the content should be entertaining in some way.<br/><br/><strong>Brand Amplification</strong> - This type of campaign is meant increase target and influencer followers.<br/><br/><strong>Product Promotion</strong> If you have a particular product or service you want to create a promotional campaign around, select this type and ensure you have created the product in Brand Settings &gt; Products in order for Contetto to create accurate recommendations.<br/><br/><strong>None</strong> - If your campaign doesn't fall into any of the above categories, or is simply a grouping of posts, then select None."}}</label></td>
+	<td>{{#power-select options=goals
+          searchEnabled=false
+          selected=campaign.goal 
+          placeholder="Select this campaign's goal" 
+          onchange=(action (mut campaign.goal)) as |goal|}}
+ 
+		{{goal.cleanName}}
+ 
+	{{/power-select}}</td>
+</tr>
+{{#if productGoal}}
+<tr>
+	<td><label>Product: {{field-description title="Select a product to promote. You can create more products under Brand Settings &gt; Products."}}</label></td>
+	<td>{{#power-select options=products
+          searchField="name"
+          selected=campaign.product 
+          placeholder="Select a product" 
+          onchange=(action (mut campaign.product)) as |product|}}{{product.name}}{{/power-select}}</td>
+</tr>
+{{/if}}
+{{#if step1done}}
+<tfoot>
+<tr>
+<td colspan=2 align=center>
+    <button class='btn btn-success btn-md' {{action 'nextStep'}}>Next Step</button>
+</td>
+</tr>
+</tfoot>
+{{/if}}
+</table>	
+ 

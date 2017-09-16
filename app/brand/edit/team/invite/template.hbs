@@ -1,0 +1,42 @@
+{{#brand-compo/team/tabs isTeamInvitesActive=true}}
+  <div class="tab-pane active">
+    <div class="col-md-12">
+      <form class="form-horizontal" {{action "addMember" on="submit"}}>
+        <div class="form-group">
+          <label for="username" class="col-md-3 control-label">User Email</label>
+          <div class="col-md-9">
+            {{input type="text" class="form-control" id="username" placeholder="Enter Email" value=model.brandInvite.email}}
+            {{#each model.errors.email as |error|}}
+            <span class="help-block">{{error.message}}</span>
+            {{/each}}
+            {{#each model.errors.exist as |error|}}
+            <span class="help-block">{{error.message}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="assignRole" class="col-md-3 control-label">User Role</label>
+          <div class="col-md-9">
+            {{one-way-select model.brandInvite.brandRole
+            optionValuePath="id"
+            optionLabelPath="name"
+            class='form-control'
+            prompt="Select Role"
+            promptIsSelectable=false
+            options=model.roles
+            update=(action (mut model.brandInvite.brandRole))}}
+
+            {{#each model.errors.role as |error|}}
+            <span class="help-block">{{error.message}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-3 col-md-9">
+            {{#unless emailExists}}<button type="submit" class="btn btn-success  text-uppercase">Send Invite</button>{{/unless}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{{/brand-compo/team/tabs}}

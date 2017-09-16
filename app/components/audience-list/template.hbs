@@ -1,0 +1,50 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+
+    <H3>Target Audiences</H3>
+    <p>Part of what makes Contetto so powerful is our recommendation engine. In order to create appropriate recommendations tailored to your brand, we need to know who you are targeting. Create a Primary Target Audience for your brand, and then other Target
+      Audiences for specialized targeting of campaigns and products.</p>
+
+
+    <div class="form-group text-right">
+      {{#link-to 'brand.edit.targetaudience.add' class='btn btn-success text-uppercase' disabled=deleting}}
+        Add a Target Audience
+      {{/link-to}}
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-normal-font">
+        <thead>
+          <tr class="text-uppercase">
+            <th>Primary {{field-description title="Select one target audience to be used as the primary target audience for this brand. It will be used by Contetto's recommendation engines."}}</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model.audiences as |audience|}}
+            <tr>
+              <td>
+                {{one-way-radio defaultAudience.id option=audience.id name='default-audience' update=(action 'setDefaultAudience' audience) disabled=deleting }}
+              </td>
+              <td>{{audience.title}}</td>
+              <td>
+                {{link-to 'Edit' 'brand.edit.targetaudience.edit' audience.brand.id audience.id disabled=deleting class="btn btn-link p-a-0"}} /
+                <a href="#" class="btn btn-link p-a-0" disabled= {{deleting}} {{action 'deleteAudience' audience}}>Remove</a>
+              </td>
+            </tr>
+            {{else}}
+              <tr>
+                <td colspan="6">
+                  <div class="text-center">No target audiences to list! Please
+                    {{#link-to 'brand.edit.targetaudience.add' class='btn btn-success text-uppercase' disabled=deleting}}
+                      Add a Target Audience
+                    {{/link-to}}
+                  </div>
+                </td>
+              </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="line-chart-container dashboard-row dashboard-charts">
+<div class="row date-filters">
+  <div class="col-md-12 form-group">
+    <div class="pull-right">
+      <label class="control-label">From:</label>
+      {{bootstrap-datepicker placeholder="Select a Date" value=fromDate changeDate="setFromDate" autoclose=true class="form-control datepick"}}
+      <label class="control-label">To:</label>
+      {{bootstrap-datepicker placeholder="Select a Date" value=endDate changeDate="setEndDate" autoclose=true class="form-control datepick"}}
+      <button class="btn btn-green btn-big-mob" {{action 'refreshChart'}}>
+        <i class="fa fa-refresh"></i> Refresh
+      </button>
+    </div>
+  </div>
+</div>
+{{#if chartData}}
+  {{high-charts chartOptions=chartOptions content=chartData theme=theme}}
+{{/if}}
+</div>

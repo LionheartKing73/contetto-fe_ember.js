@@ -1,0 +1,71 @@
+<div class="chat-room-heading">
+  {{room.friendlyName}}
+  <div class="leave-chat-room" {{action 'leaveRoom'}}>
+    <i class="fa fa-2x fa-sign-out"></i>
+  </div>
+</div>
+<div class="inbox-filters chat-filter">
+  <div class="row">
+    <div class="col-md-4">
+      <h4>Pinned</h4>
+    </div>
+    <div class="col-md-8">
+      {{#multiselect-checkboxes options=pinnedOptions onchange=(action 'updatePinSelection') selection=selectedPinnedOptions as |option isSelected|}}
+        <li>
+          <label class="control--checkbox">
+              {{input type="checkbox" checked=isSelected}}
+              <i class="fa fa-thumb-tack {{if (eq option 'Unpinned') 'message-unpinned' 'message-pinned'}}" aria-hidden="true"></i> {{option}}
+            </label>
+        </li>
+      {{/multiselect-checkboxes}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <h4>Checked</h4>
+    </div>
+    <div class="col-md-8">
+      {{#multiselect-checkboxes options=checkedOptions onchange=(action 'updateCheckSelection') selection=selectedCheckedOptions as |option isSelected|}}
+        <li>
+          <label class="control--checkbox">
+              {{input type="checkbox" checked=isSelected}}
+              <i class="fa fa-check-square{{if (eq option 'Unchecked') '-o'}}" aria-hidden="true"></i> {{option}}
+            </label>
+        </li>
+      {{/multiselect-checkboxes}}
+    </div>
+  </div>
+  <hr>
+</div>
+<div class="chat-empty"></div>
+<div class="chat-messages" id="chatroom_{{room.id}}">
+  <div class="load_earlier">
+    {{#if emptyChat}}
+      <span class="text-muted">No Chat Messages Available!</span>
+    {{else}}
+      {{#if hasMoreMessages}}
+        <a {{action "moreMessages"}} class="text-muted">Load Older Messages</a>
+      {{/if}}
+    {{/if}}
+  </div>
+
+  <ul class="list-unstyled">
+    {{#each displayMessages as |message|}}
+      {{#if (eq message.room.id room.id)}}
+        {{#if (eq message.id latestMessageId)}}
+          {{#if (eq message.id highlightMessageId)}}
+            {{message-details message=message room=room classNames="chat_message" isEditing=isEditing updateMessage="updateMessage" highlight=true}}
+          {{else}}
+            {{message-details message=message room=room classNames="chat_message" isEditing=isEditing updateMessage="updateMessage"}}
+          {{/if}}
+        {{else}}
+          {{#if (eq message.id highlightMessageId)}}
+            {{message-details message=message room=room classNames="chat_message" updateMessage="updateMessage" highlight=true}}
+          {{else}}
+            {{message-details message=message room=room classNames="chat_message" updateMessage="updateMessage"}}
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>

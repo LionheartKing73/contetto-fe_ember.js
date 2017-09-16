@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Campaign</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select-multiple options=brand.campaigns selected=selectedCampaigns placeholder="Select campaign(s)" onchange=(action "changeCampaigns") as |campaign| }}
+      {{campaign.name}}
+    {{/power-select-multiple}}
+  </div>
+</div>

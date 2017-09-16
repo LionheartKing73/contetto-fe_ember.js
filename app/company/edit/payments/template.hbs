@@ -1,0 +1,113 @@
+{{#company-compo/tabs openTab='payments' }}
+<h2>Invoices</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Amount</th>
+      <th>Details</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each model.invoices as |invoice|}}
+      <tr>
+        <td>{{invoice.formatDate}}</td>
+        <td>{{invoice.invoiceStatus.name}}</td>
+        <td>${{invoice.amount}}</td>
+        <td>
+          <button class="btn btn-primary" data-toggle="collapse" data-target="#accordion-lineItems-{{invoice.id}}">Line Items</button>
+          <button class="btn btn-primary" data-toggle="collapse" data-target="#accordion-payments-{{invoice.id}}">Payments</button>
+        </td>
+        <td>
+          {{#if invoice.failed}}
+            <button class="btn btn-success">Fix Payment</button>
+          {{/if}}
+        </td>
+      </tr>
+      <tr id="accordion-payments-{{invoice.id}}" class="collapse">
+        <td colspan="4">
+          {{#unless (eq invoice.payments.length 0)}}
+            <div>
+              <div class="row">
+                <div class="col-md-3">
+                  Date
+                </div>
+                <div class="col-md-3">
+                  Amount
+                </div>
+                <div class="col-md-3">
+                  Card
+                </div>
+                <div class="col-md-3">
+                  Payment Status
+                </div>
+              </div>
+              {{#each invoice.payments as |payment|}}
+                <div class="row">
+                  <div class="col-md-3">
+                    {{payment.formatDate}}
+                  </div>
+                  <div class="col-md-3">
+                    ${{payment.formatAmount}}
+                  </div>
+                  <div class="col-md-3">
+                    {{payment.card.cardNumber}}
+                  </div>
+                  <div class="col-md-3">
+                    {{payment.paymentStatus.name}}
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <div>No payments found</div>
+          {{/unless}}
+        </td>
+      </tr>
+      <tr id="accordion-lineItems-{{invoice.id}}" class="collapse">
+        <td colspan="4">
+          {{#unless (eq invoice.lineItem.length 0)}}
+            <div>
+              <div class="row">
+                <div class="col-md-3">
+                  Name
+                </div>
+                <div class="col-md-3">
+                  Quantity
+                </div>
+                <div class="col-md-3">
+                  Factor
+                </div>
+                <div class="col-md-3">
+                  Cost
+                </div>
+              </div>
+              {{#each invoice.lineItems as |lineItem|}}
+                <div class="row">
+                  <div class="col-md-3">
+                    {{lineItem.name}}
+                  </div>
+                  <div class="col-md-3">
+                    {{lineItem.quantity}}
+                  </div>
+                  <div class="col-md-3">
+                    {{lineItem.factor}}
+                  </div>
+                  <div class="col-md-3">
+                    ${{lineItem.cost}}
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <div>No Line Items Found</div>
+          {{/unless}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{/company-compo/tabs}}

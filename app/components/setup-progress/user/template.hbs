@@ -1,0 +1,24 @@
+{{#unless mini}}
+<h3>USER SETUP</h3>
+ 
+<ul class="setupProgress">
+<li>{{x-check value=dnd}} <a {{action 'manageUser'}}>Configure Your Do Not Disturb settings </a> {{field-description title="Do Not Disturb determines what times of day published notifications (sms and email) should be suppressed"}}</li>
+<li>{{x-check value=email}}  <a {{action 'manageUser'}}>Enable Email Notifications</a> {{field-description title="Get a summary of missed notifications by email at an interval of your choosing."}}</li>
+<li>{{x-check value=sms}}  <a {{action 'manageUser'}}>Enable SMS Notifications</a> {{field-description title="Get a summary of missed notifications by SMS at an interval of your choosing."}}</li>
+<li>{{x-check value=fcm}}  <a {{action 'manageUser'}}>Enable Push Notifications</a> {{field-description title="Get notified on desktop computers and mobile devices by setting up browser notifications and downloading the mobile app."}}</li>
+<li>{{x-check value=profile}}  <a {{action 'userProfile'}}>Profile Settings</a> {{field-description title="Enter your personal details and configure how long you can leave Contetto open without being logged out."}}</li>
+</ul>
+{{/unless}}
+{{#if mini}}
+{{#unless (eq doneCount count)}}
+
+<div class="setupProgressContainer" style="cursor:pointer"  {{action 'link'}}>
+<span class="setupProgressLabel">User Setup</span> <div class="progress">
+  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+  aria-valuenow="{{doneCount}}" aria-valuemin="0" aria-valuemax="{{doneCount}}" style="width:{{donePerc}}%">
+    {{doneCount}}/{{count}} ({{donePerc}}%) Complete
+  </div>
+</div>
+</div>
+{{/unless}}
+{{/if}}

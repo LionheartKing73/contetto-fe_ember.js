@@ -1,0 +1,15 @@
+<td>{{role.name}}</td>
+{{#if (has-company-permission 'manageStaff')}}
+  <td>
+    {{#if role.isEditable}}
+      {{#link-to "company.edit.role.edit" role.id class="text-center btn btn-xs btn-primary" }}
+        Edit Permission
+      {{/link-to}}
+      <a href="#" class="btn btn-xs btn-danger" disabled= {{deleting}} {{action "delete" role}}>Remove</a>
+    {{else}}
+      {{#link-to "company.edit.role.edit" role.id class="text-center btn btn-xs btn-primary" }}
+        View Permission
+      {{/link-to}}
+    {{/if}}
+  </td>
+{{/if}}

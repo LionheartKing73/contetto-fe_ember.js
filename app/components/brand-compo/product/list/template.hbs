@@ -1,0 +1,30 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+    <h3>Products</h3>
+    <p>Product definitions are used for campaign target recommendations. Products are organized into Product Groups and have defined Target Audiences.</p>
+    <label class="control-label col-xs-12 text-left with-btn">
+      {{#link-to 'brand.edit.products.add' class='btn btn-success pull-right text-uppercase'}}New Product{{/link-to}}
+    </label>
+    <div class="table-responsive goal-table">
+      <table class="table table-bordered table-normal-font">
+        <thead>
+          <tr class="text-uppercase">
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each products as |product|}}
+            {{brand-compo/product/list/item product=product}}
+            {{else}}
+              <tr>
+                <td colspan="7">
+                  <div class="text-center">You have not defined any products.</div>
+                </td>
+              </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

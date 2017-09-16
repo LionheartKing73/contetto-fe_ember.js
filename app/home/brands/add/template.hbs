@@ -1,0 +1,15 @@
+<div class="main-center wrps-dtls">
+  <div class="row wrap-main-2">
+    <div class="wrapes-inbox">
+      <p class="inbox">Brand Information
+      </p>
+    </div>
+    <div class="default-model">
+      <div class="modelbox-body">
+        {{brand-details-form  model=model
+                              changeset=(changeset model.brand model.BrandValidations)
+                              transitionTo=(route-action "transitionTo")}}
+      </div>
+    </div>
+  </div>
+</div>

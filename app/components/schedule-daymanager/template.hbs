@@ -1,0 +1,9 @@
+<div id="schedule_{{account.id}}_{{day}}_{{networkTypeId}}">
+    <div class="list">
+        {{schedule-daymanager/timelist times=sortedTimes deleteAction=(action deleteAction) day=day}}
+    
+    </div> 
+    <div class="control">
+        <button class="btn btn-md btn-primary" {{action (action addAction day networkType)}}>Add Time</button>
+    </div>
+</div>

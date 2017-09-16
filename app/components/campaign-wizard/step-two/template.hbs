@@ -1,0 +1,33 @@
+<h2>Social Accounts</h2>
+
+<table class="table">
+	<tr>
+		<td><label>Social Accounts: {{field-description title="Select the social account(s) you want to use in this campaign."}}</label></td>
+		<td>{{#power-select-multiple options=brand.socialAccounts selected=campaign.socialAccounts onchange=(action (mut campaign.socialAccounts)) as |socialAccount|}} <i class="fa fa-{{socialAccount.platform}}"></i> {{socialAccount.title}}{{/power-select-multiple}}</td>
+	</tr>
+	{{#if recommendedAccounts.length}}
+	<tr>
+		<td colspan=2>We have preselected some accounts for you based on your goal and what we know about your brand. Feel free to change the selection.</td>
+	</tr>
+	{{/if}}
+	{{#if recommendedPlatforms.length}}
+	<tr>
+		<td>Recommended platforms:</td>
+		<td>Based on your goal and what we know about your brand, we suggest looking into setting up and connecting social accounts on the following social media platforms:
+			<ul>
+			{{#each recommendedPlatforms as |platform|}}
+				<li>{{platform.name}}</li>
+			{{/each}}
+			</ul>
+		</td>
+	</tr>
+	{{/if}}
+	<tfoot>
+		<tr>
+			<td colspan=2 align=center>        <button class="btn btn-info btn-md" {{action 'previousStep'}}>Previous Step</button> 
+					{{#if step2done}}  <button class="btn btn-success btn-md" {{action 'nextStep'}}>Next Step</button>{{/if}}
+			</td>
+		</tr>
+	</tfoot>
+</table>
+			

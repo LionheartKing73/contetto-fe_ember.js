@@ -1,0 +1,33 @@
+<div class="form subscription-item m-b-1">
+  <div class="form-group remove-btn-wrapper">
+    <a class="btn btn-xs btn-danger pull-right" {{action 'removeSubscription' subscription}}>Remove</a>
+  </div>
+  <div class="form-group">
+    <label class="col-md-3 control-label">Currency</label>
+    <div class="col-md-9">
+      {{#power-select options=model.currencies selected=subscription.currency placeholder="Select Currency" onchange=(action (mut subscription.currency)) as |currency| }}
+        {{currency.name}}
+      {{/power-select}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-3 control-label">Setup Fee</label>
+    <div class="col-md-9">
+      {{input value=subscription.setupFee placeholder='0.00' class='form-control'}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-3 control-label">Price</label>
+    <div class="col-md-9">
+      {{input value=subscription.price placeholder='0.00' class='form-control'}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-3 control-label">Frequency</label>
+    <div class="col-md-9">
+      {{#power-select options=model.frequencies selected=subscription.frequency placeholder="Select Frequency" onchange=(action (mut subscription.frequency)) as |frequency| }}
+        {{frequency.name}}
+      {{/power-select}}
+    </div>
+  </div>
+</div>

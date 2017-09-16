@@ -1,0 +1,12 @@
+<div>
+  {{#if (eq model.error.errors.0.status "400")}}
+    <h3 class="text-center">Verification failed!</h3>
+    {{#if model.error.errors.0.title}}
+      <h4 class="text-center error">{{model.error.errors.0.title}}</h4>
+    {{/if}}
+  {{else}}
+    <h3 class="text-center">Successful</h3>
+    <h4 class="text-center">Your account has been verified successfully.</h4>
+    <h4 class="text-center">Click {{#link-to 'index'}}here{{/link-to}} to login.</h4>
+  {{/if}}
+</div>

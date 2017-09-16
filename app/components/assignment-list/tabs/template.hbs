@@ -1,0 +1,31 @@
+<div class="default-model">
+  <div class="modelbox-body">
+    <div class="assignment_options_tabs_wrapper">
+      <div class="assignment_options_tabs">
+        <ul class="nav nav-tabs tabs-left">
+          <li>{{link-to "Assigned to Me" "brand.edit.assignments.assigned" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "Created by Me" "brand.edit.assignments.created" session.brand.id class="text-uppercase text-center"}}</li>
+          <li>{{link-to "Calendar" "brand.edit.assignments.calendar" session.brand.id class="text-uppercase text-center"}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mob-nav dropdown">
+      <button class="btn btn-success dropdown-toggle text-uppercase" type="button" id="assignment-settings-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {{openTab}}
+        <span class="caret pull-right"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="assignment-settings-menu">
+        <li>{{link-to "Assigned to Me" "brand.edit.assignments.assigned" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "Assigned by Me" "brand.edit.assignments.created" session.brand.id class="text-uppercase text-center"}}</li>
+        <li>{{link-to "Calendar" "brand.edit.assignments.calendar" session.brand.id class="text-uppercase text-center"}}</li>
+      </ul>
+    </div>
+    <div class="right-panel">
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          {{yield}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

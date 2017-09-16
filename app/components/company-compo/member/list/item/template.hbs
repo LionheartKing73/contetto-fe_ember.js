@@ -1,0 +1,25 @@
+<td>
+  {{member.user.fullName}}
+  {{#if (eq member.user.id userId)}}
+    (You)
+  {{/if}}
+</td>
+<td>
+  {{#if currentRole.rolesEditPermissions}}
+    {{#link-to 'company.edit.role.edit' member.company.id member.companyRole.id class='text-primary' }}
+      <u>{{member.companyRole.name}}</u>
+    {{/link-to}}
+  {{else}}
+    {{member.companyRole.name}}
+  {{/if}}
+</td>
+{{#if (has-company-permission 'manageStaff')}}
+  <td>
+    {{#link-to 'company.edit.member.edit' member.company.id member.id class='btn btn-xs btn-primary' }}
+      Change
+    {{/link-to}}
+    <a href="#" class="btn btn-xs btn-danger" disabled= {{deleting}} {{action "delete" member}}>
+    Remove
+  </a>
+  </td>
+{{/if}}

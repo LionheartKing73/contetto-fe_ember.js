@@ -1,0 +1,12 @@
+
+    <label>{{title}}</label>
+    <div class="outPut">    
+        <pre>
+        URL: {{url}}
+        ----------
+        
+            {{response}}
+        </pre>
+    </div>
+{{#unless (eq chart 'none')}}    {{highchart-raw url=url hideRange=true hiderange=true}}
+{{/unless}}

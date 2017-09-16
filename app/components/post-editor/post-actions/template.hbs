@@ -1,0 +1,106 @@
+
+{{#if saving}}
+Saving... Please wait...
+{{else}}
+
+{{#if changeSet.topic}}
+{{#if assigning}}
+<div class="new-assign-form">
+ 
+    <h3>{{assignHeading}}  <button class="btn btn-warning btn-xs"  {{action "dontAssign"}}>Cancel</button></h3>
+    <strong>Assign to:</strong> 
+    
+                {{#power-select
+              selected=assignee
+              options=brandMembers
+              onchange=(action "setAssignee")
+              as |user|
+            }}
+              {{user.fullName}}
+            {{/power-select}}
+            
+             <BR />
+	<strong>Assignment Due:</strong>     {{contetto-datetime-picker action=(action "updateTime") defaultTimeZone=changeSet.brand.timezone defaultDT=myCR.requestTime}} 
+
+    <strong>Assignment Details:</strong><BR />
+    {{one-way-textarea myCR.content update=(action (mut myCR.content)) class="form-control"}}
+      <BR />
+      <div class="row m-b-1">
+        <strong>Attach Files:</strong>
+        <ul class='uploadList'>
+        {{#each myCR.files as |file|}}
+            <li>{{file.name}} - <button class='btn btn-danger btn-xs' {{action 'removeCRFile' file}}>Remove</button></li> 
+        {{/each}}
+        </ul>
+        {{file-entry multi=true changeSet=changeSet uploadedAction=(action "addCRFile")}}
+     </div>
+      <div class="row m-b-1">
+        <div class="col-md-12">
+          <button class="btn btn-success btn-md pull-right save-assignment" {{action 'saveAssignment'}}>{{assignSubmitText}}</button>
+        </div>
+      </div>
+</div>
+
+{{/if}}
+
+<div class="row">
+  <span class="col-md-6 col-xs-12 post-actions">
+    <div class="btn-group" role="group" aria-label="post-actions">
+      <button {{action "cancel"}} class="btn btn-danger btn-md">Delete Post</button>
+      {{#if rts}}
+          {{#unless assigning}}
+              <button class="btn btn-default btn-md" {{action "saveDraft"}}>{{#if changeSet.isDraft}}Update{{else}}Save as{{/if}} Draft{{#if assigning}} - Won't Send to Assignee{{/if}}</button>
+          {{/unless}}
+      {{else}}
+              <button class="btn btn-default btn-md" {{action "saveDraft"}}>{{#if changeSet.isDraft}}Update{{else}}Save as{{/if}} Draft{{#if assigning}} - Won't Send to Assignee{{/if}}</button>
+      
+      {{/if}}
+      {{#unless assigning}}
+        {{#if hasPending}}
+          {{#if (or (has-brand-permission 'overrideReviewStructure') rts)}}
+            <button class="btn btn-primary btn-md" {{action "schedulePost"}}>Complete Assignment</button>
+          {{/if}}
+        {{/if}}
+      {{/unless}}
+    </div>
+  </span>
+
+  <span class='col-md-6 col-xs-12 post-main-actions'>
+    {{#unless assigning}}
+        <span class="pull-right">
+        {{#if assignButtonVisible}}
+          <button class="btn {{assignButtonClass}} btn-md" {{action "assign" assignPreselect assignCR}}>{{assignButtonText}}</button>
+        {{/if}}
+        {{#if canPost}}
+            <button class="btn btn-success btn-md" {{action "schedulePost"}}>
+            {{#if allNow}}
+                Post Now
+            {{else}}
+                {{#if isStep}}
+                    Approve Post
+                {{else}}
+                    {{#if assignedToMe}}
+                        Post
+                    {{else}}
+                        Schedule Post
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+            </button>
+        {{/if}}
+        </span>
+    {{/unless}}
+  </span>
+</div>
+
+<div class="clearFix"></div>
+{{else}}
+<div class="well">Enter a topic to continue...</div>
+{{/if}}
+<div style="display:none">
+ {{mytest}}
+ {{setButtonContext}}
+ {{postOwner}}
+ </div>
+ 
+ {{/if}}

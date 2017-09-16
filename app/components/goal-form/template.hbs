@@ -1,0 +1,149 @@
+<div class="tab-content">
+  {{#if (eq currentStep 'startGoal')}}
+    <div class="tab-pane active">
+      <h3 class="model-heading">{{if (isEditRoute) 'Edit' 'New'}} Goal</h3>
+      <form class="form-horizontal">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="row">
+            <label class="col-md-5 col-sm-6">Type of Goal :</label>
+            <div class="col-md-7 col-sm-6">
+              <ul class="no-list p-l-0">
+                {{#each model.types as |type|}}
+                  <li>
+                    <div class="radio">
+                      {{#radio-button value=type groupValue=changeset.type}}
+                        {{type.name}}
+                      {{/radio-button}}
+                    </div>
+                  </li>
+                {{/each}}
+                {{#if changeset.error.type}}
+                  <span class="help-block">{{changeset.error.type.validation}}</span>
+                {{/if}}
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <button type="button" class="btn btn-success text-uppercase" {{action "goToStep" changeset.type.id}}>
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  {{/if}}
+
+  {{#if (eq currentStep changeset.type.id)}}
+    <div class="tab-pane active">
+      <h3 class="model-heading">New {{changeset.type.name}} Goal</h3>
+      <form class="form-horizontal">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="row">
+            {{#if (eq changeset.type.name "Traffic")}}
+              <label class="col-md-5 col-sm-6">Website</label>
+              <div class="col-md-7 col-sm-6">
+                {{one-way-select prompt="Select Website"
+                                 class="form-control"
+                                 optionLabelPath="platform"
+                                 promptIsSelectable=true}}
+              </div>
+            {{else}}
+              <label class="col-md-5 col-sm-6">Page</label>
+              <div class="col-md-7 col-sm-6">
+                {{one-way-select changeset.socialAccount
+                                 prompt="Select Page"
+                                 class="form-control"
+                                 optionLabelPath="title"
+                                 promptIsSelectable=true
+                                 options=model.socialAccounts
+                                 update=(action (mut changeset.socialAccount))}}
+
+                {{#if changeset.error.socialAccount}}
+                  <span class="help-block">{{changeset.error.socialAccount.validation}}</span>
+                {{/if}}
+              </div>
+            {{/if}}
+          </div>
+          <div class="row">
+            <label class="col-md-5 col-sm-6">Metrics</label>
+            <div class="col-md-7 col-sm-6">
+              <ul class="no-list p-l-0">
+                {{#each metrics as |metric|}}
+                  <li>
+                    <div class="radio">
+                      {{#radio-button value=metric groupValue=changeset.metric}}
+                        {{metric.name}}
+                      {{/radio-button}}
+
+                      {{#if changeset.error.metric}}
+                        <span class="help-block">{{changeset.error.metric.validation}}</span>
+                      {{/if}}
+                    </div>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <button type="button" class="btn btn-success text-uppercase" {{action "goToStep" "finishGoal"}}>Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  {{/if}}
+
+
+  {{#if (eq currentStep 'finishGoal')}}
+    <!-- Save Goals -->
+    <div class="tab-pane active">
+      <h3 class="model-heading">New Goal</h3>
+      <form class="form-horizontal">
+        <div class="col-md-6 col-md-offset-3 addgoal6">
+          <div class="row">
+            <label class="col-md-5 col-sm-6">Amount</label>
+            <div class="col-md-7 col-sm-6">
+              {{one-way-number changeset.amount
+                               placeholder="100"
+                               class="form-control"
+                               update=(action (mut changeset.amount)) }}
+
+              {{#if changeset.error.amount}}
+                <span class="help-block">{{changeset.error.amount.validation}}</span>
+              {{/if}}
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-5 col-sm-6">By</label>
+            <div class="col-md-7 col-sm-6">{{log (moment-format changeset.endDate "MM/DD/YYYY")
+                                                 (moment-format changeset.endDate)}}
+              {{#bs-datetimepicker format="MM/DD/YYYY"
+                                   useCurrent=false
+                                   minDate=minDueDate
+                                   date=(moment-format changeset.endDate "MM/DD/YYYY")
+                                   updateDate=(action (mut changeset.endDate))}}
+                {{one-way-input date1
+                                id="dueDate"
+                                name="Date"
+                                placeholder="Date"
+                                class="form-control"
+                                update=(action (mut date1)) }}
+              {{/bs-datetimepicker}}
+
+              {{#if changeset.error.endDate}}
+                <span class="help-block">{{changeset.error.endDate.validation}}</span>
+              {{/if}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-success text-uppercase" disabled={{saving}} {{action "goToStep"}}>
+                {{if saving 'Saving..' 'Save'}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  {{/if}}
+</div>

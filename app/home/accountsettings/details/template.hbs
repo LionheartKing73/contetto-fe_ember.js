@@ -1,0 +1,19 @@
+<div class="main-center wrps-dtls">
+  <div class="row wrap-main-2">
+    <div class="wrapes-inbox">
+		{{page-options title="User Settings"}}
+    </div>
+    <div class="default-model">
+      <div class="modelbox-body">
+        <!-- Account Settings tab (Component) // Details tab active-->
+        {{account-tab-left-panel class='left-panel padding-none tabs-left2' isDetailsTabActive=model.isDetailsTabActive}}
+        {{account-settings-details-form changeset=(changeset model.user model.UserValidations) model=model}}
+        
+        <div class="clearfix"></div>
+        <!-- </div class="modelbox-body"> -->
+      </div>
+      <!-- </div class="default-model"> -->
+    </div>
+    <!-- </div class="main-center"> -->
+  </div>
+</div>

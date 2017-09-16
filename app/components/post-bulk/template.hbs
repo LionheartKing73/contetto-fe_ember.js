@@ -1,0 +1,7 @@
+<h2>Bulk Post Editor</h2>
+
+<button class="btn btn-md btn-md-success" {{action 'addPost'}}>Add Post</button>
+
+{{#each posts as |post|}}
+  {{post-bulk/editor temps=temps post=post campaign=campaign brand=brand tempAdd=(action 'tempAdd') tempRemove=(action 'tempRemove') tempUpdate=(action 'tempUpdate') cancelPost=(action 'cancelPost') postDone=(action 'postDone')}}
+{{/each}}

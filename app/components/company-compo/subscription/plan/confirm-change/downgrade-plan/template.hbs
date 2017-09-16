@@ -1,0 +1,33 @@
+{{#if company.isTrial}}
+  You are currently enjoying the free trial. The trial period started on {{company.formatStartDate}}. The trial period will end on {{company.trialEndDate}}. You earlier selected {{subscription.plan.name}} plan. You are now changing the plan to {{newPlan.name}}.
+  This plan will start immediately. You will be charged {{couponedOutstandingPlanPrice}} on {{company.billingStartDate}}.
+{{else}}
+  You have been using {{subscription.plan.name}} plan. You changed the plan to {{newPlan.name}}. You will be charged {{couponedOutstandingPlanPrice}}.
+  <hr> New monthly charges for the {{newPlan.name}} plan: {{couponedOutstandingPlanPrice}}.
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>{{newPlan.name}}</th>
+        <th>{{newPlan.priceWithUnits}}</th>
+      </tr>
+      {{#if subscription.coupon}}
+        <tr>
+          <th colspan="2"><b>Coupon</b></th>
+        </tr>
+        <tr>
+          <td>{{subscription.coupon.perks}}</td>
+          <td>-${{discountOnOutstandingPlanPrice}}({{subscription.discount}})</td>
+        </tr>
+      {{/if}}
+      <tr>
+        <th>Total</th>
+        <th>${{couponedOutstandingPlanPrice}}</th>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <h5>This will take effect from 1st of next month.</h5>
+{{/if}}
+<h5>Are you sure that you want to change the plan?</h5>
+<button class="btn btn-danger" {{action 'cancelConfirmPlan'}}>Cancel</button>
+<button class="btn btn-success" {{action 'saveDowngradedPlan'}}>Confirm</button>

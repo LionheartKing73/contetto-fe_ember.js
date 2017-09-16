@@ -1,0 +1,26 @@
+<div class="container content">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-12 welcome-pagebox">
+
+      <h3 class="text-center">Company</h3>
+
+      <div class="box">
+        <div class="row">
+          <div class="col-xs-12 text-center">
+
+            <h4>Your Company Invites</h4>
+
+            <div class="row">
+              {{#each (reject-by "status" "reject" invites) as |invite|}}
+                {{invite-comp/company/item invite class="m-t-1" transitionTo=transitionTo}}
+              {{else}}
+                <p>You don't have any pending company invitation.</p>
+              {{/each}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

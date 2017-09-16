@@ -1,0 +1,27 @@
+<b>Your 30 days free trial starts from today i.e. {{today}}</b>
+<br> You chose <b>{{subscription.plan.name}}</b> plan.
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th width=25%>Name</th>
+      <th>Price</th>
+      <th>Brands Count(/mo)</th>
+      <th>Social Accounts Count(/mo)</th>
+      <th>Posts Count(/mo)</th>
+      <th>Storage Size(GB/mo)</th>
+      <th>Team Members Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{subscription.plan.name}}</td>
+      <td>{{subscription.plan.priceWithUnits}}</td>
+      <td>{{subscription.plan.brandsCount}}</td>
+      <td>{{subscription.plan.socialAccountsCount}}</td>
+      <td>{{subscription.plan.postsCount}}</td>
+      <td>{{subscription.plan.storageSize}}</td>
+      <td>{{subscription.plan.teamMembersCount}}</td>
+    </tr>
+  </tbody>
+</table>

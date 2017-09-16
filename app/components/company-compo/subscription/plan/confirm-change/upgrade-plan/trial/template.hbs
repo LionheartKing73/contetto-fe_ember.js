@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="2">Plan: {{newPlan.name}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><i>Total days: {{totalDays}}</i></td>
+      <td>{{newPlan.priceWithUnits}}</td>
+    </tr>
+    <tr>
+      <td><i>Proration Days: {{prorationDays}}</i></td>
+      <td>${{proratedPrice}}</td>
+    </tr>
+    {{#if subscription.coupon}}
+      <tr>
+        <th colspan="2"><b>Coupon</b></th>
+      </tr>
+      <tr>
+        <td>{{subscription.coupon.perks}}</td>
+        <td>-${{discountOnProratedPrice}}({{subscription.discount}})</td>
+      </tr>
+    {{/if}}
+    <tr>
+      <th>Total</th>
+      <th>${{couponedProratedPrice}}</th>
+    </tr>
+  </tbody>
+</table>

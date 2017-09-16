@@ -1,0 +1,74 @@
+{{#if company.balance}}
+  <h2>You have an outstanding balance of amount {{company.balance}} $. Please clear the balance.</h2>
+  <h3>Invoice</h3>
+  Date: {{invoice.date}}
+  Status: {{invoice.invoiceStatus.name}}
+  <h5>Line Items</h5>
+  {{#each invoice.lineItems as |lineItem|}}
+    {{lineItem.item.name}} - {{#unless (eq lineItem.factor 100)}}{{lineItem.factor}} * {{/unless}}{{lineItem.item.price}} * {{lineItem.item.amount}} * {{lineItem.quantity}}
+    <br>
+  {{/each}}
+  <hr>
+  {{#unless clearing}}
+    <h3>Payments</h3>
+    {{#each invoice.payments as |payment|}}
+      Amount: {{payment.amount}}
+      <br>
+      Date: {{payment.date}}
+      <br>
+      Status: {{payment.paymentStatus.name}}
+      <br>
+      Card: {{payment.card.cardNumber}}, {{payment.card.expDate}}, {{payment.card.ccv2cvc2}}
+      <br>
+      <br>
+    {{/each}}
+    <hr>
+    <button class="btn btn-success" {{action 'clear'}}>Clear</button>
+  {{else}}
+    <form autocomplete="off">
+      <div class="form-group subscription-card-option">
+        <div class="form-inline select-card">
+          {{#radio-button
+              value=true
+              groupValue=showCards
+              changed="showCardsChanged"}}
+              Select from existing cards
+          {{/radio-button}}
+        </div>
+        <div class="form-inline create-card">
+          {{#radio-button
+              value=true
+              groupValue=createNew
+              changed="createNewChanged"}}
+              Create a new Card
+          {{/radio-button}}
+        </div>
+      </div>
+      {{#if showCards}}
+        {{acceptance-marks}}
+        <ul class="cards-list">
+          {{#each cards as |card|}}
+            {{#if card.id}}
+              <li class="credit-card {{if (eq card.id selectedCard.id) 'active'}}" {{action 'selectCard' card}}>
+                <label>Card Number</label>:<span>{{card.cardNumber}}</span>
+                <label>Exp Date</label>:<span>{{card.expDate}}</span>
+                <label>CVV No</label>:<span>{{card.ccv2cvc2}}</span>
+              </li>
+              <hr>
+            {{/if}}
+          {{/each}}
+        </ul>
+        {{#if selectedCard}}
+          <button class="btn btn-success" {{action 'confirmPay' selectedCard}}>Pay</button>
+        {{/if}}
+      {{/if}}
+      {{#if createNew}}
+        {{card-form cardChangeset=(changeset newCard cardValidations) createNew=createNew showCards=showCards locations=(readonly locations)}}
+      {{/if}}
+    </form>
+    <button class="btn btn-danger" {{action 'cancelClearing'}}>Cancel</button>
+    <hr>
+  {{/unless}}
+{{else}}
+  <h2>You have no outstanding balance left to clear</h2>
+{{/if}}

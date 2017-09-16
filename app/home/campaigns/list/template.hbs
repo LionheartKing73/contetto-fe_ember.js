@@ -1,0 +1,85 @@
+<div class="main-center wrps-dtls">
+  <div class="row wrap-main-2">
+    <div class="default-model tsk-details wraper-brands">
+      <div class="modelbox-body">
+        <div class="right-panel calender">
+          <h4 class="calender-title">Calendar
+            {{#link-to 'home.campaigns.add' tagName='button' class='btn btn-success'}}
+              New Campaign
+            {{/link-to}}
+          </h4>
+          <div class="col-md-3 col-sm-12 col-xs-12 wrap-side-4">
+            <h3>Filters</h3>
+            <p class="page-head">Type</p>
+            <ul>
+              {{#each model.filters.types as |item index|}}
+                <li class="y">
+                  <span class="inpt-check">
+                    {{input type='checkbox' checked=item.isChecked click=(action 'filter' 'types' item.value)}}
+                  </span>
+                    {{item.val}}
+                </li>
+              {{/each}}
+            </ul>
+
+            <p class="page-head">Status</p>
+            <ul>
+              {{#each model.filters.status as |item index|}}
+                <li class="y">
+                  <span class="inpt-check">
+                    <label>
+                      {{input type='checkbox' checked=item.isChecked click=(action 'filter' 'status' item.value)}}
+                      {{item.val}}
+                    </label>
+                  </span>
+                </li>
+              {{/each}}
+            </ul>
+
+            <p class="page-head">Campaign</p>
+            <ul>
+              {{#each model.filters.campaignA as |item index|}}
+                <li class="y">
+                  <span class="inpt-check">
+                    {{input type='checkbox' checked=item.isChecked click=(action 'filter' 'campaign' item.id)}}
+                  </span>
+                  <span class="camp-circle" style="background-color:{{item.bgColor}};"></span>
+
+                  {{#if (eq item.id "none")}}
+                    {{item.campaignName}}
+                  {{else}}
+                    {{#link-to 'home.campaign' item.id}}
+                      {{item.campaignName}}
+                    {{/link-to}}
+                  {{/if}}
+
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="col-md-9 col-sm-12 col-xs-12">
+            <div class="right-calender-panel">
+              {{full-calendar
+              events=model.events
+              defaultDate=currDate
+              editable=false
+              eventClick=(action "showDetail")
+              header=model.headerObj
+              defaultTimedEventDuration = '00:15:00'
+              slotDuration= '00:05:00'
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#if (eq model.detail.show true)}}
+    <div class="calender-tooltip">
+      <div class="tooltip-content">
+        <button class="close-btn" {{action "closeDetail" on="click"}}><i class="fa fa-close"></i></button>
+        {{post-content post=model.detail}}
+      </div>
+    </div>
+  {{/if}}
+  </div>
+</div>

@@ -1,0 +1,42 @@
+{{#unless mini}}
+  <h3>COMPANY SETUP</h3>
+  <h4>Details</h4>
+  <ul class="setupProgress">
+    <li>{{x-check value=details}}
+      {{#link-to 'company.edit.details' session.company}}Company Settings{{/link-to}} {{field-description title="Configure your company's profile details completely."}}</li>
+  </ul>
+
+  <h4>Billing</h4>
+  <ul class="setupProgress">
+    <li>{{x-check value=plan}} Plan selected? {{field-description title="Customize your company's billing subscription to suite your needs."}}</li>
+  </ul>
+
+  <h4>Team</h4>
+  <ul class="setupProgress">
+    <li>{{x-check value=team}}
+      {{#link-to 'company.edit.member.list' session.company.id}}Add team members to the company.{{/link-to}} {{field-description title="Invite team members to work with you."}}</li>
+  </ul>
+
+  <h4>Brands</h4>
+  <ul class="setupProgress">
+    <li>{{x-check value=brands}}
+      {{#link-to 'company.edit.brands' session.company.id}}Setup a brand{{/link-to}} {{field-description title="Create a brand in order to manage social media profiles."}}</li>
+  </ul>
+{{/unless}}
+{{#if session.currentCompanyRole}}
+  {{#if (has-company-permission 'manageCompanyDetails')}}
+    {{#if mini}}
+      {{#unless (eq doneCount count)}}
+
+        <div class="setupProgressContainer" style="cursor:pointer" {{action 'link'}}>
+          <span class="setupProgressLabel">Company Setup</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{doneCount}}" aria-valuemin="0" aria-valuemax="{{doneCount}}" style="width:{{donePerc}}%">
+              {{doneCount}}/{{count}} ({{donePerc}}%)
+            </div>
+          </div>
+        </div>
+      {{/unless}}
+    {{/if}}
+  {{/if}}
+{{/if}}

@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">View in Timezone</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select options=timezones selected=selectedTZ placeholder="Select a Timezone" onchange=(action "changeTZ") as |tz| }}
+      {{tz}}
+    {{/power-select}}
+  </div>
+</div>

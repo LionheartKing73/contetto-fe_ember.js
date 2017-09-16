@@ -1,0 +1,59 @@
+.subscription-card-option{
+  input{
+    margin-left: 5px;
+  }
+  &:after{
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+.select-card{
+  float: left
+}
+.create-card{
+  float: right
+}
+.cards-list{
+  list-style: none;
+  .active{
+    background: #00a885;
+  }
+}
+.card-form{
+  .form-group{
+    text-align: left;
+  }
+  .row{
+    .help-block.error{
+      margin-left: 15px;
+    }
+  }
+}
+.credit-card, .subscription-plan{
+  td:first-child{
+    text-align: left;
+    .select-check{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border: 1px solid #cdcdcd;
+      margin-right: 10px;
+    }
+    .card-number{
+      display: inline-block;
+      vertical-align: top;
+      min-height: 20px;
+    }
+  }
+}
+.d-inline-block{
+  display: inline-block;
+}
+
+.scrolling{
+  width:auto;
+  overflow: scroll;
+  height:auto;
+}

@@ -1,0 +1,65 @@
+Your trial period will end on <b>{{company.trialEndDate}}</b>.<br>
+You will be billed on <b>{{company.billingStartDate}}</b>.<br>
+Your billing total is <b>{{subscription.couponedProratedTotalBill}}</b>.<br>
+Bill Breakdown:
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Plan</th>
+      <td>{{subscription.plan.name}}: {{subscription.plan.priceWithUnits}}</td>
+    </tr>
+    <tr>
+      <td><i>Total days: {{company.prorationBillingTotalDays}}</i></td>
+      <td>{{subscription.plan.price}}</td>
+    </tr>
+    <tr>
+      <td><i>Proration Days: {{company.prorationDays}}</i></td>
+      <td>${{subscription.proratedPlanBill}}</td>
+    </tr>
+    {{#if subscription.coupon.planType}}
+      <tr>
+        <th colspan="2"><b>Coupon</b></th>
+      </tr>
+      <tr>
+        <td>{{subscription.coupon.perks}}</td>
+        <td>-${{subscription.discountOnProratedPlanBill}}({{subscription.discount}})</td>
+      </tr>
+      <tr>
+        <td>Total Plan Bill</td>
+        <td>${{subscription.couponedProratedPlanBill}}</td>
+      </tr>
+    {{/if}}
+    {{#if subscription.hasNextMonthAddonItems}}
+      <tr>
+        <th colspan="2">Addons</th>
+      </tr>
+      {{#each-in subscription.groupedAddonItems as |name addonItem|}}
+        <tr>
+          <td>{{name}} addon({{addonItem.unitPrice}}) X {{addonItem.count}}</td>
+          <td>{{addonItem.price}}</td>
+        </tr>
+      {{/each-in}}
+      <tr>
+        <td><i>Total days: {{company.prorationBillingMonthDays}}</i></td>
+        <td>{{subscription.regularAddonBill}}</td>
+      </tr>
+      <tr>
+        <td><i>Proration Days: {{company.prorationDays}}</i></td>
+        <td>${{subscription.proratedAddonBill}}</td>
+      </tr>
+    {{/if}}
+    {{#if subscription.coupon.billType}}
+      <tr>
+        <th colspan="2"><b>Coupon</b></th>
+      </tr>
+      <tr>
+        <td>{{subscription.coupon.perks}}</td>
+        <td>-${{subscription.discountOnProratedTotalBill}}({{subscription.discount}})</td>
+      </tr>
+    {{/if}}
+    <tr>
+      <th>Total</th>
+      <th>${{subscription.couponedProratedTotalBill}}</th>
+    </tr>
+  </tbody>
+</table>

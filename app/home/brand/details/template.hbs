@@ -1,0 +1,19 @@
+<div class="main-center wrps-dtls">
+  <div class="row wrap-main-2">
+    <div class="wrapes-inbox">
+      {{#page-options title="Brand"}}
+        {{leave-brand model=model.brand transitionTo=(route-action "transitionTo")}}
+      {{/page-options}}
+    </div>
+    <div class="default-model tsk-details wraper-brands">
+      <div class="modelbox-body">
+        {{brand-tab-left-panel class='left-panel padding-none tabs-left2' isDetailsTabActive=model.isDetailsTabActive}}
+        {{brand-details-form  model=model
+                              changeset=(changeset model.brand model.BrandValidations)
+                              transitionTo=(route-action "transitionTo")}}
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

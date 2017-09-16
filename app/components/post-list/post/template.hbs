@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="my-card">
+    <div class="header"> <i class="fa fa-{{post.socialAccount.platform}}"></i> {{post.socialAccount.title}}
+      <br class="hidden-md hidden-lg">-
+      <span class="strong">{{post.posting.user.fullName}}</span>
+      <span class="pull-right time">{{date-display brand=session.brand date=post.scheduledTime}}
+        <!-- <i class="fa fa-times" {{!action 'cancelpost'}}></i> -->
+      </span>
+    </div>
+    <div class="content">
+      <div class="pro-img">
+        <div class="description">
+          <div class="name">{{post.posting.topic}}</div>
+          <div class="Italic"><em>{{post.posting.campaign.name}}</em>
+          </div>
+        </div>
+      </div>
+      <div class="message">
+        <p>{{{post.posting.content}}}</p>
+      </div>
+    </div>
+    <div class="action"> <a href="#">Type: {{post.posting.networkType.name}}</a>
+      <div class="report pull-right inline">
+        <div class="col-md-8"><span>Status: {{post.posting.postingStatus.cleanName}}</span></div>
+        <div class="col-md-4"><a class="btn btn-green btn-sm btn-big-mob manage-post" {{action 'manage'}}>Manage</a></div>
+      </div>
+    </div>
+  </div>
+</div>

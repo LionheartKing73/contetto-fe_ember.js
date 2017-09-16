@@ -1,0 +1,34 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+    <h3>Categories</h3>
+    <p>Categories are used to organize post content within the brand. It makes it easier to find previous posts and compare post performance.</p>
+    <p>Categories are hierarchical, you can select a parent for any category so that you can easily filter your post contents by different levels of grouping.</p>
+    <label class="control-label col-xs-12 text-left with-btn">
+      {{#link-to 'brand.edit.category.add' class='btn btn-success pull-right text-uppercase'}}New Category{{/link-to}}
+    </label>
+
+    <div class="table-responsive goal-table">
+      <table class="table table-bordered table-normal-font">
+        <thead>
+          <tr class="text-uppercase">
+            <th>Title</th>
+            <th>Parent Category</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each categories as |category|}}
+            {{brand-compo/category/list/item category}}
+            {{else}}
+              <tr>
+                <td colspan="7">
+                  <div class="text-center">There are no categories in here.
+                    {{#link-to 'brand.edit.category.add'}}Add a category{{/link-to}}.</div>
+                </td>
+              </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

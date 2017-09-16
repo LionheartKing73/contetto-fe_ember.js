@@ -1,0 +1,18 @@
+{{#unless verificationSent}}
+<p class="text-info text-center">
+  Your account is not verified. Please check your email inbox for verification email. If you didn't receive the email, you can resend email by clicking the button below.
+</p>
+
+<div class="well text-center">
+  <button
+     type="button"
+     class="btn btn-lg btn-success text-uppercase"
+     {{action 'resendVerification'}}
+     >
+
+     {{if isSaving 'Sending..' 'Resend Verification'}}
+  </button>
+</div>
+{{else}}
+<p class="text-info text-center">Sent verification email. Please check your email to verify your account.</p>
+{{/unless}}

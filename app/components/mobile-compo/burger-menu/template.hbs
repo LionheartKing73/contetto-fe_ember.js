@@ -1,0 +1,206 @@
+<ul class="nav burger-nav">
+  <li class="user-settings">
+    {{#side-menu-link-to 'user.details' class="ellipsis"}}
+      {{gravatar-image email=model.user.email size=35}}
+      {{model.user.fullName}}
+    {{/side-menu-link-to}}
+  </li>
+  <li class="divider"></li>
+  {{#if session.company}}
+    <li>
+      {{#side-menu-link-to "company.edit.details" session.company.id}}
+        <span class="ellipsis">
+          {{#if session.company.logo}}
+            <img src={{session.company.logo}} class="img-circle" width="25" height="25" alt="logo" />
+          {{else}}
+            <i class="fa fa-building" aria-hidden="true"></i>
+          {{/if}}
+          {{session.company.name}}
+        </span>
+      {{/side-menu-link-to}}
+      <span class="collapse-menu pull-right">
+        <a href="#company_list" data-toggle="collapse" aria-expanded="false">
+          <i class="fa fa-plus"></i>
+          <i class="fa fa-minus"></i>
+        </a>
+      </span>
+      <ul id="company_list" class="nav burger-nav collapse">
+        {{#each model.companies as |company|}}
+          {{#unless company.isNew}}
+          {{#unless (eq company session.company)}}
+            <li>
+            {{#link-to "company.edit" company.id}}
+              <span class="ellipsis">
+                {{#if company.logo}}
+                  <img src={{company.logo}} class="img-circle" width="25" height="25" alt="logo" />
+                {{else}}
+                  <i class="fa fa-building" aria-hidden="true"></i>
+                {{/if}}
+                {{company.name}}
+              </span>
+            {{/link-to}}
+            </li>
+          {{/unless}}
+          {{/unless}}
+        {{/each}}
+        <li class="add">
+          <i class="fa fa-plus"></i>
+          {{link-to "New Company" "setup"}}
+        </li>
+      </ul>
+    </li>
+  {{else}}
+    {{#each model.companies as |company|}}
+      {{#unless company.isNew}}
+        <li>
+        {{#link-to "company.edit" company.id}}
+          <span class="ellipsis">
+            {{#if company.logo}}
+              <img src={{company.logo}} class="img-circle" width="25" height="25" alt="logo" />
+            {{else}}
+              <i class="fa fa-building" aria-hidden="true"></i>
+            {{/if}}
+            {{company.name}}
+          </span>
+        {{/link-to}}
+        </li>
+      {{/unless}}
+    {{/each}}
+    <li class="add">
+      <i class="fa fa-plus"></i>
+      {{link-to "New Company" "setup"}}
+    </li>
+  {{/if}}
+  <li class="divider"></li>
+  {{#if session.brand}}
+    <li>
+      {{#side-menu-link-to "brand.edit.details" session.company.id session.brand.id}}
+        {{#if session.brand.logo}}
+          <img src={{session.brand.logo}} class="img-circle" width="25" height="25" alt="logo" />
+        {{else}}
+          <i class="fa fa-font-awesome" aria-hidden="true"></i>
+        {{/if}}
+        {{session.brand.name}}
+      {{/side-menu-link-to}}
+      <span class="collapse-menu pull-right">
+        <a href="#brand_list" data-toggle="collapse" aria-expanded="false">
+          <i class="fa fa-plus"></i>
+          <i class="fa fa-minus"></i>
+        </a>
+      </span>
+      <ul id="brand_list" class="nav burger-nav collapse">
+        {{#each session.company.brands as |brand|}}
+          {{#unless brand.isNew}}
+          {{#unless (eq brand session.brand)}}
+            <li>
+              {{#link-to "brand.edit" brand.company.id brand.id}}
+                {{#if brand.logo}}
+                  <img src={{brand.logo}} class="img-circle" width="25" height="25" alt="logo" />
+                {{else}}
+                  <i class="fa fa-font-awesome" aria-hidden="true"></i>
+                {{/if}}
+                {{brand.name}}
+              {{/link-to}}
+            </li>
+          {{/unless}}
+          {{/unless}}
+        {{/each}}
+        {{#if session.company}}
+        <li>
+          <i class="fa fa-plus"></i>
+          {{link-to "New brand" "brand.add" session.company}}
+        </li>
+        {{/if}}
+      </ul>
+    </li>
+  {{else}}
+    {{#each session.company.brands as |brand|}}
+      {{#unless brand.isNew}}
+        <li>
+          {{#link-to "brand.edit" brand.company.id brand.id}}
+            {{#if brand.logo}}
+              <img src={{brand.logo}} class="img-circle" width="25" height="25" alt="logo" />
+            {{else}}
+              <i class="fa fa-font-awesome" aria-hidden="true"></i>
+            {{/if}}
+            {{brand.name}}
+          {{/link-to}}
+        </li>
+      {{/unless}}
+    {{/each}}
+    {{#if session.company}}
+    <li>
+      <i class="fa fa-plus"></i>
+      {{link-to "New brand" "brand.add" session.company}}
+    </li>
+    {{/if}}
+  {{/if}}
+  {{#if session.brand}}
+    <li class="divider"></li>
+    <li>
+      {{#side-menu-link-to 'brand.edit.dashboard' session.company session.brand}}
+        <i class="fa fa-tachometer" aria-hidden="true"></i>
+        <span class="nav-title">Dashboard</span>
+      {{/side-menu-link-to}}
+    </li>
+    <li>
+      {{#side-menu-link-to 'brand.edit.assignments.assigned' session.company session.brand}}
+        <i class="fa fa-tasks" aria-hidden="true"></i>
+        <span class="nav-title">Assignments</span>
+      {{/side-menu-link-to}}
+    </li>
+    {{#if (has-brand-permission 'viewInbox')}}
+    <li>
+      {{#side-menu-link-to 'brand.edit.inbox' session.company session.brand}}
+        <i class="fa fa-inbox" aria-hidden="true"></i>
+        <span class="nav-title">Inbox</span>
+      {{/side-menu-link-to}}
+    </li>
+    {{/if}}
+    <li>
+      {{#side-menu-link-to 'brand.edit.outbox' session.company session.brand}}
+        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+        <span class="nav-title">Outbox</span>
+      {{/side-menu-link-to}}
+    </li>    
+    <li>
+      {{#side-menu-link-to 'brand.edit.schedule' session.company session.brand}}
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        <span class="nav-title">Schedule</span>
+      {{/side-menu-link-to}}
+    </li>
+    <li>
+      {{#side-menu-link-to 'brand.edit.post.drafts' session.company session.brand}}
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        <span class="nav-title">Drafts</span>
+      {{/side-menu-link-to}}
+    </li>
+    <li>
+      {{#side-menu-link-to 'brand.edit.team' session.company session.brand}}
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <span class="nav-title">Team</span>
+      {{/side-menu-link-to}}
+    </li>
+    <li>
+      {{#side-menu-link-to 'brand.edit.campaigns.list' session.company session.brand}}
+        <i class="fa fa-bullhorn" aria-hidden="true"></i>
+        <span class="nav-title">Campaigns</span>
+      {{/side-menu-link-to}}
+    </li>
+    <li class="specialLeft">
+      <a href="#" {{action 'quickPost'}}>
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        <span class="nav-title">Create a Post</span>
+      </a>
+    </li>
+  {{/if}}
+  <li class="divider"></li>
+  <li class="logout">
+    <a href="#" {{action (route-action "logout")}}>Logout <i class="fa fa-sign-out"></i>
+    </a>
+  </li>
+</ul>
+
+{{#each quickposts as |post|}}
+  {{post-bulk/modal brand=session.brand temps=temps post=post loadNow=true closer=(action 'quickPostDone')}}
+{{/each}}

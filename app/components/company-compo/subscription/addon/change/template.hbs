@@ -1,0 +1,5 @@
+{{#unless confirmAddon}}
+  {{company-compo/subscription/addon/editing confirmAddon=confirmAddon subscription=subscription company=company editableSubscriptionAddons=editableSubscriptionAddons resetAddons=resetAddons}}
+{{else}}
+  {{company-compo/subscription/addon/confirming confirmAddon=confirmAddon subscription=subscription company=company cards=cards locations=locations user=user editableSubscriptionAddons=editableSubscriptionAddons resetAddons=resetAddons}}
+{{/unless}}

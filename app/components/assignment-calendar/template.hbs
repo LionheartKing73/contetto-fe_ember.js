@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-2">
+    <button class="btn btn-sm btn-primary m-b-1" {{action 'toggleFilters'}}>Filters</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 col-lg-2 {{if showFilters 'show' 'hidden'}}">
+    {{schedule-compo/tz brand=brand selectedTZ=selectedTZ updateTZ=(action "updateTZ")}} {{assignment-calendar/assigned-filter brand=brand selectedAssigned=selectedAssigned updateAssigned=(action "updateAssigned")}} {{assignment-calendar/created-filter brand=brand
+    selectedCreated=selectedCreated updateCreated=(action "updateCreated")}} {{assignment-calendar/status-filter brand=brand selectedStatus=selectedStatus updateStatus=(action "updateStatus")}}
+    <button class="btn btn-danger" {{action 'clearFilters'}}>Clear</button>
+  </div>
+
+  <div class="{{if showFilters 'col-md-9 col-lg-10' 'col-md-12 col-lg-12'}}">
+    {{full-calendar allDaySlot=false header=header events=events views=views defaultTimedEventDuration=defaultTimedEventDuration slotDuration=slotDuration navLinks=true eventLimit=true selectable=true eventRender=(action 'eventRender') eventClick=(action
+    'eventClicked')}}
+  </div>
+</div>
+<div style="display:none">
+  {{fetchEvents}}
+</div>

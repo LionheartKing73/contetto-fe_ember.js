@@ -1,0 +1,10 @@
+You may want to reschedule your post to {{ps.platform}}: {{ps.socialAccount.title}}. Next recommended slot: 
+{{#if autoTime}}
+<strong>{{date-display date=autoTime brand=ps.socialAccount.brand}}</strong>
+
+<a class="btn btn-success btn-xs" {{action 'setSpecified' ps autoTime}}>Update Time</a>
+{{else}}
+<p>
+{{loading-bubbles color='#000000' size=25}}
+</p>
+{{/if}}

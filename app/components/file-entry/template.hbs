@@ -1,0 +1,28 @@
+<div class="file-entry">
+        {{#pl-uploader name=uid for=uid  onfileadd="uploadFile" multiple=isMulti as |queue dropzone|}}
+              {{#if queue.length}}
+                {{#if isUploading}}
+                  Uploading files ({{queue.progress}}%)
+                {{else}}
+                   
+                {{/if}}
+              {{/if}}
+              <span class="btn btn-success fileinput-button uploader-btnss {{if isUploading 'disabled'}}" id="{{uid}}">
+                {{#if file}}
+                  Select a different file...
+                {{else}}
+                  Browse...
+                {{/if}}
+                {{field-description title="Upload file(s) from your device."}}
+              </span>
+              {{#unless nobrowse}}
+                <span class="btn btn-primary btn-md filexplorerbtn" {{action 'selectFile'}}>File Explorer {{field-description title="Select a file already uploaded to this brand."}}</span>
+              {{/unless}}
+            {{/pl-uploader}}
+          
+    <div class="clearFix"></div>
+</div>
+<div class="clearFix"></div>
+{{#if brandFile}}
+  {{folder-compo folder=null select=(action 'doSelect')}}
+{{/if}} 

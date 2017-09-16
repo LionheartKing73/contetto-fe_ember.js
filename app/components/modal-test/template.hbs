@@ -1,0 +1,8 @@
+<button class="btn btn-primary btn-md" {{action 'toggleModal'}}>Toggle Modal</button>
+{{#if showModal}}
+    {{#modal-dialog  close=(action 'toggleModal')}}
+         <div class="row" id="bulkEditor" class="m-b-1">
+      {{post-bulk brand=brand postDone=(action 'postDone') campaign=campaign classNames="col-md-12"}}
+    </div>
+    {{/modal-dialog}}
+{{/if}}

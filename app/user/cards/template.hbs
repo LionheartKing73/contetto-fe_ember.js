@@ -1,0 +1,45 @@
+{{#user-compo/tabs openTab="Cards" }}
+  {{#if model.createNew}}
+    {{card-form cardChangeset=(changeset model.card model.cardValidations) createNew=model.createNew locations=(readonly model.locations)}}
+  {{else}}
+    {{acceptance-marks}}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Card Number</th>
+          <th>Exp Date</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Zip</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Province</th>
+          <th>Country</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody class="cards-list">
+        {{#each model.cards as |card|}}
+          {{#if card.id}}
+            <tr>
+              <td>{{card.cardNumber}}</td>
+              <td>{{card.expDate}}</td>
+              <td>{{card.firstName}}</td>
+              <td>{{card.lastName}}</td>
+              <td>{{card.zip}}</td>
+              <td>{{card.address}}</td>
+              <td>{{card.city}}</td>
+              <td>{{card.province.name}}</td>
+              <td>{{card.country.name}}</td>
+              <td>{{card.createdAt}}</td>
+              <td><button class="btn btn-danger" {{action 'removeCard' card}}>Remove</button></td>
+            </tr>
+          {{/if}}
+        {{/each}}
+      </tbody>
+    </table>
+    <button class="btn btn-info" {{action 'new'}}>Create New Card</button>
+  {{/if}}
+{{/user-compo/tabs}}

@@ -1,0 +1,45 @@
+{{#if postFollowups.length}}
+    <h2>Scheduled Followups</h2>
+    <table class='table'>
+        <thead>
+            <th>Post</th>
+            <th>Offset</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {{#each postFollowups as |followup|}}
+            
+                <tr>
+                    <td>{{followup.topic}}</td>
+                    <td>{{followup.postingSchedules.firstObject.friendlyOffsetName}}</td>
+                    <td><button class="btn btn-sm btn-primary" {{action 'editPost' followup}}>Manage</button></td>
+                </tr>
+            
+            {{/each}}
+        </tbody>
+    </table>
+{{/if}}
+
+{{#if freeslots.length}}
+    <h2>Followup Slots</h2>
+    <table class='table'>
+        <thead>
+            <th>Platform</th>
+            <th>Offset</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {{#each freeslots as |slot|}}
+                
+                <tr>
+                    <td>{{slot.platform}}</td>
+                    <td>{{slot.friendlyName}}</td>
+                    <td><button class="btn btn-primary btn-sm" {{action 'createFollowup' slot}}>Create Post</button></td>
+                </tr>
+                
+            {{/each}}
+        </tbody>
+    </table>
+{{/if}}
+
+<button class="btn btn-info btn-md" {{action 'newFollowup'}}>Create Followup</button>

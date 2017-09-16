@@ -1,0 +1,26 @@
+<h4>Following addons will be charged:</h4>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Addon Type</th>
+      <th>Addon Quantity</th>
+      <th>Addon Monthly Price</th>
+      <th>Addons Increased</th>
+      <th>Increase in addon quantity from next month</th>
+      <th>Increase in price from next month</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each upgradedAddons as |addon|}}
+      <tr>
+        <td>{{addon.name}}</td>
+        <td>{{addon.perks}}</td>
+        <td>${{addon.price}}</td>
+        <td>{{addon.diff}}</td>
+        <td>{{addon.perksDiff}}</td>
+        <td>${{addon.priceDiff}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,7 @@
+<div class="schedule-filter">
+  Filter by Status
+  <BR/>
+  {{#power-select-multiple options=changeRequestStatuses selected=selectedStatus placeholder="Select status(es) to filter." onchange=(action "changeStatus") as |status| }}
+    {{status.name}}
+  {{/power-select-multiple}}
+</div>

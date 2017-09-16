@@ -1,0 +1,18 @@
+<table class="table table-responsive file-actions">
+	<thead>
+		<th>Name</th>
+    <th>Actions</th>
+	</thead>
+	<tbody>
+		{{#each files as |file|}}
+			<tr>
+				<td>
+					<a>{{file.name}}</a>
+				</td>
+				<td>
+					<a class="btn btn-sm btn-success" {{action 'selectFile' file}}>Select File</a>
+				</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

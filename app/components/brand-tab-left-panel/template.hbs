@@ -1,0 +1,18 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs tabs-left">
+  <li class="{{if isDetailsTabActive 'active'}}">{{#link-to "brand.edit.details" session.brand.id class="text-uppercase text-center"}}
+    DETAILS{{/link-to}}</li>
+  <li class="{{if isSocialAccountTabActive 'active'}}">{{#link-to "brand.edit.socialaccounts" session.brand.id
+                                                                  class="text-uppercase text-center"}}
+    SOCIAL ACCOUNTS{{/link-to}}</li>
+  <li class="{{if isTeamTabActive 'active'}}">{{#link-to "brand.edit.team" session.brand.id class="text-uppercase text-center"}}
+    TEAM{{/link-to}}</li>
+  <li class="{{if isTargetAudienceTabActive 'active'}}">{{#link-to "brand.edit.targetaudience" session.brand.id
+                                                                   class="text-uppercase text-center"}}
+    TARGET AUDIENCE{{/link-to}}</li>
+  <li class="{{if isReviewFlowTabActive 'active'}}">{{#link-to "brand.edit.reviewflow" session.brand.id
+                                                               class="text-uppercase text-center"}}
+    REVIEW FLOW{{/link-to}}</li>
+  <li class="{{if isGoalTabActive 'active'}}">{{#link-to "brand.edit.goals" session.brand.id class="text-uppercase text-center"}}
+    GOALS{{/link-to}}</li>
+</ul>

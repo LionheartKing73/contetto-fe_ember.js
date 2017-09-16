@@ -1,0 +1,29 @@
+<div id="message-room">
+  <section id="myBrand">
+    <div class="padding-container" id="inbox-container">
+      <div class="row">
+        <div class="box-tab">
+          <a href="#" class="nav-tabs-dropdown btn btn-block green btn-big-mob">Tabs</a>
+          <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal">
+              <li class="active">
+                {{#link-to 'brand.edit.inbox' class="text-uppercase text-center"}}
+                  Inbox
+                {{/link-to}}
+              </li>
+            
+              <li>
+                {{#link-to 'brand.edit.inbox.archive' class="text-uppercase text-center"}}
+                  Archive
+                {{/link-to}}
+              </li>
+          </ul>
+          <div class="tab-content">
+            <div id="inbox" class="tab-pane fade in active">
+              {{inbox-compo/room brand=model.brand room=model.room highlightItemId=model.highlightItemId}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

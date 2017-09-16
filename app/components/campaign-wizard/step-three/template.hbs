@@ -1,0 +1,29 @@
+<h2>Campaign Schedule</h2>
+
+<table class='table'>
+	<tr>
+		<td><label>Campaign length: {{field-description title="How long do you want this campaign to run? Enter the number of days."}}</label></td>
+		<td><table><tr><td>{{input value=campaign.lengthNumber class='form-control'}}</td><td>Days</td></tr></table></td>
+	</tr>
+	<tr>
+		<td><label>Start Campaign: {{field-description title="When do you want this campaign to start?"}}</label></td>
+		<td>{{#power-select options=startOptions 
+            searchEnabled=false
+            selected=startOption 
+            onchange=(action 'setStartOption') as |option|}}{{option.name}}{{/power-select}}</td>
+	</tr>
+	{{#if specify}}
+	<tr>
+		<td><label>Select a Date: {{field-description title="Select a date you want this campaign to start."}}</label></td>
+		<td>{{contetto-datetime-picker action=(action "updateTime") defaultDT=campaign.startDate defaultTimeZone=brand.timezone }}</td>
+	</tr>
+	{{/if}}
+	<tfoot>
+		<tr>
+			<td colspan=2 align=center>
+				<button class='btn btn-info btn-md' {{action 'previousStep'}}>Previous Step</button>
+				{{#if step3done}}<button class='btn btn-success btn-md' {{action 'nextStep'}}>Next Step</button>{{/if}}
+			</td>
+		</tr>
+	</tfoot>
+</table>

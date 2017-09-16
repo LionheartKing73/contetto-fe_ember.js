@@ -1,0 +1,7 @@
+<h3>{{ps.socialAccount.title}}</h3> Published: {{date-display showInline=true date=ps.postedTime brand=ps.socialAccount.brand}}
+
+<p>
+  <H4>Engagement</H4> {{highchart-raw url=engagementURL hideRange=true}}
+
+  <h4>Performance Analysis</h4> {{post-bulk/editor/analytics/post/ppa ps=ps}}
+</p>

@@ -1,0 +1,30 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+    <h3>Product Groups</h3>
+    <p>Product groups are used to organize product definitions.</p>
+    <label class="control-label col-xs-12 text-left with-btn">
+      {{#link-to 'brand.edit.products.groups.add' class='btn btn-success pull-right text-uppercase'}}New Product Group{{/link-to}}
+    </label>
+    <div class="table-responsive goal-table">
+      <table class="table table-bordered table-normal-font">
+        <thead>
+          <tr class="text-uppercase">
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each productGroups as |productGroup|}}
+            {{brand-compo/product/group/list/item productGroup=productGroup}}
+            {{else}}
+              <tr>
+                <td colspan="7">
+                  <div class="text-center">You have not defined any product groups.</div>
+                </td>
+              </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

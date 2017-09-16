@@ -1,0 +1,41 @@
+<div class="form-group">
+  <h4><label>Select Plan Below</label></h4>
+  <hr>
+    <div class="scrolling">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th style="text-align: left;" width=25%>Name</th>
+        <th>Price</th>
+        <th>Brands Count(/mo)</th>
+        <th>Social Accounts Count(/mo)</th>
+        <th>Posts Count(/mo)</th>
+        <th>Storage Size(GB/mo)</th>
+        <th>Team Members Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each plans as |plan index|}}
+        <tr class="subscription-plan {{if (eq subscription.plan.id plan.id) 'active'}}" data-index="{{index}}">
+          <td>
+            <div class="select-check">
+              {{#if (eq subscription.plan.id plan.id)}}
+                <i class="fa fa-check" aria-hidden="true"></i>
+              {{/if}}
+            </div>
+            <div class="card-number">
+              {{plan.name}}
+            </div>
+          </td>
+          <td>{{plan.priceWithUnits}}</td>
+          <td>{{plan.brandsCount}}</td>
+          <td>{{plan.socialAccountsCount}}</td>
+          <td>{{plan.postsCount}}</td>
+          <td>{{plan.storageSize}}</td>
+          <td>{{plan.teamMembersCount}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+    </div>
+</div>

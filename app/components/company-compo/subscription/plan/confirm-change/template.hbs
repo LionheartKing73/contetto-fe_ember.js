@@ -1,0 +1,10 @@
+<h4>You changed your plan from {{subscription.plan.name}} to {{newPlan.name}}</h4>
+{{#if planUpgrading}}
+  {{company-compo/subscription/plan/confirm-change/upgrade-plan subscription=subscription company=company newPlan=newPlan cards=cards user=user locations=locations confirmPlan=confirmPlan}}
+{{/if}}
+{{#if planDowngrading}}
+  {{company-compo/subscription/plan/confirm-change/downgrade-plan subscription=subscription company=company newPlan=newPlan confirmPlan=confirmPlan}}
+{{/if}}
+{{#if planChangingPeriod}}
+  {{company-compo/subscription/plan/confirm-change/changing-period subscription=subscription company=company newPlan=newPlan confirmPlan=confirmPlan}}
+{{/if}}

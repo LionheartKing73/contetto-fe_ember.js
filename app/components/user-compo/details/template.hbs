@@ -1,0 +1,222 @@
+<h3 class="model-heading">Personal information</h3>
+<form class="form-horizontal account-wrape-form" autocomplete="off">
+  <div class="row">
+    {{#unless allFilled}}<div class="alert">Fill out all fields to complete User Profile Setup</div>{{/unless}}
+ 
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">First Name {{field-description title="Your first name"}}</label>
+        <div class="col-md-8">
+          {{one-way-input changeset.firstName
+                          type="text"
+                          class="form-control"
+                          placeholder="First Name"
+                          update=(action (mut changeset.firstName))}}
+
+          {{#if changeset.error.firstName}}
+            <span class="help-block error">{{changeset.error.firstName.validation}}</span>
+          {{/if}}
+        </div>
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">Last Name {{field-description title="Your last name"}}</label>
+        <div class="col-md-8">
+          {{one-way-input changeset.lastName
+                          type="text"
+                          class="form-control"
+                          placeholder="Last Name"
+                          update=(action (mut changeset.lastName))}}
+
+          {{#if changeset.error.lastName}}
+            <span class="help-block error">{{changeset.error.lastName.validation}}</span>
+          {{/if}}
+        </div>
+
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+    <!-- </div class="row""> -->
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">Phone {{field-description title="Your phone number"}}</label>
+        <div class="col-md-8">
+          {{one-way-input changeset.phone
+                          type="tel"
+                          class="form-control"
+                          placeholder="+1 (123) 123 1234"
+                          update=(action (mut changeset.phone))}}
+          {{#if changeset.error.phone}}
+            <span class="help-block error">{{changeset.error.phone.validation}}</span>
+          {{/if}}
+        </div>
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">Country {{field-description title="Your country"}}</label>
+        <div class="col-md-8">
+          {{one-way-select changeset.country
+                           optionValuePath="id"
+                           optionLabelPath="name"
+                           class='form-control'
+                           prompt="Please select country"
+                           promptIsSelectable=true
+                           disabled=states.isPending
+                           options=(sort-by 'name' countries)
+                           update=(action (mut changeset.country))}}
+
+          {{#if changeset.error.country}}
+            <span class="help-block error">{{changeset.error.country.validation}}</span>
+          {{/if}}
+        </div>
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+    <!-- </div class="row""> -->
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">City {{field-description title="Your city"}}</label>
+        <div class="col-md-8">
+          {{one-way-input changeset.city
+                          type="text"
+                          class="form-control"
+                          placeholder="City"
+                          update=(action (mut changeset.city))}}
+
+          {{#if changeset.error.city}}
+            <span class="help-block error">{{changeset.error.city.validation}}</span>
+          {{/if}}
+        </div>
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">State / Province {{field-description title="Your state/province"}}</label>
+        <div class="col-md-8">
+          {{one-way-select changeset.state
+                           optionValuePath="id"
+                           optionLabelPath="name"
+                           class='form-control'
+                           prompt=(if states.isPending "Loading..." "Please select state/province")
+                           options=(sort-by 'name' states.content)
+                           update=(action (mut changeset.state))}}
+
+          {{#if changeset.error.state}}
+            <span class="help-block error">{{changeset.error.state.validation}}</span>
+          {{/if}}
+        </div>
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+    <!-- </div class="row""> -->
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">Zip / Postal {{field-description title="Your zip/postal code"}}</label>
+        <div class="col-md-8">
+          {{one-way-input changeset.postalCode
+                          type="text"
+                          class="form-control"
+                          placeholder="V9B-0B1"
+                          update=(action "updatePostal" changeset)}}
+
+          {{#if changeset.error.postalCode}}
+            <span class="help-block error">{{changeset.error.postalCode.validation}}</span>
+          {{/if}}
+        </div>
+
+        <!-- </div class="form-group"> -->
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-md-4">Address {{field-description title="Your address (optional)"}}</label>
+        <div class="col-md-8">
+          {{one-way-input changeset.address
+                          type="text"
+                          class="form-control"
+                          placeholder="123 Your Street"
+                          update=(action (mut changeset.address))}}
+
+          {{#if changeset.error.address}}
+            <span class="help-block error">{{changeset.error.address.validation}}</span>
+          {{/if}}
+        </div>
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">About {{field-description title="A little about you (internal use only)."}}</label>
+        <div class="col-md-8">
+          {{one-way-textarea changeset.about
+                             class="form-control"
+                             placeholder="About Information"
+                             update=(action (mut changeset.about))}}
+
+          {{#if changeset.error.about}}
+            <span class="help-block error">{{changeset.error.about.validation}}</span>
+          {{/if}}
+        </div>
+        <!-- </div class="form-group"> -->
+      </div>
+    </div>
+    <!-- </div class="row""> -->
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">Session Timeout <span class="tinytext">(in minutes)</span> {{field-description title="The number of minutes you can leave Contetto open and idle before you will be logged out automatically.<br/><br/>Set this to 0 if you do not wish to be logged out automatically."}}</label>
+        <div class="col-md-8">
+          {{one-way-input changeset.sessionTimeout
+                          type="number"
+                          class="form-control"
+                          placeholder="Client Session Timeout"
+                          update=(action (mut changeset.sessionTimeout))}}
+
+          {{#if changeset.error.sessionTimeout}}
+            <span class="help-block error">{{changeset.error.sessionTimeout.validation}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+       <label class="control-label col-md-4">Gravatar {{field-description title="Your user icon. This is based on your email address and is configured at Gravatar.com"}}</label>
+       <div class="col-md-8">
+       <div class="gravcontainer">{{gravatar-image email=changeset.email}}</div><br/>
+       <a href="http://www.gravatar.com" target=_blank>Setup on Gravatar.com</a>
+       </div>
+       
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-btn ml-20">
+    <button type="submit" class="btn btn-success pull-right text-uppercase" {{action "save"}}
+            disabled={{isSubmitted}}>
+      {{if isSubmitted "Saving..." "Save"}}
+    </button>
+
+    <button type="reset" class="btn btn-default pull-right text-uppercase" {{action "cancel"}}
+            disabled={{isSubmitted}}>
+      Cancel
+    </button>
+  </div>
+  <!-- </form class="form-horizontal"> -->
+</form>

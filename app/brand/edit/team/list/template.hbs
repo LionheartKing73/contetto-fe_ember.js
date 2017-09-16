@@ -1,0 +1,40 @@
+{{#brand-compo/team/tabs isTeamUsersActive=true}}
+  <div class="tab-pane active teamlist-page">
+    <h2>Team</h2>
+    <p>Every brand in Contetto can have it's own team. Team members are other Contetto users who have various roles to do with the brand.</p>
+    <p><strong>Team Members</strong> -
+      {{#link-to "brand.edit.team.invite"}}Invite new users{{/link-to}}, both existing Contetto users or new ones can be invited directly into the brand. Simply select a role and enter their email address.</p>
+    <p><strong>Roles</strong> -
+      {{#link-to "brand.edit.team.roles"}}Manage your brand's roles{{/link-to}}, Contetto provides you with some basic roles, but you can create your own. Simply add a new role and select which permissions you wish it to have.</p>
+    <div class="team-table">
+      <div class="row team-th">
+        <div class="col-xs-5 col-md-4">Name</div>
+        <div class="col-xs-4">Role</div>
+        <div class="col-xs-3 col-md-4 action-td">Action</div>
+      </div>
+      {{#each model.members as |member|}}
+        <div class="row team-tr">
+          <div class="col-xs-5 col-md-4">{{member.user.firstName}} {{member.user.lastName}}</div>
+          <div class="col-xs-4">{{member.brandRole.name}}</div>
+          <div class="col-xs-3 col-md-4 action-td">
+            <div class="row">
+              <div class="col-md-5 action-btn">
+                {{#link-to 'brand.edit.team.user.details' member.id class="text-primary btn btn-xs btn-primary" }}View{{/link-to}}
+              </div>
+              <div class="col-md-5 action-btn">
+                {{#if (has-brand-permission 'manageTeam')}}
+                  <a href="#" class="btn btn-xs btn-danger" {{action 'deleteMember' member.id}}>Remove</a>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    {{#if (has-brand-permission 'manageTeam')}}
+      <div class="center-block submit-btn">
+        {{#link-to "brand.edit.team.invite" class="btn btn-success m-t-1 text-uppercase" }}Add User{{/link-to}}
+      </div>
+    {{/if}}
+  </div>
+{{/brand-compo/team/tabs}}

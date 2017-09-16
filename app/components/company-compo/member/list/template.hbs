@@ -1,0 +1,29 @@
+<h3>Company Members</h3>
+<p>Company members can access brands within the company (depending on their role) and can configure company related settings, roles and billing details (if they have sufficient privileges).</p>
+
+{{#if model.currentRole.companyInvite}}
+  <div class="col-xs-12 m-b-1">
+    {{#link-to 'company.edit.invite.add' class='btn btn-success pull-right text-uppercase' }}Invite User{{/link-to}}
+  </div>
+{{/if}}
+{{#if model.members.length}}
+  <table class="table table-responsive">
+    <thead>
+      <tr class="text-uppercase">
+        <th>Name</th>
+        <th class="field-description-table-row">
+          <div>Role</div> {{field-description title="Company roles define what permissions are granted to users who are assigned to them."}}</th>
+        {{#if (has-company-permission 'manageStaff')}}
+          <th>Action</th>
+        {{/if}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model.members as |member|}}
+        {{company-compo/member/list/item model=member currentRole=model.currentRole}}
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p align="center">No results found!</p>
+{{/if}}

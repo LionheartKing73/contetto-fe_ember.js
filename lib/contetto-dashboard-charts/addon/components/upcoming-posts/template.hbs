@@ -1,0 +1,15 @@
+<h4 class="text-center">Upcoming posts</h4>
+<div class="row date-filters">
+  <div class="col-md-12 form-group">
+    <div class="pull-right">
+      <label class="control-label">Till:</label>
+      {{bootstrap-datepicker startDate=today placeholder="Select a Date" value=endDate changeDate="setEndDate" autoclose=true class="form-control datepick"}}
+    </div>
+</div>
+</div>
+{{#eb-table
+      pageSize=5
+      content=upcomingPosts
+      emptyMessage="There is no upcoming post to show!"
+      columns=columns}}
+{{/eb-table}}

@@ -1,0 +1,76 @@
+
+{{#if campaign.id}}<h2>Schedule for Campaign: {{campaign.name}}</h2>{{/if}}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 col-sm-12 text-left m-b-1">
+		   Quick Filters: <div class="btn-group btn-group-xs calender-filters" role="group" aria-label="...">
+
+			  <button type="button" class="btn btn-default {{if draftSelected 'selected'}}" {{action 'viewDrafts'}}>My Drafts</button>
+			  <button type="button" class="btn btn-default {{if sendingSelected 'selected'}}" {{action 'viewSending'}}>Sending</button>
+			  <button type="button" class="btn btn-default {{if reviewSelected 'selected'}}" {{action 'viewReview'}}>Review </button>
+	      <button type="button" class="btn btn-default {{if sentSelected 'selected'}}" {{action 'viewSent'}}>Sent</button>
+	      <button type="button" class="btn btn-default" {{action 'clearFilters'}}>Clear Filters</button>
+	      <button type="button" class="btn btn-primary" {{action 'advancedToggle'}}>Advanced Filters</button>
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-12 text-right m-b-1">
+				{{#link-to 'brand.edit.campaigns.add' session.company session.brand  class="btn btn-info btn-xs"}}Create Campaign{{/link-to}}
+        {{#if session.currentBrandRole.managePosts}}
+
+				<a {{action 'quickPost'}} class="btn btn-success btn-xs">Quick Post</a>
+        {{/if}}
+		</div>
+	</div>
+  {{#if bulkEditor}}
+    <div class="row" id="bulkEditor" class="m-b-1">
+      {{post-bulk premade=premade temps=temps brand=brand postDone=(action 'postDone') tempUpdate=(action 'tempUpdate') tempRemove=(action 'tempRemove') tempAdd=(action 'tempAdd') campaign=campaign classNames="col-md-12"}}
+    </div>
+  {{/if}}
+   {{#each quickposts as |post|}}
+        {{post-bulk/modal temps=temps brand=brand post=post loadNow=true closer=(action 'quickPostDone') cancelPost=(action 'cancelPost')}}
+  {{/each}}
+  {{#each quickedit as |post|}}
+        {{post-bulk/modal temps=temps cancelPost=(action 'cancelPost')  brand=brand postid=post.id loadNow=true closer=(action 'closeEdit')}}
+  {{/each}}
+
+	<div class="col-md-3 col-lg-2 collapse in closed" style="display:none" id="filter-toggle" aria-expanded="false">
+		{{schedule-compo/tz brand=brand selectedTZ=selectedTZ updateTZ=(action "updateTZ")}}
+		{{schedule-compo/filters-account brand=brand selectedAccounts=selectedAccounts updateAccounts=(action "updateAccounts")}}
+		{{schedule-compo/filters-networkType brand=brand selectedNetworkTypes=selectedNetworkTypes updateNetworkTypes=(action "updateNetworkTypes")}}
+		{{schedule-compo/filters-campaign brand=brand selectedCampaigns=selectedCampaigns updateCampaigns=(action "updateCampaigns")}}
+		{{schedule-compo/filters-category brand=brand selectedCategories=selectedCategories updateCategories=(action "updateCategories")}}
+		{{schedule-compo/filters-tag brand=brand selectedTags=selectedTags updateTags=(action "updateTags")}}
+		{{schedule-compo/filters-draft brand=brand selectedDraft=selectedDraft updateDrafts=(action "updateDrafts")}}
+		{{schedule-compo/filters-status brand=brand selectedStatus=selectedStatus updateStatuses=(action "updateStatuses")}}
+		{{schedule-compo/filters-users brand=brand selectedUsers=selectedUsers updateUsers=(action "updateUsers")}}
+		{{schedule-compo/filters-auto brand=brand selectedAuto=selectedAuto updateAuto=(action "updateAuto")}}
+		<a {{action 'clearFilters'}} class="text-danger">Clear Filters</a>
+	</div>
+	<div class="col-sm-12" id="cal-container">
+		{{full-calendar eventDrop=(action "eventDrop") eventAllow=(action "eventAllow")  selectable=selectable select=(action "selectTime") eventStartEditable=eventStartEditable viewRender=(action 'viewRender') allDaySlot=false header=header events=events views=views defaultTimedEventDuration=defaultTimedEventDuration slotDuration=slotDuration navLinks=true eventLimit=true selectable=true onViewChange=(action 'onViewChange') eventRender=(action 'eventRender') eventClick=(action 'eventClicked')}}
+		<BR/>
+
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Engagement Posted notDraft ManuallySpecified pastItem lefty "><div class="fc-content">Old Posted General</div></a>
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Marketing Posted notDraft ManuallySpecified pastItem lefty  "><div class="fc-content">Old Posted Sales</div></a>
+
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Engagement Schedule notDraft ManuallySpecified pastItem lefty "><div class="fc-content">Old Unposted</div></a>
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Posted isDraft ManuallySpecified pastItem lefty"><div class="fc-content">Old Draft</div></a>
+
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Engagement isDraft futureItem lefty  "><div class="fc-content">Future General Draft</div></a>
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Marketing isDraft futureItem lefty  "><div class="fc-content">Future Sales Draft</div></a>
+
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Engagement notDraft futureItem lefty "><div class="fc-content">Future General</div></a>
+		<a class=" fc-h-event fc-event fc-start fc-end twitter Marketing notDraft futureItem lefty  "><div class="fc-content">Future Sales</div></a>
+
+		<a class=" fc-h-event fc-event fc-start fc-end twitter freeSlot lefty  "><div class="fc-content">Suggested Post</div></a>
+
+
+
+	</div>
+
+</div>
+<div style="display:none">
+{{eventsFetch}}
+</div>
+<BR/>

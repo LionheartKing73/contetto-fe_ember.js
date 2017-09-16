@@ -1,0 +1,86 @@
+{{#unless changeCard}}
+  <h4>Card Details</h4>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Card Number</th>
+        <th>Exp Date</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <!-- <th>Zip</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Province</th>
+        <th>Country</th> -->
+        <th>Created At</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>{{subscription.card.cardNumber}}</td>
+        <td>{{subscription.card.expDate}}</td>
+        <td>{{subscription.card.firstName}}</td>
+        <td>{{subscription.card.lastName}}</td>
+        <!-- <td>{{!subscription.card.zip}}</td>
+        <td>{{!subscription.card.address}}</td>
+        <td>{{!subscription.card.city}}</td>
+        <td>{{!subscription.card.province.name}}</td>
+        <td>{{!subscription.card.country.name}}</td> -->
+        <td>{{subscription.card.createdAt}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-info" {{action 'changeCard'}}>Change Card</button>
+  {{else}}
+    <form autocomplete="off">
+      {{#if showCards}}
+      {{acceptance-marks}}
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Card Number</th>
+            <th>Exp Date</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Zip</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Country</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+
+        <tbody class="cards-list">
+          {{#each cards as |card|}}
+            {{#if card.id}}
+              <tr class="credit-card {{if (eq card.id selectedCard.id) 'active'}}" {{action 'selectCard' card}}>
+                <td>{{card.cardNumber}}</td>
+                <td>{{card.expDate}}</td>
+                <td>{{card.firstName}}</td>
+                <td>{{card.lastName}}</td>
+                <td>{{card.zip}}</td>
+                <td>{{card.address}}</td>
+                <td>{{card.city}}</td>
+                <td>{{card.province.name}}</td>
+                <td>{{card.country.name}}</td>
+                <td>{{card.createdAt}}</td>
+              </tr>
+            {{/if}}
+          {{/each}}
+        </tbody>
+      </table>
+
+        {{#if selectedCard}}
+          <button class="btn btn-success" {{action 'updateCard' selectedCard}}>Update Card</button>
+        {{/if}}
+        <button class="btn btn-danger" {{action 'cancelChangeCard'}}>Cancel Change Card</button>
+        <button class="btn btn-primary" {{action 'createNewChanged'}}>Create New Card</button>
+      {{/if}}
+      {{#if createNew}}
+        {{card-form cardChangeset=(changeset newCard cardValidations) createNew=createNew showCards=showCards locations=(readonly locations)}}
+      {{/if}}
+    </form>
+{{/unless}}
+<hr>

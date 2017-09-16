@@ -1,0 +1,5 @@
+{{#user-compo/tabs openTab="Password"}}
+  {{user-compo/password model=(readonly model)
+                        changeset=model.changeset
+                        logout=(route-action "logout")}}
+{{/user-compo/tabs}}

@@ -1,0 +1,52 @@
+<h4>Hey {{user.firstName}}, here's what's going on...</h4>
+
+<div id="dashboard-screen">
+<div class="all-dash-cards">
+{{#if assignments.length}}
+    {{#if myoverdue.length}}
+        {{#dash-status status="danger" title="Your Assignments" icon="fa-tasks" content=assignmentContent footer=assignmentFooter}}{{#cog-lock dashlocker="yes"}}{{assignments-compact assignments=assignments}}{{/cog-lock}}{{/dash-status}}
+    {{else}}
+        {{#dash-status status="info" title="Your Assignments" icon="fa-tasks" content=assignmentContent}}{{#cog-lock dashlocker="yes"}}{{assignments-compact assignments=assignments}}{{/cog-lock}}{{/dash-status}}
+    {{/if}}
+{{/if}}
+{{#if assigned.length}}
+    {{#if overdue.length}}
+        {{#dash-status status="danger" title="Assigned by you" icon="fa-tasks" content=assignedContent footer=assignedFooter}}{{#cog-lock dashlocker="yes"}}{{assignments-compact assignments=assigned}}{{/cog-lock}}{{/dash-status}}
+    {{else}}
+        {{#dash-status status="info" title="Your Assignments" icon="fa-tasks" content=assignedContent}}{{#cog-lock dashlocker="yes"}}{{assignments-compact assignments=assigned}}{{/cog-lock}}{{/dash-status}}
+    {{/if}}
+{{/if}}
+
+{{#if inboxitems.length}}
+    {{dash-status status="primary" icon="fa-inbox" title="Unarchived Inbox Items" content=inboxitems.length onclick=(action 'inbox')}}
+{{/if}}
+
+{{#if todayslots.length}}
+    {{#dash-status status="danger" icon="fa-pencil-square-o" title="Empty schedule slots today" content=todayslots.length}}{{#cog-lock dashlocker="yes"}}{{slot-list  slots=todayslots}}{{/cog-lock}}{{/dash-status}}
+{{/if}}
+
+{{#if weekslots.length}}
+    {{#dash-status status="warning" icon="fa-pencil-square-o" title="Empty schedule slots - next 7 days" content=weekslots.length}}{{#cog-lock dashlocker="yes"}}{{slot-list dashlocker="yes" slots=weekslots}}{{/cog-lock}}{{/dash-status}}
+{{/if}}
+
+{{#if todayposts.length}}
+    {{#if todaypending.length}}
+        {{#dash-status status="warning" title="Scheduled Posts" icon="fa-pencil-square-o" content=todayposts.length footer=todaypostsFooter}}{{#cog-lock dashlocker="yes"}}{{post-list micro=true posts=todayposts}}{{/cog-lock}}{{/dash-status}}
+    {{else}}
+        {{#dash-status status="primary" title="Scheduled Posts" icon="fa-pencil-square-o" content=todayposts.length}}{{#cog-lock dashlocker="yes"}}{{post-list micro=true posts=todayposts}}{{/cog-lock}}{{/dash-status}}
+    {{/if}}
+{{/if}}
+ 
+
+{{#if recentposts.length}}
+    {{#dash-status status="primary" icon="fa-inbox" title="Published: last 24 hours" content=recentposts.length}}{{#cog-lock dashlocker="yes"}}{{post-list micro=true posts=recentposts}}{{/cog-lock}}{{/dash-status}}
+{{/if}}
+
+
+{{dash-status status=followerStatus title=followerTitle icon="fa-users" content=followerContent}}
+
+{{dash-status status=engagementStatus title=engagementTitle icon="fa-thumbs-o-up" content=engagementContent}}
+
+<div style="clear:both"></div>
+</div>
+</div>

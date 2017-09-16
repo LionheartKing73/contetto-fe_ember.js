@@ -1,0 +1,35 @@
+<div class="green-stripe" style="font-size: initial;">
+	<div class="padding-container">
+		<div class="row">
+			<p class="active" style="display: inline-block;">Folder: {{folderPath}}</p>
+			<p class="pull-right new-folder-button"  style="display: inline-block;" {{action 'newFolder' folder}}>New Folder {{field-description title="Create a new folder inside the current folder."}}</p>
+		</div>
+	</div>
+</div>
+<section id="content" style="font-size: initial;">
+	<div class="padding-container less-modal-padding">
+		<div class="row padding-row">
+			{{#if (or folders.length folder.id)}}
+				{{folder-compo/folder-list folder=folder movingFile=movingFile moveFile=(action 'moveFileToFolder') folders=folders brand=brand select=(action 'selectFolder')}}
+			{{/if}}
+			{{folder-compo/file-list folder=folder moveFile=(action 'moveFile') cancelMove=(action 'cancelMove') files=files brand=brand select=(action 'select')}}
+		</div>
+
+		<div class="row padding-row">
+			<div class="col-md-6">
+				{{#if isMoving}}
+				{{#unless (eq folder.id movingFile.folder.id)}}
+					<span class="btn btn-primary btn-md" {{action 'pasteFile'}}>Move {{movingFile.name}} Here</span>
+				{{/unless}}
+				{{/if}}
+			</div>
+			<div class="col-md-6">
+				<div class="featured-image">
+					Upload file(s) to {{folderPath}}:
+				</div>
+				<br>
+				{{file-entry uploadedAction=(action 'finishUpload') nobrowse=true files=files}}
+			</div>
+		</div>
+	</div>
+</section>

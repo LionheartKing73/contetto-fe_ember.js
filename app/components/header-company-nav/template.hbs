@@ -1,0 +1,62 @@
+<div class="all-menus {{if isOpened 'opened'}}">
+    <div class="company_tabs">
+        <ul>
+          {{#each companies as |company|}}
+            {{#unless company.isNew}}
+              <li
+                class={{if (eq companyDetail.data.companyId company.id) 'active'}}
+                {{action 'changeCompany' company.id}}>
+
+                {{#link-to 'company' company.id}}
+                  <span>{{company.name}}</span>
+                {{/link-to}}
+              </li>
+            {{/unless}}
+          {{/each}}
+
+            <li class="add">
+              {{#link-to 'company.add'}}
+                <span>
+                  <i class="fa fa-plus"></i>
+                </span>
+              {{/link-to}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="green_tabs">
+        <ul class="brand_tabs">
+          {{#each brands as |brand|}}
+            {{#unless brand.isNew}}
+              <li {{action 'changeBrand' brand.id}}>
+                {{#link-to 'brand.edit.details' brand.id}}
+                  <i class="fa fa-tree"></i>
+                  {{brand.name}}
+                {{/link-to}}
+              </li>
+            {{/unless}}
+          {{/each}}
+        </ul>
+        <ul class="settings_tab">
+          {{#if companyDetail.data.brandId}}
+            <li>
+              {{#link-to 'brand.edit.details' session.brand.id}}
+                Brand Settings
+               {{/link-to}}
+            </li>
+          {{/if}}
+
+          {{#if session.company.id}}
+            <li>
+              {{#link-to 'company.edit' session.company.id}}
+                Company Settings
+              {{/link-to}}
+            </li>
+          {{/if}}
+
+          <li class="active">
+            {{#link-to 'brand.add'}} New brand{{/link-to}}
+          </li>
+        </ul>
+    </div>
+</div>

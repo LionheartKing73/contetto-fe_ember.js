@@ -1,0 +1,22 @@
+Selected card below will be used to make payment(if any). Please select another card if you wish to change payment.
+{{acceptance-marks}}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Card Number</th>
+      <th>Exp. Date</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{subscription.card.cardNumber}}</td>
+      <td>{{subscription.card.expDate}}</td>
+      <td>{{subscription.card.firstName}}</td>
+      <td>{{subscription.card.lastName}}</td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-primary" data-toggle="modal" data-target="#card-modal">Change Card</button>
+{{card-modal cards=cards user=user locations=locations subscription=subscription}}

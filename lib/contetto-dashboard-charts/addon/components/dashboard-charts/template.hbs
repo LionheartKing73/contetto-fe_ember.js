@@ -1,0 +1,116 @@
+<h4>Social Growth</h4>
+<div class="row">
+  <div class="col-md-6 chart">
+    <div class="chart-wrapper">
+      {{#if socialAccounts}}
+        {{social-growth socialAccounts=socialAccounts chartAjaxTask=chartAjaxTask}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="col-md-6 chart">
+    <div class="chart-wrapper">
+      {{social-engagement chartAjaxTask=chartAjaxTask}}
+    </div>
+  </div>
+</div>
+<div class="row">
+  {{#each socialAccounts as |account|}}
+  <div class="col-md-6 chart">
+    <div class="chart-wrapper">
+      {{social-engagement/per-account account=account chartAjaxTask=chartAjaxTask}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+ 
+ 
+
+{{#if canViewInbox}}
+<h4>Inbox Statistics</h4>
+<div class="row">
+  <div class="col-md-4 chart">
+    <div class="chart-wrapper">
+      {{inbox-charts/brand-action-type chartAjaxTask=chartAjaxTask}}
+    </div>
+  </div>
+  <div class="col-md-4 chart">
+    <div class="chart-wrapper">
+      {{inbox-charts/brand-user-replies chartAjaxTask=chartAjaxTask}}
+    </div>
+  </div> 
+  <div class="col-md-4 chart">
+    <div class="chart-wrapper">
+      {{inbox-charts/brand-action-type/pie-chart chartAjaxTask=chartAjaxTask}}
+    </div>
+  </div>
+</div>
+
+ 
+
+{{/if}}
+
+<div class="row">
+  {{#each socialAccounts as |account|}}
+  <div class="col-md-6 chart">
+    <div class="chart-wrapper">
+      {{inbox-charts/brand-action-type/per-account account=account chartAjaxTask=chartAjaxTask}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+{{#if canShowTeamCharts}}
+  <div class="row">
+    <div class="col-md-6 chart">
+      <div class="chart-wrapper">
+        {{team-contribution/pie-chart chartAjaxTask=chartAjaxTask}}
+      </div>
+    </div>
+    <div class="col-md-6 chart">
+      <div class="chart-wrapper">
+        {{team-contribution/line-graph chartAjaxTask=chartAjaxTask}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 chart">
+      <div class="chart-wrapper">
+      {{assignment-vs-completion chartAjaxTask=chartAjaxTask}}
+      </div>
+    </div>
+    <div class="col-md-6 chart">
+      <div class="chart-wrapper">
+      {{assignment-handling chartAjaxTask=chartAjaxTask}}
+      </div>
+    </div>
+  </div>
+{{/if}}
+
+{{#if false}}
+
+{{#each brandDepratments as |dept|}}
+  <h4 class="text-center">{{dept.name}}</h4>
+
+  <div class="row">
+    <div class="col-md-6 chart">
+      <div class="chart-wrapper">
+        {{department-assignment-vs-completion/pie-chart department=dept chartAjaxTask=chartAjaxTask}}
+      </div>
+    </div>
+    <div class="col-md-6 chart">
+      <div class="chart-wrapper">
+        {{department-assignment-vs-completion/line-graph department=dept chartAjaxTask=chartAjaxTask}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6 col-sm-12 chart">
+      <div class="chart-wrapper">
+        {{department-assignment-handling department=dept chartAjaxTask=chartAjaxTask}}
+      </div>
+    </div>
+  </div>
+{{/each}}
+
+{{/if}}

@@ -1,0 +1,15 @@
+<table class="table table-responsive responsive-table">
+  <thead>
+    <th>Due</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Topic</th>
+    <th class=deskOnly>Details</th>
+    <th>Manage</th>
+  </thead>
+  <tbody>
+    {{#each assignments as |a|}}
+      {{assignments-compact/assignment assignment=a}}
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,33 @@
+<h2>Brands</h2>
+<p>Contetto allows you to group your teams and social media accounts into what we call 'Brands.' This keeps your statistics, posts, files, chats and other information organized and separate from each other and allows you to manage permissions of users for
+  each set of social accounts separately.</p>
+<p>You can create as many brands as your subscription allows, as long as your company role / permissions permit this action.</p>
+
+
+{{#if (has-company-permission 'manageBrands')}}
+  {{#unless (eq company.brandsLeft 0)}}
+  {{#link-to 'brand.add' company.id}}<span class='btn btn-success pull-right'>Add Brand</span>{{/link-to}}  
+  {{/unless}}
+  <strong>Based on your current subscription, you can create {{company.brandsLeft}} more brands.</strong>
+{{/if}}
+<table class="table">
+  <thead>
+    <th>Brand</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    {{#each company.brands as |brand|}}
+      <tr>
+        <td>
+          {{#link-to 'brand.edit.details' company.id brand.id}}{{brand.name}}{{/link-to}}
+        </td>
+        <td>
+          {{#link-to 'brand.edit.team' company.id brand.id classNames="btn btn-xs btn-primary" }}Manage Team{{/link-to}}
+          {{#if (has-company-permission 'manageBrands')}}
+            <a {{action 'removeBrand' brand}} class="btn btn-xs btn-danger">Remove Brand</a>
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

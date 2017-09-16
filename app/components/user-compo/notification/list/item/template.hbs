@@ -1,0 +1,13 @@
+<div class='col-md-12 notification-item notification-{{if notification.seen "seen" "unseen"}}'>
+    <div class="pull-left">{{date-display date=sendTime}}</div>
+    <div class="pull-right">
+      {{#unless deleting}}
+      <a href="#" class="text-danger" {{action "delete" notification}}><i class="fa fa-trash" aria-hidden="true"></i></a>
+      {{/unless}}
+    </div>
+    <div style="clear:both"></div>
+    <div class="separator"></div>
+    <div class="row">
+      <div class='notification-body col-md-12' {{action 'notificationLink' notification}} style="cursor:pointer">{{notification.body}}</div>
+    </div>
+</div>

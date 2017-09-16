@@ -1,0 +1,15 @@
+<table>
+<tr>
+<td>{{input value=myval onchange=(action 'updateMyval')}}</td>
+<td>{{#power-select
+  options=frequencies
+  selected=frequency 
+  placeholder="Select Frequency"
+  onchange=(action 'updateFrequency')
+  as |tf|
+}}
+  {{tf.name}}
+{{/power-select}}</td>
+<td>{{value}} / {{calc}}</td>
+</tr>
+</table>

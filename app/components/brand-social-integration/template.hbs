@@ -1,0 +1,132 @@
+{{#unless showButtonCheck}}
+    <p>Connect all the social media accounts related to this brand in order to get the most out of Contetto.</p>
+    <p>If you have social media accounts that are not related to this brand, you can always create another Brand or Company to keep the information separate and control who can access and manage the content of your social account(s).</p>
+    <div class="account_box">
+      <ul class="btns text-uppercase">
+        <li style="display:none">
+          <a href="#" class="btn btn-linked btn-block" {{action 'signIn' 'linked-in-oauth2'}}>
+            <i class="fa fa-linkedin"></i>
+            Sign in with Linked in
+          </a>
+        </li>
+        <li>
+          <a href="#" class="btn btn-tweet btn-block" {{action 'signIn' 'twitter-oauth1'}}>
+            <i class="fa fa-twitter"></i>
+            Sign in with Twitter
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="btn btn-face btn-block" {{action 'signIn' 'facebook-oauth2'}}>
+            <i class="fa fa-facebook"></i>
+            Sign in with Facebook
+          </a>
+        </li>
+           <li>
+          <a href="#" class="btn btn-wordpress btn-block" {{action 'signIn' 'wordpress'}}>
+            <i class="fa fa-wordpress"></i>
+            Sign in with Wordpress {{field-description title="Simply connect with Wordpress.com! If you're running a self-hosted Wordpress site, just install and configure the JetPack plugin to connect your site to a Wordpress.com account."}}
+          </a>
+        </li>
+        <li style="display:none">
+          <a href="#" class="btn btn-tweet btn-block" {{action 'signIn' 'reddit-oauth2'}}>
+            <i class="fa fa-reddit-alien"></i>
+            Sign in with Reddit
+          </a>
+        </li>
+        <li style="display:none">
+          <a href="#" class="btn btn-google btn-block" {{action 'signIn' 'google-oauth2'}}>
+            <i class="fa fa-google"></i>
+            Sign in with Google
+          </a>
+        </li>
+        <li style="display:none">
+          <a href="#" class="btn btn-you btn-block" {{action 'signIn' 'youtube-oauth2'}}>
+            <i class="fa fa-youtube"></i>
+            Sign in with Youtube
+          </a>
+        </li>
+      </ul>
+    </div>
+{{else}}
+  {{#if showAddPage}}
+    <div class="col-md-12">
+      <form class="form-horizontal">
+   <!--     <div class="form-group">
+          <label for="username" class="col-md-3 control-label">&nbsp;</label>
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn btn-success  text-uppercase" {{action 'facebookAction' 'profile'}}>
+              Add Profile
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username" class="col-md-3 control-label">&nbsp;</label>
+          <div class="col-md-offset-3 col-md-9">
+            <span class="text-uppercase"><strong>OR</strong></span>
+          </div>
+        </div>-->
+        <div class="form-group">
+          <label for="assignRole" class="col-md-3 control-label">{{tokenParser.data.0.type}} pages</label>
+          <div class="col-md-9">
+
+
+
+
+{{#power-select options=tokenParser.data.0.pages    selected=selectedPage placeholder="Please Select a Page" onchange=(action 'setPage') as |page|}}
+
+ {{page.attributes.name}}
+
+	{{/power-select}}
+
+            {{#if pageError}}
+            <span class="help-block">{{pageError}}</span>
+            {{/if}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn btn-success  text-uppercase" {{action 'facebookAction' 'page'}}>
+              Add Page
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  {{else}}
+    <div class="tab-content">
+      <div class="tab-pane active">
+        <div class="row brands-deatils">
+          <form class="" {{action "saveAccount" on="submit"}} autocomplete="off">
+
+            <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Title</label>
+            <div class="form-group col-md-7 col-sm-12 col-xs-12">
+              {{input type="text" class="form-control" id="brandname" value=model.account.title}}
+
+              {{#each model.errors.title as |error|}}
+              <span class="help-block error">{{error.message}}</span>
+              {{/each}}
+            </div>
+
+            {{#if pageDetails.name}}
+            <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Page Title</label>
+            <div class="form-group col-md-7 col-sm-12 col-xs-12">
+              {{input type="text" class="form-control" id="page-name" value=pageDetails.name readonly=true}}
+            </div>
+            {{/if}}
+
+            <label class="control-label col-md-4 col-sm-12 col-xs-12 text-right">Type</label>
+            <div class="form-group col-md-7 col-sm-12 col-xs-12">
+              {{tokenParser.data.0.type }}
+            </div>
+
+            <div class="submit-btn ml-20 form-group col-md-11 col-sm-11 col-xs-11 text-center">
+              <button {{action 'cancel'}} class="btn btn-danger text-uppercase" >Cancel</button>
+              <button type="submit" class="btn btn-success text-uppercase" disabled={{model.isSubmitted}}>Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+{{/unless}}

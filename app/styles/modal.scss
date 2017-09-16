@@ -1,0 +1,33 @@
+.ember-modal-overlay {
+  background-color: rgba(0,0,0,.3);
+}
+
+.ember-modal-dialog {
+  border-radius: 3px;
+  padding: 0px;
+  box-shadow: 0px 0px 9px rgba(0,0,0,.5);
+}
+.ember-modal-dialog {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100% - 40px);
+  border-radius: 15px;
+}
+
+.ember-modal-dialog {
+  // The library calculates the margin-left
+  // and margin-right values using JS, and does
+  // not re-calculate if the content inside the
+  // modal changes its size.
+  // The following lines keep the modal
+  // horizontally and vertically centered
+  // even after inner content changes sizes.
+  margin-left: auto !important;
+  margin-top: auto !important;
+  transform: translate(-50%, calc(-48% - 20px));
+  -webkit-transform: translate(-50%, calc(-48% - 20px));
+  -ms-transform: translate(-50%, calc(-48% - 20px));
+  width: 80%;
+  min-width: 300px;
+  max-width: 1000px;
+}

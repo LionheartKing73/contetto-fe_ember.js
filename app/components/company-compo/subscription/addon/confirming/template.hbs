@@ -1,0 +1,10 @@
+{{#if downgradedAddonsPresent}}
+  {{company-compo/subscription/addon/confirming/downgraded editableSubscriptionAddons=editableSubscriptionAddons downgradedAddons=downgradedAddons}}
+{{/if}}
+{{#if upgradedAddonsPresent}}
+  {{company-compo/subscription/addon/confirming/upgraded editableSubscriptionAddons=editableSubscriptionAddons subscription=subscription upgradedAddons=upgradedAddons}}
+  {{company-compo/subscription/addon/confirming/billing editableSubscriptionAddons=editableSubscriptionAddons subscription=subscription company=company cards=cards locations=locations user=user}}
+{{/if}}
+<h5>Are you sure that you want to modify the addons?</h5> {{payment-terms paymentCheck=paymentCheck}}
+<button class="btn btn-danger" {{action 'cancelAddonModify'}}>Back</button>
+<button class="btn btn-success" disabled= {{not paymentCheck}} {{action 'updateAddonItems'}}>Confirm</button>

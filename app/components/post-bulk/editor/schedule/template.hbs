@@ -1,0 +1,52 @@
+<div class="form-group">
+  {{#if loaded}}
+    {{#if ps.isPosted}}
+      Published {{date-display showInline=true date=ps.postedTime brand=ps.socialAccount.brand}}
+      {{#if ps.externalUrl}}<a href="{{ps.externalUrl}}" target=_blank>See it Live!</a>{{/if}}
+    {{else}}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="ui dropdown form-control selection power-select-wrapper">
+            {{#power-select options=modes selected=mode onchange=(action 'changeMode') as |m|}}
+              {{m.name}}
+            {{/power-select}}
+          </div>
+          {{field-description title="Post Schedule Modes: Specify, Automatic and Now.<br/><br/><strong>Choose 'Automatic'</strong> to have Contetto decide when to send the post based on your Social Account schedule, previously created posts, and department/review
+          channel settings.<br/><br/>You can configure your schedule for each social account under Brand Settings &gt; Social Accounts &gt; Settings.<br/><br><strong>Choose Specify</strong> to select a time at which you want the post to go out manually."}}
+        </div>
+      </div>
+      {{#if (eq mode.id 'specify')}}
+        {{contetto-datetime-picker action=(action "updateDT") defaultDT=ps.dateTime defaultTimeZone=brand.timezone }}
+      {{else}}
+        {{#if ps.tempTime}}
+          {{#if (eq mode.id "auto")}}
+            {{date-display date=ps.tempTime brand=ps.socialAccount.brand}}
+          {{else}}
+            <p id="my-label"></p>
+          {{/if}}
+        {{/if}}
+
+      {{/if}}
+      {{#if pastTime}}
+        <p id="my-label" class='warning'>You cannot post in the past! Please select a time in the future.</p>
+      {{/if}}
+      {{#if (has-brand-permission 'overrideReviewStructure')}}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="ui dropdown form-control selection power-select-wrapper">
+              {{#power-select options=psmodes selected=selectedpsm onchange=(action 'changePSMode') as |m|}}
+                {{m.name}}
+              {{/power-select}}
+            </div>
+            {{field-description title="Review Fallback Mode: If the post is not reviewed by the scheduled time, what should happen?<br/><br/><strong>Default</strong> - Use the settings defined by the social account. If no setting has been configured on the social
+            account, 'Hold' will be used. <br/><br/><strong>Hold</strong> - Do not publish the post, and do not allow another automatic post to take it's place.<br/><br/><strong>Release</strong> - Do not publish the post, but if another automatic post
+            is ready for this social account/post type then publish it instead.<br/><br/><strong>Post</strong> - Publish this post regardless of approval status."}}
+          </div>
+        </div>
+      {{/if}}
+
+    {{/if}}
+  {{else}}
+    Loading...
+  {{/if}}
+</div>

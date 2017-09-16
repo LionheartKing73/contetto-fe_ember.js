@@ -1,0 +1,13 @@
+{{content-editable value=message
+                   type="html"
+                   placeholder=placeholder
+                   class=editorClassNames
+                   id=editorId}}
+<div class="message-actions">
+  {{#pl-uploader name=uid for=uid  onfileadd="uploadFile" multiple=isMulti as |queue dropzone|}}
+    <i class="fa fa-paperclip" aria-hidden="true" id="{{uid}}"></i>
+  {{/pl-uploader}}
+  <i class="fa fa-address-book" aria-hidden="true" data-toggle="modal" data-target="#file-explorer-modal"></i>
+  <i class="fa fa-paper-plane" aria-hidden="true" {{action 'send'}}></i>
+</div>
+{{file-explorer-modal select=(action 'doSelect')}}

@@ -1,0 +1,198 @@
+<div class="left-side">
+  <div class="left-opener" {{action toggle}}><i class="fa fa-ellipsis-v"></i><i class="fa fa-reorder"></i></div>
+  <ul class="left-nav">
+    <li>
+      {{#link-to 'brand.edit.dashboard' session.company model.brand}}
+        <i class="fa fa-tachometer" aria-hidden="true"></i>
+        <span class="nav-title">Dashboard</span>
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'brand.edit.assignments.assigned' session.company model.brand}}
+        <i class="fa fa-tasks" aria-hidden="true"></i>
+        <span class="nav-title">Assignments({{assignmentsCount}})</span>
+      {{/link-to}}
+    </li>
+    {{#if (has-brand-permission 'viewInbox')}}
+      <li>
+        {{#link-to 'brand.edit.inbox' session.company model.brand}}
+          <i class="fa fa-inbox" aria-hidden="true"></i>
+          <span class="nav-title">Inbox({{inboxMessagesCount}})</span>
+        {{/link-to}}
+      </li>
+    {{/if}}
+    <li>
+      {{#link-to 'brand.edit.outbox' session.company model.brand}}
+        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+        <span class="nav-title">Outbox({{outboxCount}})</span>
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'brand.edit.schedule' session.company model.brand}}
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        <span class="nav-title">Calendar</span>
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'brand.edit.post.drafts' session.company model.brand}}
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        <span class="nav-title">Drafts({{draftsCount}})</span>
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'brand.edit.team' session.company model.brand}}
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <span class="nav-title">Team</span>
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'brand.edit.campaigns.list' session.company model.brand}}
+        <i class="fa fa-bullhorn" aria-hidden="true"></i>
+        <span class="nav-title">Campaigns</span>
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'brand.edit.files' session.company model.brand (query-params refresh=doRefresh) }}
+
+        <span class="nav-title files-link" {{action 'updateRefresh'}}><i class="fa fa-file-o" aria-hidden="true"></i> Files</span>
+      {{/link-to}}
+    </li>
+
+  </ul>
+</div>
+
+<div class="panel-group" id="quick-widget" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="upcoming_post">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#quick-widget" href="#upcoming_post_content" aria-expanded="true" aria-controls="upcoming_post_content">
+          Upcoming Posts
+        </a>
+      </h4>
+    </div>
+    <div id="upcoming_post_content" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="upcoming_post">
+      <div class="panel-body">
+        {{#each upcomingPosts as |post|}}
+          {{#unless post.isDeleted}}
+            <div class="sidebar-post" {{action 'postLink' post.posting}} style="cursor:pointer">
+              <div class="side-post-title">
+                <i class="fa fa-{{post.socialAccount.platform}}"></i> {{post.socialAccount.title}}
+              </div>
+
+              <div class="sidebar-post-time pull-right">
+                {{date-display date=post.scheduledTime}}
+              </div>
+
+              <em class="sidewrap">{{#tip-wrapper title=post.posting.content}}{{post.posting.topic}}{{/tip-wrapper}}</em>
+
+              <div class="row">
+                <div class='col-md-4 tinytext'>{{post.posting.networkType.name}}</div>
+                <div class='col-md-8 tinytext text-right'>{{post.posting.user.fullName}}</div>
+              </div>
+            </div>
+          {{/unless}}
+          {{else}}
+            No upcoming posts.
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="content_backlog">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#quick-widget" href="#content_backlog_content" aria-expanded="true" aria-controls="content_backlog_content">
+          Free Schedule Slots
+        </a>
+      </h4>
+    </div>
+    <div id="content_backlog_content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="content_backlog">
+      <div class="panel-body">
+        {{#if sortedFreeSlots.length}}
+          {{#each sortedFreeSlots as |slot|}}
+            <div class="sidebar-post" {{action 'freeSlot' slot.start slot.networkType slot.socialAccount}} style="cursor:pointer">
+              <div class="side-post-title">
+                <i class="fa fa-{{slot.socialAccount.platform}}"></i> {{slot.socialAccount.title}}
+              </div>
+              <div class="sidebar-post-time pull-right">
+                {{date-display date=slot.start}}
+              </div>
+
+              <div class="row">
+                <div class='col-md-12 tinytext'>{{slot.networkType.name}}</div>
+              </div>
+            </div>
+          {{/each}}
+        {{else}}
+          No empty recommended slots in the next 2 weeks.
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="assignments">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#quick-widget" href="#assignments_content" aria-expanded="true" aria-controls="assignments_content">
+          Assignments
+        </a>
+      </h4>
+    </div>
+    <div id="assignments_content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="assignments">
+      <div class="panel-body">
+        {{#each assignmentBacklog as |assignment|}}
+          <div class="sidebar-post" {{action 'postLink' assignment.posting}} style="cursor:pointer">
+            <font class="sidewrap">{{assignment.posting.topic}}</font>
+
+            <div class="sidebar-post-time pull-right">
+              {{date-display brand=session.brand date=assignment.requestDue}}
+            </div>
+
+            <div class="row">
+              <div class='col-md-4 tinytext'>{{assignment.posting.networkType.name}} </div>
+              <div class='col-md-8 tinytext text-right'>{{assignment.requestBy.fullName}} </div>
+            </div>
+          </div>
+          {{else}}
+            No pending assignments.
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="draft">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#quick-widget" href="#draft_content" aria-expanded="true" aria-controls="draft_content">
+          My Drafts
+        </a>
+      </h4>
+    </div>
+    <div id="draft_content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="draft">
+      <div class="panel-body">
+        {{#each sortedDrafts as |post|}}
+          {{#unless post.isDeleted}}
+            <div class="sidebar-post" {{action 'postLink' post.posting}} style="cursor:pointer">
+              <div class="side-post-title">
+                <i class="fa fa-{{post.socialAccount.platform}}"></i> {{post.socialAccount.title}}
+              </div>
+              <div class="sidebar-post-time pull-right">
+                {{date-display date=post.posting.createdAt}}
+              </div>
+
+              <em class="sidewrap">{{post.posting.topic}}</em><br/>
+
+              <div class="row">
+                <div class='col-md-4 tinytext'>{{post.posting.networkType.name}}</div>
+                <div class='col-md-8 tinytext text-right'>{{post.posting.user.fullName}}</div>
+              </div>
+            </div>
+          {{/unless}}
+          {{else}}
+            No drafts.
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#each quickpost.quickposts as |post|}}
+  {{post-bulk/modal brand=model.brand temps=temps post=post loadNow=true closer=(action 'quickPostDone')}}
+{{/each}}

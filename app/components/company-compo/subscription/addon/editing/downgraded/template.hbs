@@ -1,0 +1,27 @@
+<h4>You have already downgraded following addons.</h4>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Addon Type</th>
+      <th>Perks(per unit)</th>
+      <th>Price(per unit)</th>
+      <th>Quantity Shed</th>
+      <th>Total Perks Shed</th>
+      <th>Total Price Shed</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each subscriptionAddons.addons as |addon|}}
+      <tr>
+        <td>{{addon.name}} addon</td>
+        <td>{{addon.unitPerks}}</td>
+        <td>{{addon.unitPrice}}</td>
+        <td>{{addon.count}}</td>
+        <td>{{addon.perks}}</td>
+        <td>{{addon.price}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<h4>In order to make changes to yoiur monthly addons. You will have to clear these changes. Do you wish to clear them?</h4>
+<button class="btn btn-primary" {{action 'clearDowngradedAddons'}}>Clear</button>

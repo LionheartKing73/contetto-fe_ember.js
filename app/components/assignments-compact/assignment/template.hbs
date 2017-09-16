@@ -1,0 +1,6 @@
+<td>{{date-display brand=session.brand date=assignment.requestDue}}</td>
+<td>{{assignment.requestBy.fullName}}</td>
+<td>{{assignment.assignedToUser.fullName}}</td>
+<td>{{assignment.posting.topic}}</td>
+<td class=deskOnly>{{assignment.content}}</td>
+<td><button {{action 'manage' assignment.posting}} class="btn btn-md btn-primary mrg3">Manage</button></td>

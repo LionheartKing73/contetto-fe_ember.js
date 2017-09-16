@@ -1,0 +1,29 @@
+{{#if model.invites.length}}
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped text-center">
+      <tbody>
+        <tr class="text-uppercase">
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        {{#each model.invites as |invite|}}
+          <tr>
+            <td>{{invite.email}}</td>
+            <td>{{#link-to 'brand.edit.team.roles.edit' invite.role.id class='text-primary'}}<u>{{invite.role.name}}</u>{{/link-to}}</td>
+            <td>{{invite.status}}</td>
+            <td>
+              <span {{action "cancelInvite" invite }} class="text-danger"><u>Remove</u></span>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{else}}
+  <p align="center">No results found!</p>
+{{/if}}
+<div class="center-block submit-btn">
+  {{#link-to "brand.edit.team.invite" class="btn btn-success  text-uppercase" }}Add User{{/link-to}}
+</div>

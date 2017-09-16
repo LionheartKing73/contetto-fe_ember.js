@@ -1,0 +1,64 @@
+{{#if subscriptionAddons.length}}
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Addon Type</th>
+        <th>Perks(per unit)</th>
+        <th>Price(per unit)</th>
+        <th>Quantity</th>
+        <th>Total Perks</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each subscriptionAddons.addons as |addon|}}
+        <tr>
+          <td>{{addon.name}} addon</td>
+          <td>{{addon.unitPerks}}</td>
+          <td>{{addon.unitPrice}}</td>
+          <td>{{addon.count}}</td>
+          <td>{{addon.perks}}</td>
+          <td>{{addon.price}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th colspan="2">Addons</th>
+      </tr>
+      {{#if company.isTrial}}
+        <tr>
+          <td><i>Total days: {{company.prorationBillingMonthDays}}</i></td>
+          <td>{{subscription.regularAddonBill}}</td>
+        </tr>
+        <tr>
+          <td><i>Proration Days: {{company.prorationDays}}</i></td>
+          <td>${{subscription.proratedAddonBill}}</td>
+        </tr>
+      {{else}}
+        <tr>
+          <td><i>Total Cost</i></td>
+          <td>{{subscription.regularAddonBill}}</td>
+        </tr>
+      {{/if}}
+      {{#if subscription.coupon.billType}}
+        <tr>
+          <th colspan="2"><b>Coupon</b></th>
+        </tr>
+        <tr>
+          <td>{{subscription.coupon.perks}}</td>
+          <td>-${{subscription.discountOnProratedAddonBill}}({{subscription.discount}})</td>
+        </tr>
+      {{/if}}
+      <tr>
+        <th>Total</th>
+        <th>${{if company.isTrial subscription.couponedProratedAddonBill subscription.couponedRegularAddonBill}}</th>
+      </tr>
+    </tbody>
+  </table>
+
+{{else}}
+  You haven't bought any addons.
+{{/if}}

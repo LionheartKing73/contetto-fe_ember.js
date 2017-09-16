@@ -1,0 +1,38 @@
+<table class="table table-responsive file-actions">
+	<thead>
+		<th style="width: 50%">Name</th>
+		<th style="width: 50%">Action</th>
+	</thead>
+	<tbody>
+		{{#if folder.id}}
+			<tr>
+				<td colspan=2><a {{action 'selectFolder' folder.parent}}>Parent...</a></td>
+			</tr>
+		{{/if}}
+		{{#each folders as |folder|}}
+			<tr>
+				<td>
+					<a {{action 'selectFolder' folder}}>{{folder.name}}</a>
+					{{#if movingFile.id}}
+						<br>
+						<div class="row">
+							<div class="col-xs-12">
+								<a {{action 'moveFile' folder}}>Move File Here</a>
+							</div>
+						</div>
+					{{/if}}
+				</td>
+				<td>
+					<div class="row">
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<a {{action 'renameFolder' folder}} class="btn btn-sm btn-blue">Rename</a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<a {{action 'deleteFolder' folder}} class="btn btn-sm btn-red">Delete</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

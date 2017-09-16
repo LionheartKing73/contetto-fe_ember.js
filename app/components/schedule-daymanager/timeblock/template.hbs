@@ -1,0 +1,11 @@
+<div class='timeSelectBlock'>
+    <div class="input-group">
+        <span class="ember-timepicker-wrapper">
+            {{ember-timepicker
+              classNames="form-control social-schedule-timepicker"
+              onChange=(action 'onChange')
+              options=options}}
+            <button class="input-group-addon remove"  {{action (action deleteAction item)}}>x</button>
+        </span>
+    </div>
+</div>  

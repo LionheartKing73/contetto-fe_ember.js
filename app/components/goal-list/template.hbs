@@ -1,0 +1,33 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+    <label class="control-label col-xs-12 text-left with-btn">
+      {{#link-to 'brand.edit.goals.add' class='btn btn-success pull-right text-uppercase'}}New Goal{{/link-to}}
+    </label>
+    <div class="table-responsive goal-table">
+      <table class="table table-bordered table-normal-font">
+        <thead>
+        <tr class="text-uppercase">
+          <th>Type</th>
+          <th>Metric</th>
+          <th>Value</th>
+          <th>Due</th>
+          <th>Social</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each goals as |goal|}}
+          {{goal-list-item goal}}
+        {{else}}
+          <tr>
+            <td colspan="7">
+              <div class="text-center">There is no goal in here, add one!</div>
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

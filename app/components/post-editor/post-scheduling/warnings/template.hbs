@@ -1,0 +1,16 @@
+{{#each warnings as |warning|}}
+  <p class="scheduleWarning bg-warning">
+  {{warning}}
+  </p>
+{{/each}}
+
+{{#each rescheduleRecommended as |recommend|}}
+  <p class="scheduleRecommend bg-info">
+  {{post-editor/post-scheduling/warnings/recommendation ps=recommend setSpecified=(action 'setSpecified') changeSet=changeSet}}
+  </p>
+{{/each}}
+<div style='display:none'>
+  {{warningUpdates}}
+</div>
+
+

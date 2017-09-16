@@ -1,0 +1,62 @@
+{{#if session.company.id}}
+  {{#if session.brand.id}}
+    <div class='chatbar'>
+      <div class="room-list-wrapper">
+        <div class='roomListLauncher'>
+          <button class='btn btn-clear btn-sm' {{action 'toggleRoomList'}}>Chat Rooms
+            {{#if unreadRooms}}
+              ({{unreadRooms}})
+            {{/if}}
+          </button>
+        </div>
+        <div class='chatRoomListWindow' style="display:none">
+          <ul class='roomListBar'>
+            <li class='create'>
+              {{#link-to 'brand.edit.chat.create' session.company.id session.brand.id}}Create Room{{/link-to}}
+            </li>
+            {{#each sortedRooms as |room|}}
+              {{#unless room.isNew}}
+                {{#unless room.posting.id}}
+                  <li class="{{if (eq room.id companyDetail.data.room) 'active'}}">
+                    <a {{action "microChat" room.id}}> #{{room.friendlyName}}
+                      ({{if room.unseenCount.content room.unseenCount.content '0'}})</a>
+                    <span class="chat-icon">
+                   {{#link-to 'brand.edit.chat.details' room.brand.id room.id}}<span class="glyphicon glyphicon-collapse-up"></span>{{/link-to}}
+                    </span>
+                  </li>
+                {{/unless}}
+              {{/unless}}
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+      {{#each boxOpenChats as |chatRoom|}}
+        <div class="micro-chat-wrapper">
+          <div class='chatLauncher ellipsis'><a {{action 'toggleMC' chatRoom.id}}>#{{chatRoom.friendlyName}}</a></div>
+          {{micro-chat room=chatRoom offset=chatRoom.offset closeAction=(action 'closeMC')}}
+        </div>
+      {{/each}}
+      {{#if listOpenChats.length}}
+        <div class="new-messages-wrapper">
+          <div class="new-messages" {{action 'openExtraChatList'}}>
+            <i class="fa fa-comments"></i>
+          </div>
+          {{#if extraChatList}}
+            {{#click-outside action=(action "closeExtraChatList")}}
+              <div class="new-chat-list">
+                <ul style="list-style: none;">
+                  {{#each listOpenChats as |chatRoom|}}
+                    <li class="extra-chat ellipsis" {{action "reshuffleOpenChats" chatRoom}}>{{chatRoom.friendlyName}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            {{/click-outside}}
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
+  <div style='display:none'>
+    {{roomUpdate}}
+  </div>
+{{/if}}

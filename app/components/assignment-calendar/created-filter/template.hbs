@@ -1,0 +1,7 @@
+<div class="schedule-filter">
+  Filter by Created By
+  <BR/>
+  {{#power-select-multiple options=brandUsers selected=selectedCreated placeholder="Select users(s) to filter." onchange=(action "changeCreated") as |user| }}
+    {{user.fullName}}
+  {{/power-select-multiple}}
+</div>

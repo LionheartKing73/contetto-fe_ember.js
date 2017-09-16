@@ -1,0 +1,38 @@
+<div class="tab-content">
+  <div class="tab-pane active">
+  <h2>Social Accounts</h2>
+  <p>Connecting social accounts to Conetto is essential. Contetto will monitor follower interactions and allow you to manage and streamline content publishing.</p>
+  <p><strong>Automatic Posting Schedules</strong> - Each social account has a 'schedule' that determines at what times Contetto will prompt you to have content ready. These times are used to manage 'automatic' schedule posts. You can set your own schedule by clicking the 'Schedule' link beside any account you have added to the brand. Contetto will generate a schedule for any 'automatic' posts you create, if you don't set a schedule of your own - but we won't prompt you to create posts. It is highly recommended that you setup your own schedule on each account.</p>
+  <p><strong>Assignments</strong> - {{#link-to 'brand.edit.team'}}Manage your team{{/link-to}} and take advantage of the Assignment system. You can partially create a post and assign someone else to finish or review it - it won't be published unless they do, and you'll be warned if the scheduled time approaches without it being reviewed.</p>
+  <p><strong>Review Channels</strong> - {{#link-to 'brand.edit.reviewflow'}}Setup your review flow{{/link-to}} to utilize Contetto's powerful content approval system. Each social account set up with a Review Channel will automatically capture scheduled posts and push them through specified departments for approval. You can configure if you want posts to wait to be fully approved, or get published anyway in your Social Account settings</p>
+    <div class="table-responsive">
+     <table class="table table-bordered table-striped text-center">
+      <tbody>
+        <tr class="text-uppercase">
+          {{!-- <th>Account</th> --}}
+          <th>Title</th>
+          <th>Token Status  {{field-description title="'Tokens' are the secret key exchanged between Contetto and the social network (Facebook, Twitter etc) when you connect your account to Contetto. The Token is what allows Contetto to control your social media account. If the Token becomes invalid for some reason, we can no longer post on your behalf or import messages or metrics."}} </th>
+          <th>Type</th>
+          {{#if (has-brand-permission 'manageSocialAccounts')}}
+          <th>Action</th>
+          {{/if}}
+        </tr>
+
+        {{#each model as |account|}}
+          {{account-list-item account}}
+        {{else}}
+        <tr >
+          <td colspan="4" class="text-center">No accounts added yet!</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{#if (has-brand-permission 'manageSocialAccounts')}}
+    <div class="center-block submit-btn">
+      {{#link-to "brand.edit.socialaccounts.addsocial" class="btn btn-success  text-uppercase"}}Add Account{{/link-to}}
+    </div>
+  {{/if}}
+  </div>
+</div>

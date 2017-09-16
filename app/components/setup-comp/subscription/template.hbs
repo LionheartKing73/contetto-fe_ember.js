@@ -1,0 +1,16 @@
+<div class="container content subscription-form">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 welcome-pagebox">
+      <h3 class="text-center">Subscription for <b>{{subscription.company.name}}</b></h3>
+      <div class="box">
+        <div class="text-center">
+          {{#if isConfirming}}
+            {{setup-comp/subscription/confirming subscription=subscription couponCode=couponCode selectedCouponCode=selectedCouponCode codeMessage=codeMessage codeMessageClass=codeMessageClass isConfirming=isConfirming couponApplicable=couponApplicable couponApplyMessage=couponApplyMessage transitionTo=transitionTo}}
+          {{else}}
+            {{setup-comp/subscription/editing plans=plans locations=locations cards=cards subscription=subscription cardChangeset=cardChangeset couponCode=couponCode selectedCouponCode=selectedCouponCode codeMessage=codeMessage codeMessageClass=codeMessageClass couponApplicable=couponApplicable couponApplyMessage=couponApplyMessage isConfirming=isConfirming}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

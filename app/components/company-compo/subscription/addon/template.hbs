@@ -1,0 +1,19 @@
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#current-month">Current Month Addons</a></li>
+  <li><a data-toggle="tab" href="#next-month">Next Month Addons</a></li>
+  <li><a data-toggle="tab" href="#change">Edit Addons</a></li>
+</ul>
+<div class="tab-content">
+  <div id="current-month" class="tab-pane fade in active">
+    <br>
+    {{company-compo/subscription/addon/current-month company=company subscription=subscription}}
+  </div>
+  <div id="next-month" class="tab-pane fade">
+    <br>
+    {{company-compo/subscription/addon/next-month subscription=subscription company=company}}
+  </div>
+  <div id="change" class="tab-pane fade">
+    <br>
+    {{company-compo/subscription/addon/change subscription=subscription company=company resetAddons=resetAddons confirmAddon=confirmAddon cards=cards locations=locations user=user}}
+  </div>
+</div>

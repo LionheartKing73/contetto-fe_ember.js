@@ -1,0 +1,8 @@
+<h2>Add User to {{brand.name}}</h2>
+{{#each roles as |role|}}
+  {{role.name}}
+{{/each}}
+
+{{#each company.companyMembers as |member|}}
+  {{member.user.fullName}}
+{{/each}}

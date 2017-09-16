@@ -1,0 +1,11 @@
+<td>{{goal.type.name}}</td>
+<td>{{goal.metric.name}}</td>
+<td>{{concat goal.amount (if goal.amount '/day' 'n/a')}}</td>
+<td class="text-lowercase">{{moment-format goal.endDate 'MMM-D YY'}}</td>
+<td>{{if goal.socialAccount.title goal.socialAccount.title 'n/a'}}</td>
+<td>{{goal.status.name}}</td>
+<td>
+  {{#link-to "brand.edit.goals.edit" goal.id class="btn btn-link p-a-0" disabled=deleting}}Edit{{/link-to}} |
+  <button class="btn btn-link p-a-0" href="#" disabled={{deleting}} {{action "delete" goal}}>Remove</button> |
+  <button class="btn btn-link p-a-0" href="#" disabled={{deleting}}>Stats</button>
+</td>

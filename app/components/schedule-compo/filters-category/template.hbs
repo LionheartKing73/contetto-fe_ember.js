@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="">Filter by Categories</label>
+  <div class="ui dropdown form-control selection power-select-wrapper">
+    {{#power-select-multiple options=brand.categories selected=selectedCategories placeholder="Select categories" onchange=(action "changeCategories") as |category| }}
+      {{category.title}}
+    {{/power-select-multiple}}
+  </div>
+</div>

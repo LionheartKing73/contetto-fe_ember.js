@@ -1,0 +1,17 @@
+<table class="table table-responsive file-actions">
+	<thead>
+		<th>Name</th>
+	</thead>
+	<tbody>
+		{{#if folder.id}}
+			<tr>
+				<td><a {{action 'selectFolder' folder.parent}}>Parent...</a></td>
+			</tr>
+		{{/if}}
+		{{#each folders as |folder|}}
+			<tr>
+				<td><a {{action 'selectFolder' folder}}>{{folder.name}}</a></td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

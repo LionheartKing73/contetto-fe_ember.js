@@ -1,0 +1,6 @@
+{{setup-comp/subscription plans=(readonly model.plans)
+                          locations=(readonly model.locations)
+                          cards=(readonly model.cards)
+                          cardChangeset=(changeset model.card model.cardValidations)
+                          subscription=model.subscription
+                          transitionTo=(route-action "transitionTo")}}

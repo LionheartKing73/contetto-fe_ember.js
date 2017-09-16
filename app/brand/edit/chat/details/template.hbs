@@ -1,0 +1,5 @@
+{{#if model}}
+  {{chat-window room=model.room classNames="chat-room" chatMessageId=model.chatMessageId chatMessages=model.messages highlightMessage=model.highlightMessage}}
+{{else}}
+  {{loading-component}}
+{{/if}}

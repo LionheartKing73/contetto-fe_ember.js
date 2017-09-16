@@ -1,0 +1,51 @@
+<div class="container content">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-12 welcome-pagebox">
+
+      <h3 class="text-center">Brand</h3>
+      <div class="box">
+        <div class="text-center">
+
+          <h4>
+            We need a little more information about your brand for company <strong>{{brand.company.name}}</strong>.
+          </h4>
+          <h5>What is the name of your Brand?</h5>
+        <h6>If you're using Contetto to manage personal pages, just enter your name.</h6>
+          <form {{action "save" changeset on="submit"}} autocomplete="off">
+            <div class="form-group {{if changeset.error.name.validation 'has-error'}}">
+              <label>Brand Name</label>
+              {{one-way-input changeset.name
+                              class="form-control"
+                              placeholder="Brand Name"
+                              update=(action (mut changeset.name))}}
+
+              {{#each changeset.error.name.validation as |error|}}
+                <span class="help-block error">{{error}}</span>
+              {{/each}}
+            </div>
+
+            <div class="form-group {{if changeset.error.vertical.validation 'has-error'}}">
+              <label>Vertical {{field-description title="Select the business vertical that matches the closest. This will be used in recommendations later on."}}</label>
+              {{one-way-select changeset.vertical
+                               optionValuePath="id"
+                               optionLabelPath="vertical"
+                               class='form-control'
+                               prompt="Please select vertical"
+                               promptIsSelectable=true
+                               options=(sort-by 'vertical' verticals)
+                               update=(action (mut changeset.vertical))}}
+
+              {{#each changeset.error.vertical.validation as |message|}}
+                <span class="help-block error">{{message}}</span>
+              {{/each}}
+            </div>
+
+            <button class="btn btn-success" disabled={{or saving changeset.isInvalid}}>Next</button>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

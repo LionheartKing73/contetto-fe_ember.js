@@ -1,0 +1,12 @@
+<td>{{productGroup.name}}</td>
+<td>
+  {{#link-to "brand.edit.products.groups.edit" productGroup.id class="product-edit btn btn-link p-a-0" disabled=deleting}}
+
+    Edit
+
+  {{/link-to}} |
+  <button class="btn btn-link p-a-0 product-delete" href="#" disabled= {{deleting}} {{action "delete" productGroup}}>
+
+    Remove
+  </button>
+</td>

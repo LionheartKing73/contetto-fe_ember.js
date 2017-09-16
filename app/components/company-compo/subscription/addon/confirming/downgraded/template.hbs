@@ -1,0 +1,26 @@
+<h4>Following addons will discontinue from next month:</h4>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Addon Type</th>
+      <th>Addon Quantity</th>
+      <th>Addon Monthly Price</th>
+      <th>Addons Reduced</th>
+      <th>Reduction in addon quantity from next month</th>
+      <th>Reduction in price from next month</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each downgradedAddons as |addon|}}
+      <tr>
+        <td>{{addon.name}}</td>
+        <td>{{addon.perks}}</td>
+        <td>${{addon.price}}</td>
+        <td>{{addon.diff}}</td>
+        <td>{{addon.perksDiff}}</td>
+        <td>${{addon.priceDiff}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

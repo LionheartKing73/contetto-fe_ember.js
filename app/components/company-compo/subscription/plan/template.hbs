@@ -1,0 +1,6 @@
+{{#if confirmPlan}}
+  {{company-compo/subscription/plan/confirm-change subscription=subscription company=company newPlan=newPlan cards=cards user=user locations=locations confirmPlan=confirmPlan}}
+{{else}}
+  {{company-compo/subscription/plan/changed-plan subscription=subscription company=company confirmPlan=confirmPlan}}
+  {{company-compo/subscription/plan/plan-list subscription=subscription company=company newPlan=newPlan plans=plans confirmPlan=confirmPlan}}
+{{/if}}

@@ -1,0 +1,179 @@
+<div class="right-panel">
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="home">
+      <form class="form-horizontal" autocomplete="off">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">Name</label>
+              <div class="col-md-8">
+                {{one-way-input changeset.name
+                                type="text"
+                                class="form-control"
+                                placeholder="Company Name"
+                                update=(action (mut changeset.name))}}
+
+                {{#if changeset.error.name}}
+                  <span class="help-block error">{{changeset.error.name.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">Address</label>
+              <div class="col-md-8">
+                {{one-way-input changeset.address
+                                type="text"
+                                class="form-control"
+                                placeholder="123 Your Street"
+                                update=(action (mut changeset.address))}}
+
+                {{#if changeset.error.address}}
+                  <span class="help-block error">{{changeset.error.address.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">Phone</label>
+              <div class="col-md-8">
+                {{one-way-input changeset.phone
+                                type="tel"
+                                class="form-control"
+                                placeholder="+1 (250) 208 5736"
+                                update=(action (mut changeset.phone))}}
+
+                {{#if changeset.error.phone}}
+                  <span class="help-block error">{{changeset.error.phone.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">Country</label>
+              <div class="col-md-8">
+                {{one-way-select changeset.country
+                                 optionValuePath="id"
+                                 optionLabelPath="name"
+                                 class='form-control'
+                                 prompt="Please select country"
+                                 promptIsSelectable=true
+                                 disabled=states.isPending
+                                 options=(sort-by 'name' model.locations)
+                                 update=(action (mut changeset.country))}}
+
+                {{#if changeset.error.country}}
+                  <span class="help-block error">{{changeset.error.country.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">City</label>
+              <div class="col-md-8">
+                {{one-way-input changeset.city
+                                type="text"
+                                class="form-control"
+                                placeholder="City"
+                                update=(action (mut changeset.city))}}
+
+                {{#if changeset.error.city}}
+                  <span class="help-block error">{{changeset.error.city.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">State / Province</label>
+              <div class="col-md-8">
+                {{one-way-select changeset.state
+                                 optionValuePath="id"
+                                 optionLabelPath="name"
+                                 class='form-control'
+                                 prompt=(if states.isPending "Loading..." "Please select state/province")
+                                 options=(sort-by 'name' states.content)
+                                 update=(action (mut changeset.state))}}
+
+                {{#if changeset.error.state}}
+                  <span class="help-block error">{{changeset.error.state.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">About</label>
+              <div class="col-md-8">
+                {{one-way-textarea changeset.about
+                                   class="form-control text-adds"
+                                   rows="3"
+                                   placeholder="About Information"
+                                   update=(action (mut changeset.about))}}
+
+                {{#if changeset.error.about}}
+                  <span class="help-block error">{{changeset.error.about.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">Zip / Postal</label>
+              <div class="col-md-8">
+                {{one-way-input changeset.postal
+                                class="form-control"
+                                placeholder="V9B-0B1"
+                                update=(action (mut changeset.postal))}}
+                {{#if changeset.error.postal}}
+                  <span class="help-block error">{{changeset.error.postal.validation}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="control-label col-md-4">File name:</label>
+              <div class="col-md-8">
+                <div class="fileinput">
+                  <span class="btn btn-success fileinput-button uploader-btnss">Browse</span>
+                  {{input type="file" value=changeset.file name="files[]" }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit-btn ml-20">
+          <button type="submit" class="btn btn-success pull-right text-uppercase" {{action "updateInfo"}}
+                  disabled={{isSubmitted}}>
+            {{if isSubmitted "Saving..." "Save"}}
+          </button>
+
+          <button type="reset" class="btn btn-default pull-right text-uppercase" {{action "cancel"}}
+                  disabled={{isSubmitted}}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

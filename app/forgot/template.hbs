@@ -1,0 +1,5 @@
+{{#auth-compo/container}}
+  {{auth-compo/forgot changeset=(changeset model.user model.ForgotPasswordValidations)
+                      transitionTo=(route-action "transitionTo")
+  }}
+{{/auth-compo/container}}

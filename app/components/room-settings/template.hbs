@@ -1,0 +1,10 @@
+<div class="room-header-wrapper hidden-xs col-sm-12 col-md-12">
+  <div class="room-header">
+    <span class="pull-left"><h3>{{room.friendlyName}}</h3></span>
+    <span class="pull-right chat-room-options">
+      {{#link-to 'brand.edit.chat.settings' room.brand.id room.id title="Room Settings"}}
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      {{/link-to}}
+    </span>
+  </div>
+</div>

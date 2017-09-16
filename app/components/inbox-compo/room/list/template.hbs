@@ -1,0 +1,7 @@
+{{#each sortedMessages as |message|}}
+  {{#if (eq message.id highlightItemId)}}
+    {{inbox-compo/room/message isInbox=isInbox isArchive=isArchive isSent=isSent inboxRoom=inboxRoom message=message room=room brand=brand showReplies=showReplies highlight=true}}
+  {{else}}
+    {{inbox-compo/room/message isInbox=isInbox isArchive=isArchive isSent=isSent inboxRoom=inboxRoom message=message room=room brand=brand showReplies=showReplies}}
+  {{/if}}
+{{/each}}

@@ -1,0 +1,130 @@
+<div class="row archive-{{message.archive}} complete-{{message.complete}} read-{{message.read}} viewed-{{message.viewed}} inboxAction-{{message.inboxAction.id}} platform-{{message.socialAccount.platform}} sentiment-{{message.sentiment}}">
+	<div class="my-card">
+		<div class="header"> <i class="fa fa-{{message.socialAccount.platform}}"></i> {{message.socialAccount.title}}
+			<br class="hidden-md hidden-lg">- <span class="strong">@{{message.sender.username}} / {{message.sender.name}}</span><span class="pull-right time">{{date-display date=message.createdAt brand=brand}}
+
+				{{#if isInbox}}
+						<a {{action 'archive'}} style="color:black" class="inbox-header-action"><span class='glyphicon glyphicon-remove'></span></a>
+			{{/if}}
+			{{#if isArchive}}
+				<a {{action 'unarchive'}} style="color:green" class="inbox-header-action"><i class="fa fa-check" aria-hidden="true"></i></a>
+			{{/if}}
+
+			</span>
+		</div>
+		<div class="content">
+			<div class="pro-img">
+				<img src="{{message.sender.profileImageUrl}}" alt="" class="img-circle">
+				<div class="description">
+					<div class="name">{{message.inboxAction.name}}</div>
+					<div class="Italic">
+
+						{{#if (eq message.inboxAction.name 'review')}}
+							<strong>Rating:</strong> {{message.rating}}<br/>
+						{{/if}}
+						{{#each message.images as |image|}}
+							<a href="{{image}}" target=_blank><img src="{{image}}" style="max-width:100px; max-height:60px; border: 1px solid #ccc; margin:3px;"></a>
+						{{/each}}
+						<br/>
+						{{#if message.childItems.length}}
+							{{#unless (eq message.id inboxRoom.topMessage.id)}}
+								{{#link-to 'brand.edit.inbox.room' brand.id message.room.id}}{{message.childItems.length}} Replies{{/link-to}}
+							{{/unless}}
+						{{/if}}
+					</div>
+				</div>
+			</div>
+			<div class="message">
+				<p>{{{message.content}}}</p>
+				<div class="msg-images">
+					{{#if message.file}}
+						<a href="{{message.file.downloadLink}}" target=_blank>{{lazy-image url=message.file.downloadLink}}</a>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		<div class="action">
+			{{#if (eq message.googleSentiment 1)}}
+				<i class="fa fa-smile-o" aria-hidden="true"></i> {{else if (eq message.googleSentiment -1)}}
+				<i class="fa fa-frown-o" aria-hidden="true"></i>
+			{{else}}
+				<i class="fa fa-meh-o" aria-hidden="true"></i>
+			{{/if}}
+
+			{{#if showReplies}}
+
+
+
+				{{#if message.parentItem.id}}
+					{{#link-to 'brand.edit.inbox.room' brand.id message.parentItem.room.id }} <span>{{replycount}} replies</span>{{/link-to}}
+				{{else}}
+					{{#link-to 'brand.edit.inbox.room' brand.id message.room.id }} <span>{{replycount}} replies</span>{{/link-to}}
+				{{/if}}
+			{{/if}}
+			<div class="report pull-right inline">
+				{{#if (has-brand-permission 'manageInbox')}}
+
+					{{#if message.flagged}}
+						<a {{action 'unflag'}}><i class="fa fa-flag" aria-hidden="true"></i> Unflag</a>
+					{{else}}
+						<a {{action 'flag'}}><i class="fa fa-flag" aria-hidden="true"></i> Flag</a>
+					{{/if}}
+				{{/if}}
+				{{#unless inboxRoom.id}}
+					{{#unless (eq message.inboxAction.name 'review')}}
+						{{#if (has-brand-permission 'manageInbox')}}
+							{{#if message.parentItem.id}}
+								{{#link-to 'brand.edit.inbox.room' brand.id message.parentItem.room.id }}<i class="fa fa-comments" aria-hidden="true"></i> Comments{{/link-to}}
+							{{else}}
+								{{#link-to 'brand.edit.inbox.room' brand.id message.room.id }}<i class="fa fa-comments" aria-hidden="true"></i> Comments{{/link-to}}
+							{{/if}}
+						{{/if}}
+					{{/unless}}
+					{{#if message.externalURL}}
+						<a href="{{message.externalURL}}" target=_blank><span class='glyphicon glyphicon-new-window'></span></a>
+					{{/if}}
+					{{else}}
+						{{#if message.externalURL}}
+							<a href="{{message.externalURL}}" target=_blank><span class='glyphicon glyphicon-new-window'></span></a>
+						{{/if}}
+				{{/unless}}
+			</div>
+		</div>
+		{{#if inboxRoom.id}}
+			{{#if message.inboxAction.name}}
+				{{#unless (eq message.inboxAction.name "Direct Message")}}
+					{{#unless (eq message.inboxAction.name "")}}
+						{{#unless (eq message.inboxAction.name "undefined")}}
+							{{#unless (eq message.inboxAction.name 'review')}}
+								<div class="row-fluid clearfix send-box">
+									<div class="pull-left reply-wrapper">
+										{{textarea value=replyText class="reply form-control"}}<br/>
+										{{#if replyError}}
+											<span class="help-block error"> {{replyError}} </span>
+										{{/if}}
+										{{file-entry multi=false uploadedAction=(action "addReplyFile")}}<br/> {{sendFile.name}}
+										{{#if sendFile.name}}
+											{{#link-to (action 'removeReplyFile')}}Remove{{/link-to}}
+										{{/if}}
+
+									</div>
+									<div class="pull-right reply-submit">
+										<button class="btn btn-md btn-success" {{action 'send'}}>Send Reply</button>
+									</div>
+								</div>
+							{{/unless}}
+						{{/unless}}
+					{{/unless}}
+				{{/unless}}
+			{{/if}}
+		{{/if}}
+		{{#if message.tags.length}}
+			<div class="row-fluid">
+				{{#each message.tags as |tag|}}
+					{{tag.name}}
+				{{/each}}
+			</div>
+		{{/if}}
+	</div>
+	<div class="clearfix"></div>
+</div>

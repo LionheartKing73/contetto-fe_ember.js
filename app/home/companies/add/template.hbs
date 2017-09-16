@@ -1,0 +1,14 @@
+<div class="main-center wrps-dtls">
+  <div class="row wrap-main-2">
+    <div class="wrapes-inbox">
+      {{page-options title="Company"}}
+    </div>
+    <div class="default-model">
+      <div class="modelbox-body">
+        {{company-details-form model=model
+                               changeset=(changeset model.company model.CompanyValidations)
+                               transitionTo=(route-action "transitionTo")}}
+      </div>
+    </div>
+  </div>
+</div>

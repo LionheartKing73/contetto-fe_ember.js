@@ -1,0 +1,24 @@
+{{#if company.isTrial}}
+
+  You are currently enjoying the free trial. The trial period started on {{company.formatStartDate}}. The trial period will end on {{company.trialEndDate}}. You earlier selected {{subscription.plan.name}} plan.
+  You are now changing the plan to {{newPlan.name}}. This plan will start immediately.
+  You will be charged {{couponedOutstandingPlanPrice}} on {{company.billingStartDate}}.
+
+  {{company-compo/subscription/plan/confirm-change/upgrade-plan/trial subscription=subscription newPlan=newPlan totalDays=totalDays prorationDays=prorationDays outstandingPlanPrice=outstandingPlanPrice discountOnOutstandingPlanPrice=discountOnOutstandingPlanPrice couponedOutstandingPlanPrice=couponedOutstandingPlanPrice}}
+
+{{else}}
+
+  You have been using {{subscription.plan.name}} plan. You changed the plan to {{newPlan.name}}. This plan will start immediately. You will be charged {{couponedOutstandingPlanPrice}}.
+
+  {{company-compo/subscription/plan/confirm-change/upgrade-plan/regular subscription=subscription newPlan=newPlan totalDays=totalDays priceDiff=priceDiff prorationDays=prorationDays outstandingPlanPrice=outstandingPlanPrice discountOnOutstandingPlanPrice=discountOnOutstandingPlanPrice couponedOutstandingPlanPrice=couponedOutstandingPlanPrice}}
+
+  <hr>
+    {{company-compo/subscription/plan/confirm-change/select-card subscription=subscription cards=cards user=user locations=locations}}
+  <hr>
+
+{{/if}}
+
+<h5>Are you sure that you want to change the plan?</h5>
+{{payment-terms paymentCheck=paymentCheck}}
+<button class="btn btn-danger" {{action 'cancelConfirmPlan'}}>Cancel</button>
+<button class="btn btn-success" disabled={{not paymentCheck}} {{action 'payPlan'}}>Confirm and Pay</button>

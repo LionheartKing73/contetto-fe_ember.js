@@ -1,0 +1,7 @@
+{{#if askClearDowngradedAddons}}
+  {{company-compo/subscription/addon/editing/downgraded subscription=subscription}}
+{{else}}
+  {{company-compo/subscription/addon/editing/regular subscription=subscription editableSubscriptionAddons=editableSubscriptionAddons}}
+  <hr>
+  {{company-compo/subscription/addon/editing/confirmation subscription=subscription editableSubscriptionAddons=editableSubscriptionAddons confirmAddon=confirmAddon}}
+{{/if}}

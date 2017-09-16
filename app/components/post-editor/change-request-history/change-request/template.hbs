@@ -1,0 +1,20 @@
+ 
+ <article class="timeline-entry">
+
+            <div class="timeline-entry-inner">
+
+                <div class="timeline-icon {{bgclass}}">
+                    <i class="entypo-feather"></i>
+                </div>
+
+                <div class="timeline-label">
+                    <h2><span><strong>{{assignment.requestBy.fullName}}</strong> assigned the post to  <strong>{{assignment.assignedToUser.fullName}}</strong></span> - <em>{{date-display brand=changeSet.brand date=assignment.requestTime}}</em></h2>
+                    <p>{{assignment.content}}</p>
+                    <p>Files: {{#if assignment.files}}{{#each assignment.files as |file|}}<a href={{file.url}}>{{file.name}}</a> {{/each}}{{else}}None{{/if}}</p>
+                    <p><strong>Status:</strong> {{assignment.status.name}} {{#if (eq assignment.status.name 'Pending')}} - <strong>Due:</strong> {{date-display brand=changeSet.brand date=assignment.requestDue}}{{/if}}</p>
+                </div>
+            </div>
+
+        </article>
+
+ 

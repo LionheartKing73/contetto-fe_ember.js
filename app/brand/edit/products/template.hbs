@@ -1,0 +1,17 @@
+{{#brand-compo/tabs openTab="products" }}
+  <div class="row">
+    <div class="col-md-3 col-sm-12 reviewfow_tabs">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="{{if model.isProductListActive 'active'}}">
+          {{#link-to "brand.edit.products.list" class="text-uppercase text-center" }}Products{{/link-to}}
+        </li>
+        <li class="{{if model.isProductGroupListActive 'active'}}">
+          {{#link-to "brand.edit.products.groups.list" class="text-uppercase text-center" }}Product Groups{{/link-to}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9 col-sm-12">
+      {{outlet}}
+    </div>
+  </div>
+{{/brand-compo/tabs}}

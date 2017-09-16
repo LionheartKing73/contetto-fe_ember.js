@@ -1,0 +1,14 @@
+{{#if sortedAssignments.length}}
+  {{#each sortedAssignments as |assignment|}}
+    {{assignment-list/assignment-view assignment=assignment brand=brand removeAssignment=(action 'removeAssignment' assignment)}}
+  {{/each}}
+{{else}}
+  <h4>There are currently no assignments to view.</h4>
+  {{#if session.currentBrandRole.managePosts}}
+
+    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+      <button class="btn btn-social" {{action 'quickPost'}}><i class="fa fa-share-square-o" aria-hidden="true"></i> Social Post</button>
+      <button class="btn btn-wordpress" {{action 'quickBlog'}}><i class="fa fa-wordpress" aria-hidden="true"></i> Blog Post</button>
+    </div>
+  {{/if}}
+{{/if}}

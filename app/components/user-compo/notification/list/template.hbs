@@ -1,0 +1,25 @@
+<H3>My Notifications</H3>
+<p>You can configure when and how you receive notifications by clicking Manage Settings.</p>
+<div class="col-md-12 m-b-1 mobile-full-width-btns">
+  <span class="pull-right">
+{{#if notifications.length}}  <button class='btn btn-danger' {{action 'deleteAll'}}>Delete All Notifications</button>{{/if}}
+  {{#link-to "user.notification.manage" class='btn btn-success'}}Manage Settings{{/link-to}}
+  </span>
+</div>
+<div style="clear:both"></div>
+{{#if notifications.length}}
+<div class='notification-list-container row'>
+  {{#each sortedNotifications as |notification|}}
+    {{user-compo/notification/list/item notification deleteNotification=(action 'deleteNotification')}}
+  {{/each}}
+  {{#if isFetching}}
+    <div style="clear:both"></div>
+    <div class="well">
+      <p class="text-center">Loading More...</p>
+    </div>
+  {{/if}}
+  {{ember-ic-you}}
+</div>
+{{else}}
+  <p align="center">No notifications found!</p>
+{{/if}}

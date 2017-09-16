@@ -1,0 +1,36 @@
+<div class="container content">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-12 welcome-pagebox">
+
+      <h3 class="text-center">Company</h3>
+
+      <div class="box">
+        <div class="text-center">
+
+          <h4>Tell us a little more about your organization</h4>
+          <h5>What is the name of your Company?</h5>
+          <h6>If you're planning to use Contetto for personal use, just enter your name!</h6>
+
+          <form class="form-horizontal" autocomplete="off">
+            <div class="{{if changeset.error.name.validation 'has-error'}}">
+
+              {{one-way-input changeset.name
+                              class="form-control"
+                              placeholder="Company Name"
+                              update=(action (mut changeset.name ))}}
+
+              {{#each changeset.error.name.validation as |message|}}
+                <span class="help-block">{{message}}</span>
+              {{/each}}
+            </div>
+
+            <button class="btn btn-success" {{action "save" changeset}} disabled={{or saving changeset.isInvalid}}>Next</button>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

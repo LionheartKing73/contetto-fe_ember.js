@@ -1,0 +1,17 @@
+{
+  "name": "contetto",
+  "dependencies": {
+    "toastr": "^2.1.2",
+    "bootstrap-switch": "^3.3.2",
+    "fullcalendar": "^3.0.0",
+    "bootstrap": "~3.3.6",
+    "blueimp-md5": "2.1.0",
+    "dinosheets": "0.1.1",
+    "plupload": "2.1.8",
+    "selectize": "miguelcobain/selectize.js#master",
+    "bootstrap-datepicker": "^1.6.4",
+    "fullcalendar-scheduler": "^1.4.0",
+    "bootstrap-tour": "0.10.3",
+    "At.js": "1.5.3"
+  }
+}

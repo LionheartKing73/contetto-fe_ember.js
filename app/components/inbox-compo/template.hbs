@@ -1,0 +1,116 @@
+<section id="myBrand">
+  <div class="padding-container" id="inbox-container">
+    <div class="row">
+      <div class="box-tab">
+        <a href="#" class="nav-tabs-dropdown btn btn-block green btn-big-mob">Tabs</a>
+        <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal">
+          <li class="{{if (eq room "inbox") 'active'}}">
+            {{#link-to 'brand.edit.inbox.inbox' brand.id class="text-uppercase text-center" }}Inbox{{/link-to}}
+          </li>
+
+          <li class="{{if (eq room "archive") 'active'}}">
+            {{#link-to 'brand.edit.inbox.archive' brand.id class="text-uppercase text-center" }}Archive{{/link-to}}
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="inbox" class="tab-pane fade in active">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="dropdown">
+                  <button class="btn btn-grey btn-big-mob dropdown-toggle hidden-md hidden-lg" id="menu1" type="button" data-toggle="dropdown">
+                    Filters <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu inbox-filters" role="menu" aria-labelledby="menu1">
+                    <h3>Flagged</h3>
+                    <div class="line-heading"></div>
+                    <div class="control-group">
+                      {{#multiselect-checkboxes options=flagOptions onchange=(action 'updateFlagSelection') selection=selectedFlagOptions as |option isSelected|}}
+                        <li>
+                          <label class="control control--checkbox">
+                            {{input type="checkbox" checked=isSelected}}
+                            <i class="fa fa-flag{{if (eq option.name 'Unflagged') '-o'}}" aria-hidden="true"></i> {{option.name}}
+                            <div class="control__indicator"></div>
+                          </label>
+                        </li>
+                      {{/multiselect-checkboxes}}
+                    </div>
+                    <h3>Accounts</h3>
+                    <div class="line-heading"></div>
+                    <div class="control-group">
+                      {{#multiselect-checkboxes options=brand.socialAccounts onchange=(action 'updateAccountSelect') selection=selectedAccounts as |account isSelected|}}
+                        <li>
+                          <label class="control control--checkbox">
+                            {{input type="checkbox" checked=isSelected}}
+                            <i class="fa fa-{{account.platform}}"></i> {{account.title}}
+                            <div class="control__indicator"></div>
+                          </label>
+                        </li>
+                      {{/multiselect-checkboxes}}
+                    </div>
+                    <h3>Message Types</h3>
+                    <div class="line-heading"></div>
+                    <div class="control-group">
+                      {{#multiselect-checkboxes options=inboxActions onchange=(action 'updateActionSelect') selection=selectedActions as |action isSelected|}}
+                        <li>
+                          <label class="control control--checkbox">
+                            {{input type="checkbox" checked=isSelected}}
+                            {{action.name}}
+                            <div class="control__indicator"></div>
+                          </label>
+                        </li>
+                      {{/multiselect-checkboxes}}
+                    </div>
+                    <div class="btn-main">
+                      <button class="btn btn-green btn-big-mob" style="width: 100%;
+                                                      margin: 10px 0;
+                                                      padding: 5px 15px;
+                                                      text-align: center;" {{action 'applyFilter'}}>Apply Filters</button>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="grey-box">
+                  <div class="row">
+                    <div class="form-inline inbox-date-filters">
+                      <div class="form-group col-md-3 col-xs-6">
+                        <label for="date1">From</label> {{bootstrap-datepicker todayHighlight=true todayBtn=true placeholder="From Date" autoclose=true value=fromDate changeDate=(action (mut fromDate)) class="form-control datepick"}}
+                      </div>
+                      <div class="form-group col-md-3 col-xs-6">
+                        <label for="date2">To</label> {{bootstrap-datepicker todayHighlight=true todayBtn=true placeholder="End Date" autoclose=true value=endDate changeDate=(action (mut endDate)) class="form-control datepick"}}
+                      </div>
+                      {{#if isInbox}}
+                        <div class="form-group col-md-4 col-md-offset-2 col-xs-12">
+                          <button class="btn btn-green pull-right btn-big-mob" disabled= {{checking}} {{action 'refresh'}}><i class="fa fa-refresh" aria-hidden="true"></i> Check For New Messages</button>
+                        </div>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
+                {{#if loaderStatus}}
+                  {{loading-component}}
+                {{else}}
+                  <div class="grey">
+                    <div class="main-msg-box">
+                      {{#if sortedMessages.length}}
+                        {{inbox-compo/list classNames="inbox-list" isInbox=isInbox isArchive=isArchive isSent=isSent brand=brand sortedMessages=sortedMessages room=room showReplies=true}}
+                        {{#if isFetching}}
+                          <div class="row">
+                            <p class="text-center">Loading More...</p>
+                          </div>
+                        {{/if}}
+                        {{ember-ic-you}}
+                      {{else}}
+                        <div class="no-messages">No messages</div>
+                      {{/if}}
+                    </div>
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

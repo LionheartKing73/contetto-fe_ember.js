@@ -1,0 +1,28 @@
+<form class="form-horizontal text-center" {{action "reset" changeset on="submit"}} autocomplete="off">
+  <div class="form-group {{if changeset.error.email "has-error"}}">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-user"></i></div>
+      {{one-way-email changeset.email
+                      class="form-control"
+                      placeholder="E-mail"
+                      update=(action (mut changeset.email))
+      }}
+    </div>
+
+    {{#each changeset.error.email.validation as |error|}}
+      <span class="help-block text-left error">{{error}}</span>
+    {{/each}}
+  </div>
+
+  <div class="form-group">
+    <button class="create-btn w-100" type="submit" role="button" disabled={{isSubmitted}}>
+      {{if isSubmitted "sending..." "reset password"}}
+    </button>
+  </div>
+
+
+  <div class="form-group">
+    {{#link-to "signin" class="login-btn m-x-1"}}Sign In{{/link-to}}
+  </div>
+
+</form>
